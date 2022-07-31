@@ -32,6 +32,7 @@ namespace BasicFacebookFeatures
                     /// add any relevant permissions
                     );
 
+
             buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
         }
 
