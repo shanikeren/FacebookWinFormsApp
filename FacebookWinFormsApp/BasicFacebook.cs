@@ -9,20 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using FacebookWrapper;
+
 
 namespace BasicFacebookFeatures
 {
     public partial class BasicFacebook : Form
     {
-        User m_LoggedInUser;
+        private User m_LoggedInUser;
         public BasicFacebook(User i_loggedInUser)
         {
             InitializeComponent();
             m_LoggedInUser = i_loggedInUser;
+            profilePicture.LoadAsync(m_LoggedInUser.PictureNormalURL);
             fetchPosts();
             fetchEvents();
             fetchGroups();
         }
+
         private void fetchPosts()
         {
             Posts.Items.Clear();
@@ -48,7 +52,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("No Posts yet");
             }
         }
-
 
         private void fetchEvents()
         {
@@ -87,19 +90,29 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("No groups yet");
             }
         }
+     
         private void loadAlbums()
         {
-            AlbumListView.Items.Clear();
+            //AlbumListView.Items.Clear();
+            //ImageList imageList = new ImageList();
+            //foreach(Album album in m_LoggedInUser.Albums)
+            //{
+            //    imageList.Images.Add(album.Name, album.Photos.ElementAt(0).ImageAlbum);
+                
+            //}
+            //AlbumListView.LargeImageList = imageList;
 
-            foreach(Album album in m_LoggedInUser.Albums)
-            {
-                AlbumListView.Items.Add(album);
-            }
+            //foreach(var image in AlbumListView)
+            //{
+
+            //}
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void onClickLogOutBtn(object sender, EventArgs e)
         {
-
+            FacebookService.LogoutWithUI();
+            this.Text = "Loging Out...";
+        
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
