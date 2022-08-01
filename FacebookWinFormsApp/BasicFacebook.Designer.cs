@@ -29,8 +29,8 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.profilePicture = new System.Windows.Forms.PictureBox();
+            this.LogOut_Btn = new System.Windows.Forms.Button();
             this.GroupsListBox = new System.Windows.Forms.ListBox();
             this.AlbumListView = new System.Windows.Forms.ListView();
             this.MusicTextBox = new System.Windows.Forms.TextBox();
@@ -38,28 +38,29 @@ namespace BasicFacebookFeatures
             this.PostBtn = new System.Windows.Forms.Button();
             this.Posts = new System.Windows.Forms.ListBox();
             this.EventsList = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // profilePicture
             // 
-            this.pictureBox1.AccessibleName = "ProfilePicture";
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(141, 115);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.profilePicture.AccessibleName = "ProfilePicture";
+            this.profilePicture.Location = new System.Drawing.Point(12, 12);
+            this.profilePicture.Name = "profilePicture";
+            this.profilePicture.Size = new System.Drawing.Size(141, 115);
+            this.profilePicture.TabIndex = 0;
+            this.profilePicture.TabStop = false;
+            this.profilePicture.Click += new System.EventHandler(this.profilePicture_Click);
             // 
-            // button1
+            // LogOut_Btn
             // 
-            this.button1.AccessibleName = "LogOut_Btn";
-            this.button1.Location = new System.Drawing.Point(12, 142);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 24);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "LogOut";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.LogOut_Btn.AccessibleName = "LogOut_Btn";
+            this.LogOut_Btn.Location = new System.Drawing.Point(12, 142);
+            this.LogOut_Btn.Name = "LogOut_Btn";
+            this.LogOut_Btn.Size = new System.Drawing.Size(99, 24);
+            this.LogOut_Btn.TabIndex = 1;
+            this.LogOut_Btn.Text = "LogOut";
+            this.LogOut_Btn.UseVisualStyleBackColor = true;
+            this.LogOut_Btn.Click += new System.EventHandler(this.button1_Click);
             // 
             // GroupsListBox
             // 
@@ -133,11 +134,11 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.MusicTextBox);
             this.Controls.Add(this.AlbumListView);
             this.Controls.Add(this.GroupsListBox);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.LogOut_Btn);
+            this.Controls.Add(this.profilePicture);
             this.Name = "BasicFacebook";
             this.Text = "BasicFacebook";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,8 +146,8 @@ namespace BasicFacebookFeatures
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox profilePicture;
+        private System.Windows.Forms.Button LogOut_Btn;
         private System.Windows.Forms.ListBox GroupsListBox;
         private System.Windows.Forms.ListView AlbumListView;
         private System.Windows.Forms.TextBox MusicTextBox;
