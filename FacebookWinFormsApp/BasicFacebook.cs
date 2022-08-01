@@ -21,6 +21,7 @@ namespace BasicFacebookFeatures
             fetchPosts();
             fetchEvents();
             fetchGroups();
+            fetchMusic();
         }
         private void fetchPosts()
         {
@@ -86,6 +87,46 @@ namespace BasicFacebookFeatures
                 MessageBox.Show("No groups yet");
             }
         }
+
+        //example with videos - should be music couldnt find it 
+        private void fetchMusic()
+        {
+            GroupsListBox.Items.Clear();
+            GroupsListBox.DisplayMember = "Name";
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                foreach (Video video in m_LoggedInUser.Videos)
+                {
+                   sb.Append(video.Name);
+                   sb.Append(" * ");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            if (GroupsListBox.Items.Count == 0)
+            {
+                MessageBox.Show("No groups yet");
+            }
+        }
+
+        // need to fake post? 
+        private void PostBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
+                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -106,19 +147,7 @@ namespace BasicFacebookFeatures
 
 
         }
-
-        private void PostBtn_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
-                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+     
 
         private void PostTextArea_TextChanged(object sender, EventArgs e)
         {
