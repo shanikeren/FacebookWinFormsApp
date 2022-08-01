@@ -96,6 +96,7 @@ namespace BasicFacebookFeatures
             this.PostTextArea.Name = "PostTextArea";
             this.PostTextArea.Size = new System.Drawing.Size(521, 63);
             this.PostTextArea.TabIndex = 6;
+            this.PostTextArea.TextChanged += new System.EventHandler(this.PostTextArea_TextChanged);
             // 
             // PostBtn
             // 
@@ -105,6 +106,7 @@ namespace BasicFacebookFeatures
             this.PostBtn.TabIndex = 7;
             this.PostBtn.Text = "POST";
             this.PostBtn.UseVisualStyleBackColor = true;
+            this.PostBtn.Click += new System.EventHandler(this.PostBtn_Click);
             // 
             // Posts
             // 
@@ -113,6 +115,7 @@ namespace BasicFacebookFeatures
             this.Posts.Name = "Posts";
             this.Posts.Size = new System.Drawing.Size(521, 212);
             this.Posts.TabIndex = 8;
+            this.Posts.SelectedIndexChanged += new System.EventHandler(this.Posts_SelectedIndexChanged);
             // 
             // EventsList
             // 
