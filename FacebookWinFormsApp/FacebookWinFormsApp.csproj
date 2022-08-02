@@ -89,6 +89,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumDisplayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlbumDisplayForm.Designer.cs">
+      <DependentUpon>AlbumDisplayForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BasicFacebook.cs">
       <SubType>Form</SubType>
     </Compile>

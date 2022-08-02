@@ -81,10 +81,13 @@ namespace BasicFacebookFeatures
             this.AlbumListView.Location = new System.Drawing.Point(18, 303);
             this.AlbumListView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AlbumListView.Name = "AlbumListView";
+            this.AlbumListView.ShowItemToolTips = true;
             this.AlbumListView.Size = new System.Drawing.Size(210, 699);
             this.AlbumListView.TabIndex = 4;
             this.AlbumListView.UseCompatibleStateImageBehavior = false;
-            this.AlbumListView.View = System.Windows.Forms.View.Tile;
+            this.AlbumListView.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.AlbumListView_ItemMouseHover);
+            this.AlbumListView.SelectedIndexChanged += new System.EventHandler(this.AlbumListView_SelectedIndexChanged);
+            this.AlbumListView.DoubleClick += new System.EventHandler(this.AlbumListView_DoubleClick);
             // 
             // MusicTextBox
             // 

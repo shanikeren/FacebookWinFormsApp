@@ -17,6 +17,8 @@ namespace BasicFacebookFeatures
     public partial class BasicFacebook : Form
     {
         private User m_LoggedInUser;
+        // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
+
         public BasicFacebook(User i_loggedInUser)
         {
             InitializeComponent();
@@ -26,6 +28,9 @@ namespace BasicFacebookFeatures
             fetchEvents();
             fetchGroups();
             fetchMusic();
+
+            //Tomer added
+            fetchAlbums();
         }
 
         private void fetchPosts()
@@ -92,23 +97,6 @@ namespace BasicFacebookFeatures
             }
         }
      
-        private void loadAlbums()
-        {
-            //AlbumListView.Items.Clear();
-            //ImageList imageList = new ImageList();
-            //foreach(Album album in m_LoggedInUser.Albums)
-            //{
-            //    imageList.Images.Add(album.Name, album.Photos.ElementAt(0).ImageAlbum);
-                
-            //}
-            //AlbumListView.LargeImageList = imageList;
-
-            //foreach(var image in AlbumListView)
-            //{
-
-            //}
-        }
-
         private void onClickLogOutBtn(object sender, EventArgs e)
         {
             FacebookService.LogoutWithUI();
@@ -163,7 +151,8 @@ namespace BasicFacebookFeatures
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Method for groups, suppose to do what?
+            // Maybe we should do it as hovering a group's name?
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
@@ -181,6 +170,45 @@ namespace BasicFacebookFeatures
         private void PostTextArea_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+
+        // ALBUMS //
+        private void fetchAlbums()
+        {
+            AlbumListView.Items.Clear();
+            //LogicUser.clearAlbums();
+
+            int index = 0;
+            foreach (Album album in m_LoggedInUser.Albums) // initialize listView items display
+            {
+                AlbumListView.LargeImageList.Images.Add(album.ImageAlbum);
+                AlbumListView.Items.Add(album.Name, index);
+                index++;
+            }
+
+        }
+
+        private void AlbumListView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+            e.Item.ToolTipText = e.Item.Text;
+        }
+
+        private void AlbumListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Need to check if this is rellvant");
+        }
+
+        private void AlbumListView_DoubleClick(object sender, EventArgs e)
+        {
+                // user clicked an item of listview control
+
+                if (AlbumListView.SelectedItems.Count == 1)
+                {
+                    MessageBox.Show("Chosen Album is: " + AlbumListView.SelectedItems[0].Text);
+                //Logic User new AlbumDisplay( AlbumListView.SelectedItems[0].Text)
+            }
+            AlbumListView.SelectedItems.Clear();
         }
     }
 }

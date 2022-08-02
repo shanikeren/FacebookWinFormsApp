@@ -8,6 +8,7 @@ namespace FacebookLogic
 {
     internal class InitProfile
     {
+       
 
     }
 }
