@@ -110,6 +110,10 @@ namespace BasicFacebookFeatures
         }
 
         private void onClickLogOutBtn(object sender, EventArgs e)
+        {
+            FacebookService.LogoutWithUI();
+            this.Text = "Loging Out...";
+        }
 
         //example with videos - should be music couldnt find it 
         private void fetchMusic()
