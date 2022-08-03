@@ -17,6 +17,8 @@ namespace BasicFacebookFeatures
     public partial class BasicFacebook : Form
     {
         private User m_LoggedInUser;
+        public LoginResult res;
+        
         // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
 
         public BasicFacebook(User i_loggedInUser)
@@ -28,7 +30,6 @@ namespace BasicFacebookFeatures
             fetchEvents();
             fetchGroups();
             fetchMusic();
-
             //Tomer added
             fetchAlbums();
         }
