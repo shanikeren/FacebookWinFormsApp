@@ -21,10 +21,10 @@ namespace BasicFacebookFeatures
         
         // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
 
-        public BasicFacebook(User i_loggedInUser)
+        public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
-            m_LoggedInUser = i_loggedInUser;
+            m_LoggedInUser = i_loginResult.LoggedInUser;
             profilePicture.LoadAsync(m_LoggedInUser.PictureNormalURL);
             fetchPosts();
             fetchEvents();

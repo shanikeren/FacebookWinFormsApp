@@ -89,6 +89,7 @@ namespace BasicFacebookFeatures
             this.AlbumListView.ShowItemToolTips = true;
             this.AlbumListView.Size = new System.Drawing.Size(210, 662);
             this.AlbumListView.TabIndex = 4;
+            this.AlbumListView.LargeImageList = new System.Windows.Forms.ImageList();
             this.AlbumListView.UseCompatibleStateImageBehavior = false;
             this.AlbumListView.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.AlbumListView_ItemMouseHover);
             this.AlbumListView.SelectedIndexChanged += new System.EventHandler(this.AlbumListView_SelectedIndexChanged);

@@ -28,12 +28,16 @@ namespace BasicFacebookFeatures
                     "1245819649574781", 
                     /// requested permissions:
 					"email",
-                    "public_profile"
+                    "public_profile",
+                    "user_photos"
                     /// add any relevant permissions
                     );
 
 
             buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
+            BasicFacebook basicFacebook = new BasicFacebook(loginResult);
+            basicFacebook.ShowDialog();
+            Close();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
