@@ -125,7 +125,7 @@ namespace BasicFacebookFeatures
 
             if (GroupsListBox.Items.Count == 0)
             {
-                MessageBox.Show("No groups yet");
+                MessageBox.Show("No videos yet");
             }
         }
 

@@ -25,11 +25,22 @@ namespace BasicFacebookFeatures
 
             FacebookWrapper.LoginResult loginResult = FacebookService.Login(
                     /// (This is Desig Patter's App ID. replace it with your own)
-                    "1245819649574781", 
+                    "1257835301628630", 
                     /// requested permissions:
 					"email",
                     "public_profile",
-                    "user_photos"
+                    "user_photos",
+                    "user_birthday",
+                    "user_events",
+                    "user_friends",
+                    "user_gender",
+                    "user_hometown",
+                    "user_likes",
+                    "user_link",
+                    "user_location",
+                    "user_photos",
+                    "user_posts",
+                    "user_videos"
                     /// add any relevant permissions
                     );
 
