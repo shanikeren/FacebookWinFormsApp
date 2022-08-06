@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using FacebookLogic;
 
 
 namespace BasicFacebookFeatures
 {
     public partial class BasicFacebook : Form
     {
-        private User m_LoggedInUser;
+        private InitProfile m_LoggedInUser;
         public LoginResult res;
         
         // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
@@ -24,8 +25,8 @@ namespace BasicFacebookFeatures
         public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
-            m_LoggedInUser = i_loginResult.LoggedInUser;
-            profilePicture.LoadAsync(m_LoggedInUser.PictureNormalURL);
+            m_LoggedInUser = new InitProfile(i_loginResult);
+            profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchEvents();
             fetchGroups();
@@ -38,20 +39,10 @@ namespace BasicFacebookFeatures
         {
             Posts.Items.Clear();
 
-            foreach (Post post in m_LoggedInUser.Posts)
+            List<string> postsList = m_LoggedInUser.LoadPosts();
+            foreach(string post in postsList)
             {
-                if (post.Message != null)
-                {
-                    Posts.Items.Add(post.Message);
-                }
-                else if (post.Caption != null)
-                {
-                    Posts.Items.Add(post.Caption);
-                }
-                else
-                {
-                    Posts.Items.Add(string.Format("[{0}]", post.Type));
-                }
+                Posts.Items.Add(post);
             }
 
             if (Posts.Items.Count == 0)
@@ -62,14 +53,15 @@ namespace BasicFacebookFeatures
 
         private void fetchEvents()
         {
-            EventsList.Items.Clear();
-            EventsList.DisplayMember = "Name";
-            foreach (Event fbEvent in m_LoggedInUser.Events)
+            PagesList.Items.Clear();
+
+            List<string> eventsList = m_LoggedInUser.LoadPosts();
+            foreach (string fbEvent in eventsList)
             {
-                EventsList.Items.Add(fbEvent);
+                PagesList.Items.Add(fbEvent);
             }
 
-            if (EventsList.Items.Count == 0)
+            if (PagesList.Items.Count == 0)
             {
                 MessageBox.Show("No Events yet");
             }
@@ -78,13 +70,14 @@ namespace BasicFacebookFeatures
         private void fetchGroups()
         {
             GroupsListBox.Items.Clear();
-            GroupsListBox.DisplayMember = "Name";
+            List<string> groupsList; 
 
             try
             {
-                foreach (Group group in m_LoggedInUser.Groups)
+                groupsList = m_LoggedInUser.LoadGroups();
+                foreach(string groupName in groupsList)
                 {
-                    GroupsListBox.Items.Add(group);
+                    GroupsListBox.Items.Add(groupName);
                 }
             }
             catch (Exception ex)

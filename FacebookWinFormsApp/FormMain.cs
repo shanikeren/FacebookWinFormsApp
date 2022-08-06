@@ -25,7 +25,7 @@ namespace BasicFacebookFeatures
 
             FacebookWrapper.LoginResult loginResult = FacebookService.Login(
                     /// (This is Desig Patter's App ID. replace it with your own)
-                    "1257835301628630", 
+                    "1245819649574781", 
                     /// requested permissions:
 					"email",
                     "public_profile",
@@ -47,8 +47,9 @@ namespace BasicFacebookFeatures
 
             buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
             BasicFacebook basicFacebook = new BasicFacebook(loginResult);
+            this.Visible = false;
             basicFacebook.ShowDialog();
-            Close();
+            this.Close();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
