@@ -28,11 +28,16 @@ namespace BasicFacebookFeatures
             m_LoggedInUser = new InitProfile(i_loginResult);
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
-            fetchEvents();
+            fetchUpcomingEvent();
             fetchGroups();
-            fetchMusic();
+            fetchPages();
             //Tomer added
             fetchAlbums();
+        }
+
+        private void fetchUpcomingEvent()
+        {
+            EventTextBox.Text = m_LoggedInUser.getUpcomingEvent();
         }
 
         private void fetchPosts()
@@ -98,9 +103,9 @@ namespace BasicFacebookFeatures
         }
 
         //example with videos - should be music couldnt find it 
-        private void fetchMusic()
+        private void fetchPages()
         {
-            GroupsListBox.Items.Clear();
+            PagesList.Items.Clear();
             GroupsListBox.DisplayMember = "Name";
             StringBuilder sb = new StringBuilder();
             try

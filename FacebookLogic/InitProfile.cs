@@ -52,6 +52,12 @@ namespace FacebookLogic
             return result;
         }
 
+        public string getUpcomingEvent()
+        {
+            Event upcomingEvent = m_LoggedInUser.Events.ElementAt(0);
+            return $"{upcomingEvent.Name} at: {upcomingEvent.TimeString}";
+        }
+
         public List<string> LoadGroups()
         {
             List<string> result = new List<string>();

@@ -31,21 +31,20 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.profilePicture = new System.Windows.Forms.PictureBox();
             this.LogOut_Btn = new System.Windows.Forms.Button();
             this.GroupsListBox = new System.Windows.Forms.ListBox();
             this.AlbumListView = new System.Windows.Forms.ListView();
-            this.EventsTextBox = new System.Windows.Forms.TextBox();
+            this.EventTextBox = new System.Windows.Forms.TextBox();
             this.PostTextArea = new System.Windows.Forms.TextBox();
             this.PostBtn = new System.Windows.Forms.Button();
             this.Posts = new System.Windows.Forms.ListBox();
             this.PagesList = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,13 +98,13 @@ namespace BasicFacebookFeatures
             this.AlbumListView.SelectedIndexChanged += new System.EventHandler(this.AlbumListView_SelectedIndexChanged);
             this.AlbumListView.DoubleClick += new System.EventHandler(this.AlbumListView_DoubleClick);
             // 
-            // EventsTextBox
+            // EventTextBox
             // 
-            this.EventsTextBox.Location = new System.Drawing.Point(286, 182);
-            this.EventsTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.EventsTextBox.Name = "EventsTextBox";
-            this.EventsTextBox.Size = new System.Drawing.Size(780, 26);
-            this.EventsTextBox.TabIndex = 5;
+            this.EventTextBox.Location = new System.Drawing.Point(286, 182);
+            this.EventTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.EventTextBox.Name = "EventTextBox";
+            this.EventTextBox.Size = new System.Drawing.Size(780, 26);
+            this.EventTextBox.TabIndex = 5;
             // 
             // PostTextArea
             // 
@@ -174,7 +173,7 @@ namespace BasicFacebookFeatures
             this.tabPage1.Controls.Add(this.LogOut_Btn);
             this.tabPage1.Controls.Add(this.PostTextArea);
             this.tabPage1.Controls.Add(this.AlbumListView);
-            this.tabPage1.Controls.Add(this.EventsTextBox);
+            this.tabPage1.Controls.Add(this.EventTextBox);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -182,25 +181,6 @@ namespace BasicFacebookFeatures
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1254, 999);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(282, 157);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 30);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Upcoming Event:\r\n";
             // 
             // label2
             // 
@@ -210,6 +190,25 @@ namespace BasicFacebookFeatures
             this.label2.Size = new System.Drawing.Size(66, 20);
             this.label2.TabIndex = 11;
             this.label2.Text = "Albums:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(282, 157);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 20);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Upcoming Event:\r\n";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1664, 1170);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // BasicFacebook
             // 
@@ -234,7 +233,7 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Button LogOut_Btn;
         private System.Windows.Forms.ListBox GroupsListBox;
         private System.Windows.Forms.ListView AlbumListView;
-        private System.Windows.Forms.TextBox EventsTextBox;
+        private System.Windows.Forms.TextBox EventTextBox;
         private System.Windows.Forms.TextBox PostTextArea;
         private System.Windows.Forms.Button PostBtn;
         private System.Windows.Forms.ListBox Posts;
