@@ -55,8 +55,9 @@ namespace FacebookLogic
 
         public string getUpcomingEvent()
         {
-            Event upcomingEvent = m_LoggedInUser.Events.ElementAt(0);
-            return $"{upcomingEvent.Name} at: {upcomingEvent.TimeString}";
+            //Event upcomingEvent = m_LoggedInUser.Events.ElementAt(0);
+            //return $"{upcomingEvent.Name} at: {upcomingEvent.TimeString}";
+            return "Cant fetch events....";
         }
 
         public List<string> LoadGroups()
