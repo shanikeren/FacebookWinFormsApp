@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using FacebookLogic;
 
@@ -26,6 +25,7 @@ namespace BasicFacebookFeatures
         {
             InitializeComponent();
             m_LoggedInUser = new InitProfile(i_loginResult);
+            res = i_loginResult;
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
@@ -105,40 +105,40 @@ namespace BasicFacebookFeatures
         //example with videos - should be music couldnt find it 
         private void fetchPages()
         {
-            PagesList.Items.Clear();
-            GroupsListBox.DisplayMember = "Name";
-            StringBuilder sb = new StringBuilder();
-            try
-            {
-                foreach (Video video in m_LoggedInUser.Videos)
-                {
-                   sb.Append(video.Name);
-                   sb.Append(" * ");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //PagesList.Items.Clear();
+            //GroupsListBox.DisplayMember = "Name";
+            //StringBuilder sb = new StringBuilder();
+            //try
+            //{
+            //    foreach (Video video in m_LoggedInUser.Videos)
+            //    {
+            //       sb.Append(video.Name);
+            //       sb.Append(" * ");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
 
-            if (GroupsListBox.Items.Count == 0)
-            {
-                MessageBox.Show("No videos yet");
-            }
+            //if (GroupsListBox.Items.Count == 0)
+            //{
+            //    MessageBox.Show("No videos yet");
+            //}
         }
 
         // need to fake post? 
         private void PostBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
-                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //try
+            //{
+            //    Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
+            //    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace BasicFacebookFeatures
             //LogicUser.clearAlbums();
 
             int index = 0;
-            foreach (Album album in m_LoggedInUser.Albums) // initialize listView items display
+            foreach (Album album in res.LoggedInUser.Albums) // initialize listView items display
             {
                 AlbumListView.LargeImageList.Images.Add(album.ImageAlbum);
                 AlbumListView.Items.Add(album.Name, index);
