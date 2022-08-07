@@ -72,6 +72,18 @@ namespace FacebookLogic
             return result;
         }
 
-      
+
+        public List<string> LoadPages()
+        {
+            List<string> result = new List<string>();
+
+            foreach (Page page in m_LoggedInUser.LikedPages)
+            {
+                result.Add(page.Name);
+            }
+
+            return result;
+        }
+
     }
 }
