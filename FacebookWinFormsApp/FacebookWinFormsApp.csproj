@@ -141,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacebookLogic\FacebookLogic.csproj">
-      <Project>{6fdf3607-9668-4481-a594-e287abd01743}</Project>
+      <Project>{6FDF3607-9668-4481-A594-E287ABD01743}</Project>
       <Name>FacebookLogic</Name>
     </ProjectReference>
   </ItemGroup>

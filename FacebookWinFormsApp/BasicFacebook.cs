@@ -11,6 +11,10 @@ using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookLogic;
 
+////// user name: 
+///// design.patterns
+///// password:
+///// design.patterns.22aa
 
 namespace BasicFacebookFeatures
 {
@@ -80,17 +84,17 @@ namespace BasicFacebookFeatures
             //}
         }
 
-        private void fetchGroups()
+        private void fetchPages()
         {
-            GroupsListBox.Items.Clear();
-            List<string> groupsList; 
+            PagesListBox.Items.Clear();
+            List<string> pagesList; 
 
             try
             {
-                groupsList = m_LoggedInUser.LoadGroups();
-                foreach(string groupName in groupsList)
+                pagesList = m_LoggedInUser.LoadPages();
+                foreach(string pageName in pagesList)
                 {
-                    GroupsListBox.Items.Add(groupName);
+                    PagesListBox.Items.Add(pageName);
                 }
             }
             catch (Exception ex)
@@ -98,9 +102,9 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.Message);
             }
 
-            if (GroupsListBox.Items.Count == 0)
+            if (PagesListBox.Items.Count == 0)
             {
-                MessageBox.Show("No groups yet");
+                MessageBox.Show("No pages yet");
             }
         }
      
@@ -111,31 +115,20 @@ namespace BasicFacebookFeatures
         }
 
         //example with videos - should be music couldnt find it 
-        private void fetchPages()
+        private void fetchGroups()
         {
-            //PagesList.Items.Clear();
-            //GroupsListBox.DisplayMember = "Name";
-            //StringBuilder sb = new StringBuilder();
-            //try
-            //{
-            //    foreach (Video video in m_LoggedInUser.Videos)
-            //    {
-            //       sb.Append(video.Name);
-            //       sb.Append(" * ");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            listViewGroups.Items.Clear();
+            //LogicUser.clearAlbums();
 
-            //if (GroupsListBox.Items.Count == 0)
-            //{
-            //    MessageBox.Show("No videos yet");
-            //}
+            foreach (Group group in res.LoggedInUser.Groups) // initialize listView items display
+            {
+                listViewGroups.LargeImageList.Images.Add(group.ImageLarge);
+            }
+            listViewGroups.Items.Add("1");
+            listViewGroups.Items.Add("1");
+            listViewGroups.Items.Add("1");
         }
 
-        // need to fake post? 
         private void PostBtn_Click(object sender, EventArgs e)
         {
             //try
