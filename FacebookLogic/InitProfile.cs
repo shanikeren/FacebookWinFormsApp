@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace FacebookLogic
 {
@@ -13,7 +14,7 @@ namespace FacebookLogic
     {
         private User m_LoggedInUser;
 
-
+        
         public InitProfile(LoginResult i_loginResult)
         {
             m_LoggedInUser = i_loginResult.LoggedInUser;
@@ -83,6 +84,37 @@ namespace FacebookLogic
             }
 
             return result;
+        }
+
+        public List<(string, Image)> LoadAlbums()
+        {
+            List<(string, Image)> albumList = new List<(string, Image)>();
+
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                albumList.Add((album.Name, album.ImageAlbum));
+            }
+
+            return albumList;
+        }
+
+        public List<string> FetchAlbum(string i_AlbumName)
+        {
+            List<string> albumPics = new List<string>();
+
+            foreach(Album album in m_LoggedInUser.Albums)
+            {
+                if(album.Name == i_AlbumName)
+                {
+                    foreach(Photo img in album.Photos)
+                    {
+                        albumPics.Add(img.PictureNormalURL);
+                    }
+                    break;
+                }
+            }
+
+            return albumPics;
         }
 
     }

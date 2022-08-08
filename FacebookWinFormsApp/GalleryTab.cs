@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
 {
-    public partial class AlbumDisplayForm : Form
+    public partial class GalleryTab : UserControl
     {
-        public AlbumDisplayForm()
+        List<string> picturesUrl;
+
+        public GalleryTab(List<string> i_picturesUrl)
         {
             InitializeComponent();
         }

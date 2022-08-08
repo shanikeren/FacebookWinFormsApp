@@ -89,12 +89,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumDisplayForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AlbumDisplayForm.Designer.cs">
-      <DependentUpon>AlbumDisplayForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="BasicFacebook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +101,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GalleryTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GalleryTab.Designer.cs">
+      <DependentUpon>GalleryTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BasicFacebook.resx">
@@ -114,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GalleryTab.resx">
+      <DependentUpon>GalleryTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -144,6 +147,9 @@
       <Project>{6FDF3607-9668-4481-A594-E287ABD01743}</Project>
       <Name>FacebookLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IMG_20181225_160009.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
