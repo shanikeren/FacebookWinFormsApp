@@ -24,8 +24,9 @@ namespace BasicFacebookFeatures
             Clipboard.SetText("design.patterns20cc"); /// the current password for Desig Patter
 
             FacebookWrapper.LoginResult loginResult = FacebookService.Login(
-                    /// (This is Desig Patter's App ID. replace it with your own)
-                    "1450160541956417", 
+                   /// (This is Desig Patter's App ID. replace it with your own)
+                   // "1450160541956417", 
+                   "1245819649574781",
                     /// requested permissions:
 					"email",
                     "public_profile",

@@ -24,6 +24,7 @@ namespace BasicFacebookFeatures
         public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
+            initAlbumListView();
             m_LoggedInUser = new InitProfile(i_loginResult);
             res = i_loginResult;
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
@@ -33,6 +34,13 @@ namespace BasicFacebookFeatures
             fetchPages();
             //Tomer added
             fetchAlbums();
+        }
+
+        private void initAlbumListView()
+        {
+            ImageList iList = new ImageList();
+            iList.ImageSize = new Size(25, 25);
+            AlbumListView.LargeImageList = iList;
         }
 
         private void fetchUpcomingEvent()
@@ -58,18 +66,18 @@ namespace BasicFacebookFeatures
 
         private void fetchEvents()
         {
-            PagesList.Items.Clear();
+            //PagesList.Items.Clear();
 
-            List<string> eventsList = m_LoggedInUser.LoadPosts();
-            foreach (string fbEvent in eventsList)
-            {
-                PagesList.Items.Add(fbEvent);
-            }
+            //List<string> eventsList = m_LoggedInUser.LoadPosts();
+            //foreach (string fbEvent in eventsList)
+            //{
+            //    PagesList.Items.Add(fbEvent);
+            //}
 
-            if (PagesList.Items.Count == 0)
-            {
-                MessageBox.Show("No Events yet");
-            }
+            //if (PagesList.Items.Count == 0)
+            //{
+            //    MessageBox.Show("No Events yet");
+            //}
         }
 
         private void fetchGroups()
@@ -183,6 +191,7 @@ namespace BasicFacebookFeatures
             {
                 AlbumListView.LargeImageList.Images.Add(album.ImageAlbum);
                 AlbumListView.Items.Add(album.Name, index);
+                
                 index++;
             }
 
