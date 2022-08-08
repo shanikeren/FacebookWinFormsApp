@@ -85,5 +85,36 @@ namespace FacebookLogic
             return result;
         }
 
+
+        public List<Location> GetCheckIn()
+        {
+            List<Location> result = new List<Location>();
+            foreach (Post post in m_LoggedInUser.Posts)
+            {
+               if(post.Type == Post.eType.checkin)
+                {
+                    result.Add(post.Place.Location);
+                }
+            }
+            return result;
+        }
+
+        public List<string> needToVisitPlaces()
+        {
+            List<string> result = new List<string>();
+            List<Location> checkIns = GetCheckIn();
+            int max = 5;
+            if(checkIns.Count <= 5)
+            {
+                max = checkIns.Count;
+            }
+            for(int i = checkIns.Count-1 ; i >= checkIns.Count -(1 + max); i--)
+            {
+                string str = checkIns.ElementAt(i).ToString();
+                result.Add(str);
+            }
+
+            return result;
+        }
     }
 }
