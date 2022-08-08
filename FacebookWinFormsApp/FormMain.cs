@@ -24,16 +24,33 @@ namespace BasicFacebookFeatures
             Clipboard.SetText("design.patterns20cc"); /// the current password for Desig Patter
 
             FacebookWrapper.LoginResult loginResult = FacebookService.Login(
-                    /// (This is Desig Patter's App ID. replace it with your own)
-                    "1245819649574781", 
+                   /// (This is Desig Patter's App ID. replace it with your own)
+                   // "1450160541956417", 
+                   "1245819649574781",
                     /// requested permissions:
 					"email",
-                    "public_profile"
+                    "public_profile",
+                    "user_photos",
+                    "user_birthday",
+                    "user_events",
+                    "user_friends",
+                    "user_gender",
+                    "user_hometown",
+                    "user_likes",
+                    "user_link",
+                    "user_location",
+                    "user_photos",
+                    "user_posts",
+                    "user_videos"
                     /// add any relevant permissions
                     );
 
 
             buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
+            BasicFacebook basicFacebook = new BasicFacebook(loginResult);
+            this.Visible = false;
+            basicFacebook.ShowDialog();
+            this.Close();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)

@@ -8,49 +8,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using FacebookLogic;
 
+////// user name: 
+///// design.patterns
+///// password:
+///// design.patterns.22aa
 
 namespace BasicFacebookFeatures
 {
     public partial class BasicFacebook : Form
     {
-        private User m_LoggedInUser;
+        private InitProfile m_LoggedInUser;
+        public LoginResult res;
+        
         // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
 
-        public BasicFacebook(User i_loggedInUser)
+        public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
-            m_LoggedInUser = i_loggedInUser;
-            profilePicture.LoadAsync(m_LoggedInUser.PictureNormalURL);
+            initAlbumListView();
+            m_LoggedInUser = new InitProfile(i_loginResult);
+            res = i_loginResult;
+            profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
-            fetchEvents();
+            fetchUpcomingEvent();
             fetchGroups();
-            fetchMusic();
-
+            fetchPages();
             //Tomer added
             fetchAlbums();
+        }
+
+        private void initAlbumListView()
+        {
+            ImageList iList = new ImageList();
+            iList.ImageSize = new Size(25, 25);
+            AlbumListView.LargeImageList = iList;
+        }
+
+        private void fetchUpcomingEvent()
+        {
+            EventTextBox.Text = m_LoggedInUser.getUpcomingEvent();
         }
 
         private void fetchPosts()
         {
             Posts.Items.Clear();
 
-            foreach (Post post in m_LoggedInUser.Posts)
+            List<string> postsList = m_LoggedInUser.LoadPosts();
+            foreach(string post in postsList)
             {
-                if (post.Message != null)
-                {
-                    Posts.Items.Add(post.Message);
-                }
-                else if (post.Caption != null)
-                {
-                    Posts.Items.Add(post.Caption);
-                }
-                else
-                {
-                    Posts.Items.Add(string.Format("[{0}]", post.Type));
-                }
+                Posts.Items.Add(post);
             }
 
             if (Posts.Items.Count == 0)
@@ -61,29 +70,31 @@ namespace BasicFacebookFeatures
 
         private void fetchEvents()
         {
-            EventsList.Items.Clear();
-            EventsList.DisplayMember = "Name";
-            foreach (Event fbEvent in m_LoggedInUser.Events)
-            {
-                EventsList.Items.Add(fbEvent);
-            }
+            //PagesList.Items.Clear();
 
-            if (EventsList.Items.Count == 0)
-            {
-                MessageBox.Show("No Events yet");
-            }
+            //List<string> eventsList = m_LoggedInUser.LoadPosts();
+            //foreach (string fbEvent in eventsList)
+            //{
+            //    PagesList.Items.Add(fbEvent);
+            //}
+
+            //if (PagesList.Items.Count == 0)
+            //{
+            //    MessageBox.Show("No Events yet");
+            //}
         }
 
-        private void fetchGroups()
+        private void fetchPages()
         {
-            GroupsListBox.Items.Clear();
-            GroupsListBox.DisplayMember = "Name";
+            PagesListBox.Items.Clear();
+            List<string> pagesList; 
 
             try
             {
-                foreach (Group group in m_LoggedInUser.Groups)
+                pagesList = m_LoggedInUser.LoadPages();
+                foreach(string pageName in pagesList)
                 {
-                    GroupsListBox.Items.Add(group);
+                    PagesListBox.Items.Add(pageName);
                 }
             }
             catch (Exception ex)
@@ -91,9 +102,9 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.Message);
             }
 
-            if (GroupsListBox.Items.Count == 0)
+            if (PagesListBox.Items.Count == 0)
             {
-                MessageBox.Show("No groups yet");
+                MessageBox.Show("No pages yet");
             }
         }
      
@@ -104,42 +115,31 @@ namespace BasicFacebookFeatures
         }
 
         //example with videos - should be music couldnt find it 
-        private void fetchMusic()
+        private void fetchGroups()
         {
-            GroupsListBox.Items.Clear();
-            GroupsListBox.DisplayMember = "Name";
-            StringBuilder sb = new StringBuilder();
-            try
-            {
-                foreach (Video video in m_LoggedInUser.Videos)
-                {
-                   sb.Append(video.Name);
-                   sb.Append(" * ");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            listViewGroups.Items.Clear();
+            //LogicUser.clearAlbums();
 
-            if (GroupsListBox.Items.Count == 0)
+            foreach (Group group in res.LoggedInUser.Groups) // initialize listView items display
             {
-                MessageBox.Show("No groups yet");
+                listViewGroups.LargeImageList.Images.Add(group.ImageLarge);
             }
+            listViewGroups.Items.Add("1");
+            listViewGroups.Items.Add("1");
+            listViewGroups.Items.Add("1");
         }
 
-        // need to fake post? 
         private void PostBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
-                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //try
+            //{
+            //    Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
+            //    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -180,10 +180,11 @@ namespace BasicFacebookFeatures
             //LogicUser.clearAlbums();
 
             int index = 0;
-            foreach (Album album in m_LoggedInUser.Albums) // initialize listView items display
+            foreach (Album album in res.LoggedInUser.Albums) // initialize listView items display
             {
                 AlbumListView.LargeImageList.Images.Add(album.ImageAlbum);
                 AlbumListView.Items.Add(album.Name, index);
+                
                 index++;
             }
 
