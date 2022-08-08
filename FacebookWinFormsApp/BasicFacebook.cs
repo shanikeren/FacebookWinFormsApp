@@ -212,6 +212,7 @@ namespace BasicFacebookFeatures
             GalleryTab galleryTab = new GalleryTab(picturesUrl);
 
             TabPage newTab = new TabPage();
+            newTab.Text = selectedAlbum.Name;
             basic.Controls.Add(newTab);
             galleryTab.Parent = newTab;
             galleryTab.Visible = true;
