@@ -23,8 +23,6 @@ namespace BasicFacebookFeatures
         private InitProfile m_LoggedInUser;
         public LoginResult res;
         
-        // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
-
         public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
@@ -234,24 +232,7 @@ namespace BasicFacebookFeatures
         {
             e.Item.ToolTipText = e.Item.Text;
         }
-
-        private void AlbumListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            MessageBox.Show("Need to check if this is rellvant");
-        }
-
-        private void AlbumListView_DoubleClick(object sender, EventArgs e)
-        {
-            //    // user clicked an item of listview control
-
-            //    if (AlbumListView.SelectedItems.Count == 1)
-            //    {
-            //        MessageBox.Show("Chosen Album is: " + AlbumListView.SelectedItems[0].Text);
-            //    //Logic User new AlbumDisplay( AlbumListView.SelectedItems[0].Text)
-            //}
-            //AlbumListView.SelectedItems.Clear();
-        }
-
+  
         private void checkinLabel_Click(object sender, EventArgs e)
         {
 

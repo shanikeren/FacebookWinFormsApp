@@ -27,6 +27,12 @@ namespace FacebookLogic
 
         public List<string> LoadPosts()
         {
+            /* TODO: don't we want to see here only postposts.
+             * eType = status
+             * Or alternative - hendel each post as it should be handeld (e.g: photo-picBox...)
+             * Or an optin to filter by post eType.
+             * 
+            */
             List<string> result = new List<string>();
             foreach (Post post in m_LoggedInUser.Posts)
             {
@@ -140,7 +146,7 @@ namespace FacebookLogic
             {
                 max = checkIns.Count;
             }
-            for(int i = checkIns.Count-1 ; i >= checkIns.Count -(1 + max); i--)
+            for(int i = checkIns.Count-1 ; i >= checkIns.Count -(1 + max); i--) // --- ? Maybe we should sort?
             {
                 string str = checkIns.ElementAt(i).ToString();
                 result.Add(str);
