@@ -114,7 +114,7 @@ namespace BasicFacebookFeatures
             this.Text = "Loging Out...";
         }
 
-        //example with videos - should be music couldnt find it 
+         // whyyyyyy cant we get groups???  
         private void fetchGroups()
         {
             listViewGroups.Items.Clear();
@@ -218,7 +218,7 @@ namespace BasicFacebookFeatures
             galleryTab.Visible = true;
             galleryTab.Dock = DockStyle.Fill;
             basic.SelectedTab = newTab;
-            //MessageBox.Show("Chosen Album is: " + PB.Name +". Make a new galleryTab");
+           // MessageBox.Show("Chosen Album is: " + PB.Name +". Make a new galleryTab");
 
         }
 
@@ -257,9 +257,12 @@ namespace BasicFacebookFeatures
 
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void buttonCheckIn_Click(object sender, EventArgs e)
         {
-
+            List<string> checkins = m_LoggedInUser.needToVisitPlaces();
+            foreach (string check in checkins) {
+                listBoxCheckins.Items.Add(check);
+            }
         }
 
      

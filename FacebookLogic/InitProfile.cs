@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
-using System.Drawing;
+
 
 namespace FacebookLogic
 {
@@ -118,11 +118,12 @@ namespace FacebookLogic
         }
 
 
-        public List<Location> GetCheckIn()
+        private List<Location> GetCheckIn()
         {
             List<Location> result = new List<Location>();
             foreach (Post post in m_LoggedInUser.Posts)
             {
+                ///check enum compare with == or equals
                if(post.Type == Post.eType.checkin)
                 {
                     result.Add(post.Place.Location);
@@ -135,17 +136,19 @@ namespace FacebookLogic
         {
             List<string> result = new List<string>();
             List<Location> checkIns = GetCheckIn();
-            int max = 5;
-            if(checkIns.Count <= 5)
-            {
-                max = checkIns.Count;
-            }
-            for(int i = checkIns.Count-1 ; i >= checkIns.Count -(1 + max); i--)
-            {
-                string str = checkIns.ElementAt(i).ToString();
-                result.Add(str);
-            }
+            int max = 0;
+            int lastIndex = checkIns.Count - 1;
 
+            while(max < 5)
+            {
+                if (lastIndex >= 0)
+                {
+                    result.Add(checkIns.ElementAt(lastIndex).ToString());
+                    lastIndex--;
+                }
+                max++;
+            }
+        
             return result;
         }
     }
