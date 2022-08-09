@@ -7,13 +7,14 @@ using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
 
+
 namespace FacebookLogic
 {
     public class InitProfile
     {
         private User m_LoggedInUser;
 
-
+        
         public InitProfile(LoginResult i_loginResult)
         {
             m_LoggedInUser = i_loginResult.LoggedInUser;
@@ -26,6 +27,12 @@ namespace FacebookLogic
 
         public List<string> LoadPosts()
         {
+            /* TODO: don't we want to see here only postposts.
+             * eType = status
+             * Or alternative - hendel each post as it should be handeld (e.g: photo-picBox...)
+             * Or an optin to filter by post eType.
+             * 
+            */
             List<string> result = new List<string>();
             foreach (Post post in m_LoggedInUser.Posts)
             {
@@ -85,5 +92,70 @@ namespace FacebookLogic
             return result;
         }
 
+        public List<(string, Image)> LoadAlbums()
+        {
+            List<(string, Image)> albumList = new List<(string, Image)>();
+
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                albumList.Add((album.Name, album.ImageAlbum));
+            }
+
+            return albumList;
+        }
+
+        public List<string> FetchAlbum(string i_AlbumName)
+        {
+            List<string> albumPics = new List<string>();
+
+            foreach(Album album in m_LoggedInUser.Albums)
+            {
+                if(album.Name == i_AlbumName)
+                {
+                    foreach(Photo img in album.Photos)
+                    {
+                        albumPics.Add(img.PictureNormalURL);
+                    }
+                    break;
+                }
+            }
+
+            return albumPics;
+        }
+
+
+        private List<Location> GetCheckIn()
+        {
+            List<Location> result = new List<Location>();
+            foreach (Post post in m_LoggedInUser.Posts)
+            {
+                ///check enum compare with == or equals
+               if(post.Type == Post.eType.checkin)
+                {
+                    result.Add(post.Place.Location);
+                }
+            }
+            return result;
+        }
+
+        public List<string> needToVisitPlaces()
+        {
+            List<string> result = new List<string>();
+            List<Location> checkIns = GetCheckIn();
+            int max = 0;
+            int lastIndex = checkIns.Count - 1;
+
+            while(max < 5)
+            {
+                if (lastIndex >= 0)
+                {
+                    result.Add(checkIns.ElementAt(lastIndex).ToString());
+                    lastIndex--;
+                }
+                max++;
+            }
+        
+            return result;
+        }
     }
 }

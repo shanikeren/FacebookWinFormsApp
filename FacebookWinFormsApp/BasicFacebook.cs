@@ -23,8 +23,6 @@ namespace BasicFacebookFeatures
         private InitProfile m_LoggedInUser;
         public LoginResult res;
         
-        // TODO: I think we need to make "UIUser" object, and have the original "USER" as a member in the engine.
-
         public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
@@ -44,7 +42,7 @@ namespace BasicFacebookFeatures
         {
             ImageList iList = new ImageList();
             iList.ImageSize = new Size(25, 25);
-            AlbumListView.LargeImageList = iList;
+            //AlbumListView.LargeImageList = iList;
         }
 
         private void fetchUpcomingEvent()
@@ -114,7 +112,7 @@ namespace BasicFacebookFeatures
             this.Text = "Loging Out...";
         }
 
-        //example with videos - should be music couldnt find it 
+         // whyyyyyy cant we get groups???  
         private void fetchGroups()
         {
             listViewGroups.Items.Clear();
@@ -176,40 +174,78 @@ namespace BasicFacebookFeatures
         // ALBUMS //
         private void fetchAlbums()
         {
-            AlbumListView.Items.Clear();
-            //LogicUser.clearAlbums();
+            AlbumsPanel.Controls.Clear();
+            List<(string, Image)> userAlbums = m_LoggedInUser.LoadAlbums();
 
-            int index = 0;
-            foreach (Album album in res.LoggedInUser.Albums) // initialize listView items display
+            foreach((string, Image) album in userAlbums)
             {
-                AlbumListView.LargeImageList.Images.Add(album.ImageAlbum);
-                AlbumListView.Items.Add(album.Name, index);
-                
-                index++;
+                PictureBox albumPic = new PictureBox();
+                albumPic.Name = album.Item1;
+                albumPic.Image = album.Item2;
+                AlbumsPanel.Controls.Add(albumPic);
             }
 
+            fitImageBox();
+          
+        }
+
+        private void fitImageBox()
+        {
+            IEnumerable<PictureBox> pnls = AlbumsPanel.Controls.OfType<PictureBox>();
+            foreach(PictureBox PB in pnls)
+            {
+                PB.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                PB.Margin = new Padding(9, 3, 3, 3);
+                PB.Size = new Size(126, 96);
+                PB.SizeMode = PictureBoxSizeMode.StretchImage;
+                PB.MouseHover += PB_MouseHover;
+                PB.MouseDoubleClick += PB_MouseDoubleClick;
+            }
+        }
+
+        private void PB_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            PictureBox selectedAlbum = sender as PictureBox;
+            List<string> picturesUrl = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
+            GalleryTab galleryTab = new GalleryTab(picturesUrl);
+
+            TabPage newTab = new TabPage();
+            newTab.Text = selectedAlbum.Name;
+            basic.Controls.Add(newTab);
+            galleryTab.Parent = newTab;
+            galleryTab.Visible = true;
+            galleryTab.Dock = DockStyle.Fill;
+            basic.SelectedTab = newTab;
+           // MessageBox.Show("Chosen Album is: " + PB.Name +". Make a new galleryTab");
+
+        }
+
+        private void PB_MouseHover(object sender, EventArgs e)
+        {
+            PictureBox PB = sender as PictureBox;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(PB, PB.Name);
+           
         }
 
         private void AlbumListView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
         {
             e.Item.ToolTipText = e.Item.Text;
         }
-
-        private void AlbumListView_SelectedIndexChanged(object sender, EventArgs e)
+  
+        private void checkinLabel_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Need to check if this is rellvant");
+
         }
 
-        private void AlbumListView_DoubleClick(object sender, EventArgs e)
+        private void buttonCheckIn_Click(object sender, EventArgs e)
         {
-                // user clicked an item of listview control
-
-                if (AlbumListView.SelectedItems.Count == 1)
-                {
-                    MessageBox.Show("Chosen Album is: " + AlbumListView.SelectedItems[0].Text);
-                //Logic User new AlbumDisplay( AlbumListView.SelectedItems[0].Text)
+            List<string> checkins = m_LoggedInUser.needToVisitPlaces();
+            foreach (string check in checkins) {
+                listBoxCheckins.Items.Add(check);
             }
-            AlbumListView.SelectedItems.Clear();
         }
+
+     
     }
 }
