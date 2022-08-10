@@ -1,4 +1,3 @@
-﻿
 using System;
 using System.Windows.Forms;
 
@@ -118,7 +117,9 @@ namespace BasicFacebookFeatures
             // 
             this.PostBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PostBtn.BackColor = System.Drawing.SystemColors.ControlLight;
+
             this.PostBtn.Location = new System.Drawing.Point(1266, 395);
+
             this.PostBtn.Margin = new System.Windows.Forms.Padding(15, 5, 6, 5);
             this.PostBtn.MaximumSize = new System.Drawing.Size(214, 35);
             this.PostBtn.MinimumSize = new System.Drawing.Size(53, 35);
