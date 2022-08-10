@@ -141,7 +141,8 @@ namespace FacebookLogic
         public List<string> needToVisitPlaces()
         {
             List<string> result = new List<string>();
-            List<Location> checkIns = GetCheckIn();
+            //List<Location> checkIns = GetCheckIn();
+            List<Checkin> checkIns = m_LoggedInUser.Checkins.ToList(); 
             int max = 0;
             int lastIndex = checkIns.Count - 1;
 
@@ -149,7 +150,7 @@ namespace FacebookLogic
             {
                 if (lastIndex >= 0)
                 {
-                    result.Add(checkIns.ElementAt(lastIndex).ToString());
+                    result.Add(checkIns.ElementAt(lastIndex).Place.Name);
                     lastIndex--;
                 }
                 max++;
