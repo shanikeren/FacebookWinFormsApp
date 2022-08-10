@@ -111,8 +111,10 @@ namespace BasicFacebookFeatures
             // PostBtn
             // 
             this.PostBtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.PostBtn.Location = new System.Drawing.Point(960, 316);
-            this.PostBtn.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.PostBtn.Location = new System.Drawing.Point(1221, 395);
+            this.PostBtn.Margin = new System.Windows.Forms.Padding(15, 5, 6, 5);
+            this.PostBtn.MaximumSize = new System.Drawing.Size(214, 35);
+            this.PostBtn.MinimumSize = new System.Drawing.Size(53, 35);
             this.PostBtn.Name = "PostBtn";
             this.PostBtn.Size = new System.Drawing.Size(100, 28);
             this.PostBtn.TabIndex = 7;
