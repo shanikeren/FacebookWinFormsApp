@@ -129,15 +129,20 @@ namespace BasicFacebookFeatures
 
         private void PostBtn_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    Status postedStatus = m_LoggedInUser.PostStatus(PostTextArea.Text);
-            //    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
+            if(PostTextArea.Text != String.Empty)
+            {
+                try
+                {
+                    m_LoggedInUser.PostStatus(PostTextArea.Text);
+                    Posts.Items.Add(PostTextArea.Text);
+                    PostTextArea.Clear();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

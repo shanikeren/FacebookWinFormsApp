@@ -13,11 +13,17 @@ namespace FacebookLogic
     public class InitProfile
     {
         private User m_LoggedInUser;
+        private List<string> m_AddedPosts;
+        private string m_CurrentProfilePictureUrl { get; set; }
+
+        
         private List<DummyUser> friends;
         
         public InitProfile(LoginResult i_loginResult)
         {
             m_LoggedInUser = i_loginResult.LoggedInUser;
+            m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
+            m_AddedPosts = new List<string>();
         }
 
         public void InitFriends()
@@ -155,8 +161,16 @@ namespace FacebookLogic
                    result.Add(post.Caption);
                 }
             }
+
+            foreach(string post in m_AddedPosts)
+            {
+                result.Add(post);
+            }
+
             return result;
         }
+
+        
 
         public List<string> LoadEvents()
         {
@@ -246,6 +260,11 @@ namespace FacebookLogic
                 }
             }
             return result;
+        }
+
+        public void PostStatus(string i_Post)
+        {
+            m_AddedPosts.Add(i_Post);
         }
 
         public List<string> needToVisitPlaces()
