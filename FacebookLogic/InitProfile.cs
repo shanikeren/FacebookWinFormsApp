@@ -13,13 +13,123 @@ namespace FacebookLogic
     public class InitProfile
     {
         private User m_LoggedInUser;
-
+        private List<DummyUser> friends;
         
         public InitProfile(LoginResult i_loginResult)
         {
             m_LoggedInUser = i_loginResult.LoggedInUser;
         }
 
+        public void InitFriends()
+        {
+            friends = new List<DummyUser>();
+            List<string> location = CreateCheckins();
+            friends.Add(new DummyUser("Or Elkabetz"));
+            friends.Add(new DummyUser("Gil Fishman"));
+            friends.Add(new DummyUser("Guy Yomtov"));
+            friends.Add(new DummyUser("Moshe Alfasi"));
+            friends.Add(new DummyUser("Alon Shakaroff"));
+            friends.Add(new DummyUser("Amit Leibovitch"));
+            friends.Add(new DummyUser("Snir Pinievsky"));
+            friends.Add(new DummyUser("Yoav Geva"));
+            friends.Add(new DummyUser("Omer Atar"));
+            friends.Add(new DummyUser("Ofir Bachar"));
+
+            friends.ElementAt(0).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(5));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(15));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(23));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(8));
+
+            friends.ElementAt(1).AddCheckin(location.ElementAt(9));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(22));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(7));
+
+            friends.ElementAt(2).AddCheckin(location.ElementAt(28));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(23));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(26));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(1));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(4));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(5));
+
+            friends.ElementAt(3).AddCheckin(location.ElementAt(6));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(5));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(25));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(1));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(8));
+
+            friends.ElementAt(4).AddCheckin(location.ElementAt(6));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(7));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(2));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(27));
+
+            friends.ElementAt(5).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(16));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(1));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(11));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(24));
+
+            friends.ElementAt(6).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(4));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(6));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(16));
+
+            friends.ElementAt(7).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(12));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(2));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(8));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(5));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(9));
+
+        }
+
+        public List<string> CreateCheckins()
+        {
+            List<string> result = new List<string>();
+            result.Add("Tel Aviv");
+            result.Add("Rome");
+            result.Add("Ramat Gan");
+            result.Add("Nesher");
+            result.Add("Omer");
+            result.Add("Nahariya");
+            result.Add("NoNoNo");
+            result.Add("Nisso");
+            result.Add("Aroma");
+            result.Add("Rosh HaNikra");
+
+            result.Add("Yes Planet");
+            result.Add("Zara");
+            result.Add("Kiso");
+            result.Add("Hadson");
+            result.Add("Gan Ner");
+            result.Add("Tel Aviv museum of art");
+            result.Add("Sun Yang");
+            result.Add("Hukok Beach");
+            result.Add("Cafe Cafe");
+            result.Add("Migdal");
+
+            result.Add("Big Tiberias");
+            result.Add("Gan HaShlosha National Park");
+            result.Add("Eilat");
+            result.Add("Taba");
+            result.Add("Shlomo Columns");
+            result.Add("Jerusalem");
+            result.Add("Madrid");
+            result.Add("Terner");
+            result.Add("Israel");
+            result.Add("Paris");
+
+            return result;
+        }
         public string FetchProfilePicture()
         {
             return m_LoggedInUser.PictureNormalURL;
