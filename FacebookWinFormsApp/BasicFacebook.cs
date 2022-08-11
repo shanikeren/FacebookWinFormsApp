@@ -213,6 +213,7 @@ namespace BasicFacebookFeatures
         {
             PictureBox selectedAlbum = sender as PictureBox;
             List<string> picturesUrl = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
+            List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures(selectedAlbum.Name);
             GalleryTab galleryTab = new GalleryTab(picturesUrl);
 
             TabPage newTab = new TabPage();

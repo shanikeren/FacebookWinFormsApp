@@ -32,15 +32,29 @@ namespace BasicFacebookFeatures
             this.PrevBtn = new System.Windows.Forms.Button();
             this.NextBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.topLikedPic2 = new System.Windows.Forms.PictureBox();
+            this.topLikedPic3 = new System.Windows.Forms.PictureBox();
+            this.topLikedPic1 = new System.Windows.Forms.PictureBox();
             this.CurrentImage = new System.Windows.Forms.PictureBox();
+            this.favorite3 = new System.Windows.Forms.PictureBox();
+            this.favorite1 = new System.Windows.Forms.PictureBox();
+            this.favorite2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.topLikedPic2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topLikedPic3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topLikedPic1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CurrentImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.favorite3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.favorite1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.favorite2)).BeginInit();
             this.SuspendLayout();
             // 
             // PrevBtn
             // 
-            this.PrevBtn.Location = new System.Drawing.Point(138, 592);
+            this.PrevBtn.Location = new System.Drawing.Point(66, 832);
+            this.PrevBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PrevBtn.Name = "PrevBtn";
-            this.PrevBtn.Size = new System.Drawing.Size(75, 23);
+            this.PrevBtn.Size = new System.Drawing.Size(112, 35);
             this.PrevBtn.TabIndex = 1;
             this.PrevBtn.Text = "Prev";
             this.PrevBtn.UseVisualStyleBackColor = true;
@@ -48,9 +62,10 @@ namespace BasicFacebookFeatures
             // 
             // NextBtn
             // 
-            this.NextBtn.Location = new System.Drawing.Point(602, 592);
+            this.NextBtn.Location = new System.Drawing.Point(1052, 832);
+            this.NextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NextBtn.Name = "NextBtn";
-            this.NextBtn.Size = new System.Drawing.Size(75, 23);
+            this.NextBtn.Size = new System.Drawing.Size(112, 35);
             this.NextBtn.TabIndex = 2;
             this.NextBtn.Text = "Next";
             this.NextBtn.UseVisualStyleBackColor = true;
@@ -64,36 +79,114 @@ namespace BasicFacebookFeatures
             this.closeBtn.FlatAppearance.BorderSize = 0;
             this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.closeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.closeBtn.Location = new System.Drawing.Point(768, 26);
+            this.closeBtn.Location = new System.Drawing.Point(1152, 40);
             this.closeBtn.Margin = new System.Windows.Forms.Padding(0);
             this.closeBtn.Name = "closeBtn";
-            this.closeBtn.Size = new System.Drawing.Size(24, 23);
+            this.closeBtn.Size = new System.Drawing.Size(36, 35);
             this.closeBtn.TabIndex = 3;
             this.closeBtn.Text = "X";
             this.closeBtn.UseVisualStyleBackColor = false;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1478, 1538);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(48, 47);
+            this.button1.TabIndex = 7;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // topLikedPic2
+            // 
+            this.topLikedPic2.Location = new System.Drawing.Point(523, 911);
+            this.topLikedPic2.Name = "topLikedPic2";
+            this.topLikedPic2.Size = new System.Drawing.Size(163, 145);
+            this.topLikedPic2.TabIndex = 6;
+            this.topLikedPic2.TabStop = false;
+            // 
+            // topLikedPic3
+            // 
+            this.topLikedPic3.Location = new System.Drawing.Point(854, 911);
+            this.topLikedPic3.Name = "topLikedPic3";
+            this.topLikedPic3.Size = new System.Drawing.Size(163, 145);
+            this.topLikedPic3.TabIndex = 5;
+            this.topLikedPic3.TabStop = false;
+            // 
+            // topLikedPic1
+            // 
+            this.topLikedPic1.Location = new System.Drawing.Point(207, 911);
+            this.topLikedPic1.Name = "topLikedPic1";
+            this.topLikedPic1.Size = new System.Drawing.Size(163, 145);
+            this.topLikedPic1.TabIndex = 4;
+            this.topLikedPic1.TabStop = false;
+            // 
             // CurrentImage
             // 
             this.CurrentImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.CurrentImage.Location = new System.Drawing.Point(138, 89);
+            this.CurrentImage.Location = new System.Drawing.Point(207, 137);
+            this.CurrentImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CurrentImage.Name = "CurrentImage";
-            this.CurrentImage.Size = new System.Drawing.Size(539, 435);
+            this.CurrentImage.Size = new System.Drawing.Size(810, 730);
             this.CurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CurrentImage.TabIndex = 0;
             this.CurrentImage.TabStop = false;
             // 
+            // favorite3
+            // 
+            this.favorite3.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
+            this.favorite3.Location = new System.Drawing.Point(983, 1023);
+            this.favorite3.Name = "favorite3";
+            this.favorite3.Size = new System.Drawing.Size(34, 33);
+            this.favorite3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.favorite3.TabIndex = 8;
+            this.favorite3.TabStop = false;
+            // 
+            // favorite1
+            // 
+            this.favorite1.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
+            this.favorite1.Location = new System.Drawing.Point(336, 1023);
+            this.favorite1.Name = "favorite1";
+            this.favorite1.Size = new System.Drawing.Size(34, 33);
+            this.favorite1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.favorite1.TabIndex = 9;
+            this.favorite1.TabStop = false;
+            // 
+            // favorite2
+            // 
+            this.favorite2.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
+            this.favorite2.Location = new System.Drawing.Point(652, 1023);
+            this.favorite2.Name = "favorite2";
+            this.favorite2.Size = new System.Drawing.Size(34, 33);
+            this.favorite2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.favorite2.TabIndex = 10;
+            this.favorite2.TabStop = false;
+            // 
             // GalleryTab
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.Controls.Add(this.favorite2);
+            this.Controls.Add(this.favorite1);
+            this.Controls.Add(this.favorite3);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.topLikedPic2);
+            this.Controls.Add(this.topLikedPic3);
+            this.Controls.Add(this.topLikedPic1);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.NextBtn);
             this.Controls.Add(this.PrevBtn);
             this.Controls.Add(this.CurrentImage);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GalleryTab";
-            this.Size = new System.Drawing.Size(822, 699);
+            this.Size = new System.Drawing.Size(1231, 1130);
+            ((System.ComponentModel.ISupportInitialize)(this.topLikedPic2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topLikedPic3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.topLikedPic1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CurrentImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.favorite3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.favorite1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.favorite2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -104,5 +197,12 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Button PrevBtn;
         private System.Windows.Forms.Button NextBtn;
         private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.PictureBox topLikedPic1;
+        private System.Windows.Forms.PictureBox topLikedPic3;
+        private System.Windows.Forms.PictureBox topLikedPic2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox favorite3;
+        private System.Windows.Forms.PictureBox favorite1;
+        private System.Windows.Forms.PictureBox favorite2;
     }
 }

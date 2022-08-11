@@ -14,6 +14,8 @@ namespace FacebookLogic
     {
         private User m_LoggedInUser;
         private List<string> m_AddedPosts;
+        private readonly DummyDataGenerator m_MyDummyDataGenerator;
+        
         private string m_CurrentProfilePictureUrl { get; set; }
 
         
@@ -24,6 +26,7 @@ namespace FacebookLogic
             m_LoggedInUser = i_loginResult.LoggedInUser;
             m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
             m_AddedPosts = new List<string>();
+            m_MyDummyDataGenerator = new DummyDataGenerator();
         }
 
         public void InitFriends()
@@ -172,7 +175,6 @@ namespace FacebookLogic
             return result;
         }
 
-        
 
         public List<string> LoadEvents()
         {
@@ -249,6 +251,34 @@ namespace FacebookLogic
             return albumPics;
         }
 
+        public List<string> FetchTopRatedPictures(string i_AlbumName)
+        {
+            Album requesteAlbum = null;
+            List<string> result = null;
+
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                if (album.Name == i_AlbumName)
+                {
+                    requesteAlbum = album;
+                    m_MyDummyDataGenerator.GenerateDummyTopRatedPictures(requesteAlbum);
+                    break;
+                }
+            }
+
+            //List<string> SortedList = m_LoggedInUser.Albums.Photos.OrderBy(a => a.LikedBy.Count).ToList();
+            if(requesteAlbum != null)
+            {
+                List<Photo> SortedList = requesteAlbum.Photos.OrderBy(pic => pic.LikedBy).ToList();
+                
+                for (int i = SortedList.Count - 1; i >= 0 && i > SortedList.Count; i-- )
+                {
+                    result.Add(SortedList.ElementAt(i).PictureNormalURL);
+                }
+            }
+            return result;
+        }
+
 
         private List<Location> GetCheckIn()
         {
@@ -289,5 +319,6 @@ namespace FacebookLogic
         
             return result;
         }
+
     }
 }
