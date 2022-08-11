@@ -193,7 +193,7 @@ namespace FacebookLogic
 
         public List<string> FetchTopVisitPlaces()
         {
-            List<string> result = null;
+            List<string> result = new List<string>();
 
             foreach (DummyUser user in m_MyDummyDataGenerator.m_Friends)
             {
