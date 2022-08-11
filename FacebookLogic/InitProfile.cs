@@ -251,34 +251,66 @@ namespace FacebookLogic
             return albumPics;
         }
 
+        public delegate int Comparison<Photo>(Photo pic1, Photo pic2);
+
+        public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
+        {
+            Album requesteAlbum = null;
+            List<string> result = new List<string>();
+            List<Photo> sortedDummyLikedByData;
+
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                if (album.Name == i_AlbumName)
+                {
+                   requesteAlbum = album;
+                   sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
+                    sortedDummyLikedByData.Sort(comparePhotoRating);
+
+                    for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
+                    {
+                        result.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
+                    }
+                    break;
+                }
+            }
+
+            return result;
+        }
+
         public List<string> FetchTopRatedPictures(string i_AlbumName)
         {
             Album requesteAlbum = null;
-            List<string> result = null;
+            List<string> result = new List<string>();
+            List<(int, Photo)> dummyLikedByData;
 
             foreach (Album album in m_LoggedInUser.Albums)
             {
                 if (album.Name == i_AlbumName)
                 {
                     requesteAlbum = album;
-                    m_MyDummyDataGenerator.GenerateDummyTopRatedPictures(requesteAlbum);
+                    dummyLikedByData = m_MyDummyDataGenerator.GenerateDummyTopRatedPictures(requesteAlbum);
+                    dummyLikedByData.Sort(comparePhotoRating);
+                    for (int i = dummyLikedByData.Count - 1; i >= 0 && i > dummyLikedByData.Count - 4; i--)
+                    {
+                        result.Add(dummyLikedByData.ElementAt(i).Item2.PictureNormalURL);
+                    }
                     break;
                 }
             }
 
-            //List<string> SortedList = m_LoggedInUser.Albums.Photos.OrderBy(a => a.LikedBy.Count).ToList();
-            if(requesteAlbum != null)
-            {
-                List<Photo> SortedList = requesteAlbum.Photos.OrderBy(pic => pic.LikedBy).ToList();
-                
-                for (int i = SortedList.Count - 1; i >= 0 && i > SortedList.Count - 4; i-- )
-                {
-                    result.Add(SortedList.ElementAt(i).PictureNormalURL);
-                }
-            }
             return result;
         }
 
+        private int comparePhotoRating(Photo i_pic1, Photo i_pic2)
+        {
+            return i_pic1.LikedBy.Count.CompareTo(i_pic2.LikedBy.Count);
+        }
+
+        private int comparePhotoRating((int, Photo) x, (int, Photo) y)
+        {
+            return x.Item1.CompareTo(y.Item1);
+        }
 
         private List<Location> GetCheckIn()
         {
