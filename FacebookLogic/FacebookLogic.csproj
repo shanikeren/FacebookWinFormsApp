@@ -39,6 +39,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyDataGenerator.cs" />
+    <Compile Include="DummyUser.cs" />
     <Compile Include="InitProfile.cs" />
   </ItemGroup>
   <ItemGroup>

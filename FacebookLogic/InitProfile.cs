@@ -14,16 +14,131 @@ namespace FacebookLogic
     {
         private User m_LoggedInUser;
         private List<string> m_AddedPosts;
+        private readonly DummyDataGenerator m_MyDummyDataGenerator;
+        
         private string m_CurrentProfilePictureUrl { get; set; }
 
+        
+        private List<DummyUser> friends;
         
         public InitProfile(LoginResult i_loginResult)
         {
             m_LoggedInUser = i_loginResult.LoggedInUser;
             m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
             m_AddedPosts = new List<string>();
+            m_MyDummyDataGenerator = new DummyDataGenerator();
         }
 
+        public void InitFriends()
+        {
+            friends = new List<DummyUser>();
+            List<string> location = CreateCheckins();
+            friends.Add(new DummyUser("Or Elkabetz"));
+            friends.Add(new DummyUser("Gil Fishman"));
+            friends.Add(new DummyUser("Guy Yomtov"));
+            friends.Add(new DummyUser("Moshe Alfasi"));
+            friends.Add(new DummyUser("Alon Shakaroff"));
+            friends.Add(new DummyUser("Amit Leibovitch"));
+            friends.Add(new DummyUser("Snir Pinievsky"));
+            friends.Add(new DummyUser("Yoav Geva"));
+            friends.Add(new DummyUser("Omer Atar"));
+            friends.Add(new DummyUser("Ofir Bachar"));
+
+            friends.ElementAt(0).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(5));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(15));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(23));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(0).AddCheckin(location.ElementAt(8));
+
+            friends.ElementAt(1).AddCheckin(location.ElementAt(9));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(22));
+            friends.ElementAt(1).AddCheckin(location.ElementAt(7));
+
+            friends.ElementAt(2).AddCheckin(location.ElementAt(28));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(23));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(26));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(1));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(4));
+            friends.ElementAt(2).AddCheckin(location.ElementAt(5));
+
+            friends.ElementAt(3).AddCheckin(location.ElementAt(6));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(5));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(25));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(1));
+            friends.ElementAt(3).AddCheckin(location.ElementAt(8));
+
+            friends.ElementAt(4).AddCheckin(location.ElementAt(6));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(7));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(2));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(4).AddCheckin(location.ElementAt(27));
+
+            friends.ElementAt(5).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(16));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(1));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(11));
+            friends.ElementAt(5).AddCheckin(location.ElementAt(24));
+
+            friends.ElementAt(6).AddCheckin(location.ElementAt(0));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(4));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(6));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(13));
+            friends.ElementAt(6).AddCheckin(location.ElementAt(16));
+
+            friends.ElementAt(7).AddCheckin(location.ElementAt(14));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(12));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(2));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(8));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(5));
+            friends.ElementAt(7).AddCheckin(location.ElementAt(9));
+
+        }
+
+        public List<string> CreateCheckins()
+        {
+            List<string> result = new List<string>();
+            result.Add("Tel Aviv");
+            result.Add("Rome");
+            result.Add("Ramat Gan");
+            result.Add("Nesher");
+            result.Add("Omer");
+            result.Add("Nahariya");
+            result.Add("NoNoNo");
+            result.Add("Nisso");
+            result.Add("Aroma");
+            result.Add("Rosh HaNikra");
+
+            result.Add("Yes Planet");
+            result.Add("Zara");
+            result.Add("Kiso");
+            result.Add("Hadson");
+            result.Add("Gan Ner");
+            result.Add("Tel Aviv museum of art");
+            result.Add("Sun Yang");
+            result.Add("Hukok Beach");
+            result.Add("Cafe Cafe");
+            result.Add("Migdal");
+
+            result.Add("Big Tiberias");
+            result.Add("Gan HaShlosha National Park");
+            result.Add("Eilat");
+            result.Add("Taba");
+            result.Add("Shlomo Columns");
+            result.Add("Jerusalem");
+            result.Add("Madrid");
+            result.Add("Terner");
+            result.Add("Israel");
+            result.Add("Paris");
+
+            return result;
+        }
         public string FetchProfilePicture()
         {
             return m_LoggedInUser.PictureNormalURL;
@@ -38,6 +153,11 @@ namespace FacebookLogic
              * 
             */
             List<string> result = new List<string>();
+            foreach (string post in m_AddedPosts)
+            {
+                result.Add(post);
+            }
+
             foreach (Post post in m_LoggedInUser.Posts)
             {
                 if (post.Message != null)
@@ -50,15 +170,11 @@ namespace FacebookLogic
                 }
             }
 
-            foreach(string post in m_AddedPosts)
-            {
-                result.Add(post);
-            }
+            
 
             return result;
         }
 
-        
 
         public List<string> LoadEvents()
         {
@@ -135,6 +251,34 @@ namespace FacebookLogic
             return albumPics;
         }
 
+        public List<string> FetchTopRatedPictures(string i_AlbumName)
+        {
+            Album requesteAlbum = null;
+            List<string> result = null;
+
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                if (album.Name == i_AlbumName)
+                {
+                    requesteAlbum = album;
+                    m_MyDummyDataGenerator.GenerateDummyTopRatedPictures(requesteAlbum);
+                    break;
+                }
+            }
+
+            //List<string> SortedList = m_LoggedInUser.Albums.Photos.OrderBy(a => a.LikedBy.Count).ToList();
+            if(requesteAlbum != null)
+            {
+                List<Photo> SortedList = requesteAlbum.Photos.OrderBy(pic => pic.LikedBy).ToList();
+                
+                for (int i = SortedList.Count - 1; i >= 0 && i > SortedList.Count - 4; i-- )
+                {
+                    result.Add(SortedList.ElementAt(i).PictureNormalURL);
+                }
+            }
+            return result;
+        }
+
 
         private List<Location> GetCheckIn()
         {
@@ -152,7 +296,7 @@ namespace FacebookLogic
 
         public void PostStatus(string i_Post)
         {
-            m_AddedPosts.Add(i_Post);
+            m_AddedPosts.Insert(0,i_Post);
         }
 
         public List<string> needToVisitPlaces()
@@ -175,5 +319,6 @@ namespace FacebookLogic
         
             return result;
         }
+
     }
 }
