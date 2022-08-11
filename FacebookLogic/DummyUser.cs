@@ -9,7 +9,7 @@ namespace FacebookLogic
 {
     public class DummyUser  : User
     {
-        private List<string> m_checkins { get; set; }
+        public List<string> m_checkins { get; set; }
 
         public DummyUser(string name)
         {
