@@ -271,7 +271,7 @@ namespace FacebookLogic
             {
                 List<Photo> SortedList = requesteAlbum.Photos.OrderBy(pic => pic.LikedBy).ToList();
                 
-                for (int i = SortedList.Count - 1; i >= 0 && i > SortedList.Count; i-- )
+                for (int i = SortedList.Count - 1; i >= 0 && i > SortedList.Count - 4; i-- )
                 {
                     result.Add(SortedList.ElementAt(i).PictureNormalURL);
                 }

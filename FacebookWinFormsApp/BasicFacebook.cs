@@ -212,9 +212,9 @@ namespace BasicFacebookFeatures
         private void PB_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             PictureBox selectedAlbum = sender as PictureBox;
-            List<string> picturesUrl = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
-            List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures(selectedAlbum.Name);
-            GalleryTab galleryTab = new GalleryTab(picturesUrl);
+            List<string> picturesUrls = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
+         //   List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures(selectedAlbum.Name);
+            GalleryTab galleryTab = new GalleryTab(picturesUrls/*, topRatedPictures*/);
 
             TabPage newTab = new TabPage();
             newTab.Text = selectedAlbum.Name;

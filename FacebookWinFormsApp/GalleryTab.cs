@@ -13,12 +13,15 @@ namespace BasicFacebookFeatures
     public partial class GalleryTab : UserControl
     {
         private string[] m_PicturesUrls;
+        private string[] m_TopRatedPicturesUrls;
+
         int index = 0;
 
-        public GalleryTab(List<string> i_picturesUrl)
+        public GalleryTab(List<string> i_picturesUrl/*, List<string> i_TopRatedPictures*/)
         {
             InitializeComponent();
             m_PicturesUrls = i_picturesUrl.ToArray();
+      //      m_TopRatedPicturesUrls = i_TopRatedPictures.ToArray();
             CurrentImage.Load(m_PicturesUrls[index]);
         }
 
@@ -49,6 +52,14 @@ namespace BasicFacebookFeatures
 
             CurrentImage.Load(m_PicturesUrls[index]);
 
+        }
+
+        private void topRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            PictureBox selctedTopPicture = sender as PictureBox;
+            //index = m_PicturesUrls.
+            
+            //Array.FindIndex<String>(m_PicturesUrls, selctedTopPicture.);
         }
     }
 }
