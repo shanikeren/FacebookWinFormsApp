@@ -150,6 +150,11 @@ namespace FacebookLogic
              * 
             */
             List<string> result = new List<string>();
+            foreach (string post in m_AddedPosts)
+            {
+                result.Add(post);
+            }
+
             foreach (Post post in m_LoggedInUser.Posts)
             {
                 if (post.Message != null)
@@ -162,10 +167,7 @@ namespace FacebookLogic
                 }
             }
 
-            foreach(string post in m_AddedPosts)
-            {
-                result.Add(post);
-            }
+            
 
             return result;
         }
@@ -264,7 +266,7 @@ namespace FacebookLogic
 
         public void PostStatus(string i_Post)
         {
-            m_AddedPosts.Add(i_Post);
+            m_AddedPosts.Insert(0,i_Post);
         }
 
         public List<string> needToVisitPlaces()

@@ -134,7 +134,8 @@ namespace BasicFacebookFeatures
                 try
                 {
                     m_LoggedInUser.PostStatus(PostTextArea.Text);
-                    Posts.Items.Add(PostTextArea.Text);
+                    Posts.Items.Clear();
+                    fetchPosts();
                     PostTextArea.Clear();
                 }
                 catch (Exception ex)
