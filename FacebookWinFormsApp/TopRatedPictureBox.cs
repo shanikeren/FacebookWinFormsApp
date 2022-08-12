@@ -41,5 +41,11 @@ namespace BasicFacebookFeatures
             changeProfilePicture?.Invoke(this, null);
         }
 
+        private void changeBtn_MouseHover(object sender, EventArgs e)
+        {
+            PictureBox starBox = sender as PictureBox;
+            ToolTip tt = new ToolTip();
+            tt.SetToolTip(starBox,"set as profile picture");
+        }
     }
 }

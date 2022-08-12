@@ -97,7 +97,7 @@ namespace FacebookLogic
             {
                 if(currEvent.Item2.CompareTo(currentDate) >= 0)
                 {
-                    upcomingEvent = currEvent.Item1 +" at: " + currEvent.Item2.Date;
+                    upcomingEvent = currEvent.Item1 +" at: " + currEvent.Item2.ToShortDateString();
                     break;
                 }
             }
@@ -109,19 +109,6 @@ namespace FacebookLogic
         {
             return i_event1.Item2.CompareTo(i_event2.Item2);
         }
-
-        public List<string> LoadGroups()
-        {
-            List<string> result = new List<string>();
-            
-            foreach (Group group in m_LoggedInUser.Groups)
-            {
-                result.Add(group.Name);
-            }
-
-            return result;
-        }
-
 
         public List<string> LoadPages()
         {
@@ -252,6 +239,7 @@ namespace FacebookLogic
         public List<(string,int)> FetchTopVisitPlaces()
         {
             List<(string,int)> result = new List<(string, int)>();
+            m_MyDummyDataGenerator.ClearLoctions();
 
             foreach (DummyUser user in m_MyDummyDataGenerator.m_Friends)
             {

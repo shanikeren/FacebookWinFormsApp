@@ -53,6 +53,7 @@ namespace BasicFacebookFeatures
             this.changeBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.changeBtn.TabIndex = 1;
             this.changeBtn.TabStop = false;
+            this.changeBtn.MouseHover += new System.EventHandler(this.changeBtn_MouseHover);
             // 
             // TopRatedPictureBox
             // 

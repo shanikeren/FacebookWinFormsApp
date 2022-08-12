@@ -22,20 +22,21 @@ namespace BasicFacebookFeatures
     public partial class BasicFacebook : Form
     {
         private InitProfile m_LoggedInUser;
-        public LoginResult res;
+        public LoginResult m_res;
+        private string m_AccessToken;
         
         public BasicFacebook(LoginResult i_loginResult)
         {
             InitializeComponent();
             initAlbumListView();
+            m_AccessToken = i_loginResult.AccessToken;
             m_LoggedInUser = new InitProfile(i_loginResult);
-            res = i_loginResult;
+            m_res = i_loginResult;
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
             fetchPages();
             fetchAlbums();
-     
         }
 
         private void initAlbumListView()
@@ -92,8 +93,12 @@ namespace BasicFacebookFeatures
      
         private void onClickLogOutBtn(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
+            FacebookService.Logout();
             this.Text = "Loging Out...";
+            this.Visible = false;
+            FormMain formMain = new FormMain();
+            formMain.ShowDialog();
+            this.Close();
         }
 
         private void PostBtn_Click(object sender, EventArgs e)
@@ -115,12 +120,6 @@ namespace BasicFacebookFeatures
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            FacebookService.LogoutWithUI();
-            this.Text = "Loging Out...";
-        
-        }
 
         // ALBUMS //
         private void fetchAlbums()
@@ -150,15 +149,15 @@ namespace BasicFacebookFeatures
                 PB.Size = new Size(126, 96);
                 PB.SizeMode = PictureBoxSizeMode.StretchImage;
                 PB.MouseHover += PB_MouseHover;
-                PB.MouseDoubleClick += PB_MouseDoubleClick;
+                PB.MouseDoubleClick += album_MouseDoubleClick;
             }
         }
 
-        private void PB_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void album_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             PictureBox selectedAlbum = sender as PictureBox;
             List<string> picturesUrls = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
-            List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures(selectedAlbum.Name);
+            List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures_WithUserDummy(selectedAlbum.Name);
             GalleryTab galleryTab = new GalleryTab(picturesUrls, topRatedPictures, profilePicture);
 
             TabPage newTab = new TabPage();
@@ -169,7 +168,6 @@ namespace BasicFacebookFeatures
             galleryTab.Visible = true;
             galleryTab.Dock = DockStyle.Fill;
             basic.SelectedTab = newTab;
-           // MessageBox.Show("Chosen Album is: " + PB.Name +". Make a new galleryTab");
 
         }
 
@@ -179,11 +177,6 @@ namespace BasicFacebookFeatures
             ToolTip tt = new ToolTip();
             tt.SetToolTip(PB, PB.Name);
            
-        }
-
-        private void AlbumListView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
-        {
-            e.Item.ToolTipText = e.Item.Text;
         }
   
         private void buttonCheckIn_Click(object sender, EventArgs e)
@@ -210,6 +203,26 @@ namespace BasicFacebookFeatures
                 visitsChart.Series["Visits"].Points.AddXY(visit.Item1, visit.Item2);
             }
             visitsChart.Visible = true;
+        }
+
+        private void basic_TabIndexChanged(object sender, EventArgs e)
+        {
+            listBoxCheckins.Items.Clear();
+            foreach(Series series in visitsChart.Series)
+            {
+                series.Points.Clear();
+            }
+        }
+
+        private void BasicFacebook_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FacebookService.Logout();
+            this.Text = "Loging Out...";
+            this.Visible = false;
+            FormMain formMain = new FormMain();
+            formMain.ShowDialog();
+            this.Close();
+
         }
     }
 }

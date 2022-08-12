@@ -31,9 +31,9 @@ namespace BasicFacebookFeatures
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.profilePicture = new System.Windows.Forms.PictureBox();
             this.LogOut_Btn = new System.Windows.Forms.Button();
             this.PagesListBox = new System.Windows.Forms.ListBox();
@@ -155,6 +155,8 @@ namespace BasicFacebookFeatures
             this.basic.Size = new System.Drawing.Size(1434, 1051);
             this.basic.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.basic.TabIndex = 10;
+            this.basic.SelectedIndexChanged += new System.EventHandler(this.basic_TabIndexChanged);
+            this.basic.TabIndexChanged += new System.EventHandler(this.basic_TabIndexChanged);
             // 
             // tabPage1
             // 
@@ -177,7 +179,7 @@ namespace BasicFacebookFeatures
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.tabPage1.Size = new System.Drawing.Size(1426, 1018);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Welcome";
             // 
             // AlbumsPanel
             // 
@@ -222,30 +224,30 @@ namespace BasicFacebookFeatures
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.tabPage2.Size = new System.Drawing.Size(1365, 981);
+            this.tabPage2.Size = new System.Drawing.Size(1426, 1018);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "where to visit?";
             // 
             // visitsChart
             // 
             this.visitsChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.Name = "ChartArea1";
-            this.visitsChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.visitsChart.Legends.Add(legend3);
+            this.visitsChart.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.visitsChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.visitsChart.Legends.Add(legend1);
             this.visitsChart.Location = new System.Drawing.Point(560, 431);
             this.visitsChart.MinimumSize = new System.Drawing.Size(400, 120);
             this.visitsChart.Name = "visitsChart";
             this.visitsChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Visits";
-            this.visitsChart.Series.Add(series3);
-            this.visitsChart.Size = new System.Drawing.Size(654, 353);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Visits";
+            this.visitsChart.Series.Add(series1);
+            this.visitsChart.Size = new System.Drawing.Size(715, 353);
             this.visitsChart.TabIndex = 3;
             this.visitsChart.Text = "chart1";
-            this.visitsChart.Visible = false;
             // 
             // listBoxCheckins
             // 
@@ -292,6 +294,7 @@ namespace BasicFacebookFeatures
             this.Name = "BasicFacebook";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Text = "BasicFacebook";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BasicFacebook_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).EndInit();
             this.basic.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

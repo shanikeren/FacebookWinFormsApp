@@ -91,6 +91,14 @@ namespace FacebookLogic
             return m_dummyEvents;
         }
 
+        public void ClearLoctions()
+        {
+            foreach(MyLocation cuurLoc in m_Location)
+            {
+                cuurLoc.m_AmountVisit = 0;
+            }
+        }
+
         public void CreateCheckins()
         {
             m_Location.Add(new MyLocation("Tel Aviv"));

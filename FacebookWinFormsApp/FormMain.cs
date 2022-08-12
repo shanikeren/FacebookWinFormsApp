@@ -51,12 +51,13 @@ namespace BasicFacebookFeatures
             this.Visible = false;
             basicFacebook.ShowDialog();
             this.Close();
+
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-			FacebookService.LogoutWithUI();
-			buttonLogin.Text = "Login";
-		}
-	}
+            this.Text = "Bye...";
+            this.Close();
+        }
+    }
 }
