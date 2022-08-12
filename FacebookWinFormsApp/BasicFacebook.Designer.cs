@@ -90,7 +90,6 @@ namespace BasicFacebookFeatures
             this.PagesListBox.Size = new System.Drawing.Size(952, 104);
             this.PagesListBox.TabIndex = 3;
             this.PagesListBox.Tag = "";
-            this.PagesListBox.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // EventTextBox
             // 
@@ -112,7 +111,6 @@ namespace BasicFacebookFeatures
             this.PostTextArea.Name = "PostTextArea";
             this.PostTextArea.Size = new System.Drawing.Size(952, 95);
             this.PostTextArea.TabIndex = 6;
-            this.PostTextArea.TextChanged += new System.EventHandler(this.PostTextArea_TextChanged);
             // 
             // PostBtn
             // 
@@ -141,7 +139,6 @@ namespace BasicFacebookFeatures
             this.Posts.Name = "Posts";
             this.Posts.Size = new System.Drawing.Size(949, 324);
             this.Posts.TabIndex = 8;
-            this.Posts.SelectedIndexChanged += new System.EventHandler(this.Posts_SelectedIndexChanged);
             // 
             // basic
             // 
@@ -270,7 +267,6 @@ namespace BasicFacebookFeatures
             this.checkinLabel.Size = new System.Drawing.Size(149, 26);
             this.checkinLabel.TabIndex = 0;
             this.checkinLabel.Text = "places to visit!";
-            this.checkinLabel.Click += new System.EventHandler(this.checkinLabel_Click);
             // 
             // RememberMeCheckBox
             // 

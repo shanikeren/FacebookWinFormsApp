@@ -32,9 +32,7 @@ namespace BasicFacebookFeatures
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
-            fetchGroups();
             fetchPages();
-            //Tomer added
             fetchAlbums();
      
         }
@@ -67,22 +65,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void fetchEvents()
-        {
-            //PagesList.Items.Clear();
-
-            //List<string> eventsList = m_LoggedInUser.LoadPosts();
-            //foreach (string fbEvent in eventsList)
-            //{
-            //    PagesList.Items.Add(fbEvent);
-            //}
-
-            //if (PagesList.Items.Count == 0)
-            //{
-            //    MessageBox.Show("No Events yet");
-            //}
-        }
-
         private void fetchPages()
         {
             PagesListBox.Items.Clear();
@@ -113,18 +95,6 @@ namespace BasicFacebookFeatures
             this.Text = "Loging Out...";
         }
 
-         // whyyyyyy cant we get groups???  
-        private void fetchGroups()
-        {
-            listViewGroups.Items.Clear();
-            //LogicUser.clearAlbums();
-
-            foreach (Group group in res.LoggedInUser.Groups) // initialize listView items display
-            {
-                listViewGroups.LargeImageList.Images.Add(group.ImageLarge);
-            }
-        }
-
         private void PostBtn_Click(object sender, EventArgs e)
         {
             if(PostTextArea.Text != String.Empty)
@@ -150,30 +120,6 @@ namespace BasicFacebookFeatures
             this.Text = "Loging Out...";
         
         }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Method for groups, suppose to do what?
-            // Maybe we should do it as hovering a group's name?
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void Posts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-        }
-     
-
-        private void PostTextArea_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
 
         // ALBUMS //
         private void fetchAlbums()
@@ -238,11 +184,6 @@ namespace BasicFacebookFeatures
             e.Item.ToolTipText = e.Item.Text;
         }
   
-        private void checkinLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonCheckIn_Click(object sender, EventArgs e)
         {
             List<string> checkins = m_LoggedInUser.FetchTopVisitPlaces();
