@@ -122,9 +122,6 @@ namespace BasicFacebookFeatures
             {
                 listViewGroups.LargeImageList.Images.Add(group.ImageLarge);
             }
-            listViewGroups.Items.Add("1");
-            listViewGroups.Items.Add("1");
-            listViewGroups.Items.Add("1");
         }
 
         private void PostBtn_Click(object sender, EventArgs e)
@@ -247,7 +244,7 @@ namespace BasicFacebookFeatures
 
         private void buttonCheckIn_Click(object sender, EventArgs e)
         {
-            List<string> checkins = m_LoggedInUser.needToVisitPlaces();
+            List<string> checkins = m_LoggedInUser.FetchTopVisitPlaces();
             foreach (string check in checkins) {
                 listBoxCheckins.Items.Add(check);
             }
