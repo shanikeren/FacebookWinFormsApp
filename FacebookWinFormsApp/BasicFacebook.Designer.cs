@@ -86,7 +86,7 @@ namespace BasicFacebookFeatures
             this.PagesListBox.Location = new System.Drawing.Point(287, 835);
             this.PagesListBox.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.PagesListBox.Name = "PagesListBox";
-            this.PagesListBox.Size = new System.Drawing.Size(952, 104);
+            this.PagesListBox.Size = new System.Drawing.Size(907, 104);
             this.PagesListBox.TabIndex = 3;
             this.PagesListBox.Tag = "";
             this.PagesListBox.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
@@ -98,7 +98,7 @@ namespace BasicFacebookFeatures
             this.EventTextBox.Location = new System.Drawing.Point(285, 184);
             this.EventTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.EventTextBox.Name = "EventTextBox";
-            this.EventTextBox.Size = new System.Drawing.Size(960, 26);
+            this.EventTextBox.Size = new System.Drawing.Size(915, 26);
             this.EventTextBox.TabIndex = 5;
             // 
             // PostTextArea
@@ -109,7 +109,7 @@ namespace BasicFacebookFeatures
             this.PostTextArea.Margin = new System.Windows.Forms.Padding(6, 6, 15, 6);
             this.PostTextArea.Multiline = true;
             this.PostTextArea.Name = "PostTextArea";
-            this.PostTextArea.Size = new System.Drawing.Size(952, 95);
+            this.PostTextArea.Size = new System.Drawing.Size(907, 95);
             this.PostTextArea.TabIndex = 6;
             this.PostTextArea.TextChanged += new System.EventHandler(this.PostTextArea_TextChanged);
             // 
@@ -140,7 +140,7 @@ namespace BasicFacebookFeatures
             this.Posts.Location = new System.Drawing.Point(287, 469);
             this.Posts.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Posts.Name = "Posts";
-            this.Posts.Size = new System.Drawing.Size(949, 324);
+            this.Posts.Size = new System.Drawing.Size(904, 324);
             this.Posts.TabIndex = 8;
             this.Posts.SelectedIndexChanged += new System.EventHandler(this.Posts_SelectedIndexChanged);
             // 
@@ -177,7 +177,7 @@ namespace BasicFacebookFeatures
             this.tabPage1.Margin = new System.Windows.Forms.Padding(15, 1, 3, 1);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.tabPage1.Size = new System.Drawing.Size(1391, 953);
+            this.tabPage1.Size = new System.Drawing.Size(1346, 953);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             // 
@@ -201,7 +201,7 @@ namespace BasicFacebookFeatures
             this.listViewGroups.Location = new System.Drawing.Point(285, 25);
             this.listViewGroups.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listViewGroups.Name = "listViewGroups";
-            this.listViewGroups.Size = new System.Drawing.Size(954, 83);
+            this.listViewGroups.Size = new System.Drawing.Size(909, 83);
             this.listViewGroups.TabIndex = 12;
             this.listViewGroups.UseCompatibleStateImageBehavior = false;
             // 
