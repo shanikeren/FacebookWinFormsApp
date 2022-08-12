@@ -39,7 +39,7 @@ namespace BasicFacebookFeatures
             // 
             this.pictureBox.Location = new System.Drawing.Point(3, 3);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(349, 319);
+            this.pictureBox.Size = new System.Drawing.Size(291, 272);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -47,7 +47,7 @@ namespace BasicFacebookFeatures
             // changeBtn
             // 
             this.changeBtn.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
-            this.changeBtn.Location = new System.Drawing.Point(311, 277);
+            this.changeBtn.Location = new System.Drawing.Point(233, 223);
             this.changeBtn.Name = "changeBtn";
             this.changeBtn.Size = new System.Drawing.Size(56, 48);
             this.changeBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -61,7 +61,7 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.changeBtn);
             this.Controls.Add(this.pictureBox);
             this.Name = "TopRatedPictureBox";
-            this.Size = new System.Drawing.Size(370, 325);
+            this.Size = new System.Drawing.Size(292, 274);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeBtn)).EndInit();
             this.ResumeLayout(false);

@@ -162,6 +162,7 @@ namespace BasicFacebookFeatures
 
             TabPage newTab = new TabPage();
             newTab.Text = selectedAlbum.Name;
+            newTab.AutoScroll = true;
             basic.Controls.Add(newTab);
             galleryTab.Parent = newTab;
             galleryTab.Visible = true;
