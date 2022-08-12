@@ -26,7 +26,6 @@ namespace FacebookLogic
             m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
             m_AddedPosts = new List<string>();
             m_MyDummyDataGenerator = new DummyDataGenerator();
-        //    m_LoggedInUser.FriendLists = m_MyDummyDataGenerator.m_Friends;
         }
 
       
@@ -37,12 +36,6 @@ namespace FacebookLogic
 
         public List<string> LoadPosts()
         {
-            /* TODO: don't we want to see here only postposts.
-             * eType = status
-             * Or alternative - hendel each post as it should be handeld (e.g: photo-picBox...)
-             * Or an optin to filter by post eType.
-             * 
-            */
             List<string> result = new List<string>();
             foreach (string post in m_AddedPosts)
             {
@@ -77,10 +70,6 @@ namespace FacebookLogic
             string upcomingEvent = string.Empty;
             List<(string, DateTime)> eventsList = new List<(string, DateTime)>();
             eventsList = LoadEvents();
-            //foreach (Event fbEvent in m_LoggedInUser.Events)
-            //{
-            //    eventsList.Add((fbEvent.Name, (DateTime)fbEvent.UpdateTime));
-            //}
 
             eventsList.Sort(compareEvents);
             upcomingEvent = findNearestEvent(eventsList);
@@ -153,35 +142,6 @@ namespace FacebookLogic
             return albumPics;
         }
 
-        public delegate int Comparison<Photo>(Photo pic1, Photo pic2);
-
-        public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
-        {
-            Album requesteAlbum = null;
-            List<string> result = new List<string>();
-            List<Photo> sortedDummyLikedByData;
-
-            foreach (Album album in m_LoggedInUser.Albums)
-            {
-                if (album.Name == i_AlbumName)
-                {
-                   requesteAlbum = album;
-                   sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
-                    sortedDummyLikedByData.Sort(comparePhotoRating);
-
-                    for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
-                    {
-                        result.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
-                    }
-                    break;
-                }
-
-                
-            }
-
-            return result;
-        }
-
         public List<string> FetchTopRatedPictures(string i_AlbumName)
         {
             Album requesteAlbum = null;
@@ -206,28 +166,10 @@ namespace FacebookLogic
             return result;
         }
 
-        private int comparePhotoRating(Photo i_pic1, Photo i_pic2)
-        {
-            return i_pic1.LikedBy.Count.CompareTo(i_pic2.LikedBy.Count);
-        }
 
         private int comparePhotoRating((int, Photo) x, (int, Photo) y)
         {
             return x.Item1.CompareTo(y.Item1);
-        }
-
-        private List<Location> GetCheckIn()
-        {
-            List<Location> result = new List<Location>();
-            foreach (Post post in m_LoggedInUser.Posts)
-            {
-                ///check enum compare with == or equals
-               if(post.Type == Post.eType.checkin)
-                {
-                    result.Add(post.Place.Location);
-                }
-            }
-            return result;
         }
 
         public void PostStatus(string i_Post)

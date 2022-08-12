@@ -53,29 +53,6 @@ namespace FacebookLogic
             return pictureWithLikes;
         }
 
-        public List<Photo> GenerateDummyTopRatedPictures_WithUSER(Album i_Album)
-        {
-            bool isGenerated;
-
-            isGenerated = m_Generated.Contains(i_Album.Name);
-            if (isGenerated == false)
-            {
-                int amountOfLike;              
-                foreach (Photo img in i_Album.Photos)
-                {
-                    amountOfLike = m_Random.Next(k_AmountOfLikes);
-                    for(int i = 0; i < amountOfLike; i++)
-                    {
-                        img.LikedBy.Add(new User());
-                    }
-                }
-
-                m_Generated.Add(i_Album.Name);
-            }
-
-            return i_Album.Photos.ToList();
-        }
-
         public List<(string, DateTime)> GenerateDummyEvents()
         {
             if(m_dummyEvents.Count == 0)
