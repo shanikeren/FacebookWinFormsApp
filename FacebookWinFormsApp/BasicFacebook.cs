@@ -242,6 +242,7 @@ namespace BasicFacebookFeatures
 
         }
 
+
         private void buttonCheckIn_Click(object sender, EventArgs e)
         {
             List<string> checkins = m_LoggedInUser.FetchTopVisitPlaces();
