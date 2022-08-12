@@ -33,20 +33,9 @@ namespace BasicFacebookFeatures
             this.NextBtn = new System.Windows.Forms.Button();
             this.closeBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.favorite3 = new System.Windows.Forms.PictureBox();
-            this.favorite2 = new System.Windows.Forms.PictureBox();
-            this.favorite1 = new System.Windows.Forms.PictureBox();
+            this.topRatedPicturePanel = new System.Windows.Forms.FlowLayoutPanel();
             this.CurrentImage = new System.Windows.Forms.PictureBox();
-            this.TopRated1 = new System.Windows.Forms.PictureBox();
-            this.TopRated2 = new System.Windows.Forms.PictureBox();
-            this.TopRated3 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.favorite3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.favorite2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.favorite1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CurrentImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TopRated1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TopRated2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TopRated3)).BeginInit();
             this.SuspendLayout();
             // 
             // PrevBtn
@@ -96,35 +85,12 @@ namespace BasicFacebookFeatures
             this.button1.TabIndex = 7;
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // favorite3
+            // topRatedPicturePanel
             // 
-            this.favorite3.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
-            this.favorite3.Location = new System.Drawing.Point(983, 1045);
-            this.favorite3.Name = "favorite3";
-            this.favorite3.Size = new System.Drawing.Size(34, 33);
-            this.favorite3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.favorite3.TabIndex = 8;
-            this.favorite3.TabStop = false;
-            // 
-            // favorite2
-            // 
-            this.favorite2.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
-            this.favorite2.Location = new System.Drawing.Point(656, 1045);
-            this.favorite2.Name = "favorite2";
-            this.favorite2.Size = new System.Drawing.Size(34, 33);
-            this.favorite2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.favorite2.TabIndex = 10;
-            this.favorite2.TabStop = false;
-            // 
-            // favorite1
-            // 
-            this.favorite1.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
-            this.favorite1.Location = new System.Drawing.Point(348, 1045);
-            this.favorite1.Name = "favorite1";
-            this.favorite1.Size = new System.Drawing.Size(34, 33);
-            this.favorite1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.favorite1.TabIndex = 9;
-            this.favorite1.TabStop = false;
+            this.topRatedPicturePanel.Location = new System.Drawing.Point(207, 894);
+            this.topRatedPicturePanel.Name = "topRatedPicturePanel";
+            this.topRatedPicturePanel.Size = new System.Drawing.Size(810, 150);
+            this.topRatedPicturePanel.TabIndex = 14;
             // 
             // CurrentImage
             // 
@@ -137,56 +103,21 @@ namespace BasicFacebookFeatures
             this.CurrentImage.TabIndex = 0;
             this.CurrentImage.TabStop = false;
             // 
-            // TopRated1
-            // 
-            this.TopRated1.Location = new System.Drawing.Point(207, 915);
-            this.TopRated1.Name = "TopRated1";
-            this.TopRated1.Size = new System.Drawing.Size(175, 163);
-            this.TopRated1.TabIndex = 11;
-            this.TopRated1.TabStop = false;
-            // 
-            // TopRated2
-            // 
-            this.TopRated2.Location = new System.Drawing.Point(515, 915);
-            this.TopRated2.Name = "TopRated2";
-            this.TopRated2.Size = new System.Drawing.Size(175, 163);
-            this.TopRated2.TabIndex = 12;
-            this.TopRated2.TabStop = false;
-            // 
-            // TopRated3
-            // 
-            this.TopRated3.Location = new System.Drawing.Point(842, 915);
-            this.TopRated3.Name = "TopRated3";
-            this.TopRated3.Size = new System.Drawing.Size(175, 163);
-            this.TopRated3.TabIndex = 13;
-            this.TopRated3.TabStop = false;
-            // 
             // GalleryTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.Controls.Add(this.favorite3);
+            this.Controls.Add(this.topRatedPicturePanel);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.favorite2);
             this.Controls.Add(this.closeBtn);
-            this.Controls.Add(this.favorite1);
             this.Controls.Add(this.NextBtn);
             this.Controls.Add(this.PrevBtn);
             this.Controls.Add(this.CurrentImage);
-            this.Controls.Add(this.TopRated3);
-            this.Controls.Add(this.TopRated2);
-            this.Controls.Add(this.TopRated1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GalleryTab";
             this.Size = new System.Drawing.Size(1255, 1093);
-            ((System.ComponentModel.ISupportInitialize)(this.favorite3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.favorite2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.favorite1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CurrentImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TopRated1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TopRated2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TopRated3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -198,11 +129,6 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Button NextBtn;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox favorite1;
-        private System.Windows.Forms.PictureBox favorite2;
-        private System.Windows.Forms.PictureBox favorite3;
-        private System.Windows.Forms.PictureBox TopRated1;
-        private System.Windows.Forms.PictureBox TopRated2;
-        private System.Windows.Forms.PictureBox TopRated3;
+        private System.Windows.Forms.FlowLayoutPanel topRatedPicturePanel;
     }
 }

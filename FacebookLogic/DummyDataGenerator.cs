@@ -9,34 +9,67 @@ namespace FacebookLogic
 {
     public class DummyDataGenerator
     {
-        private static Random m_Random;
-        private static HashSet<String> m_GeneratedAlbums;
+        private  Random m_Random;
+        private  Dictionary<String, List<(int, Photo)>> m_GeneratedAlbums;
+        private HashSet<string> m_Generated;
+        private readonly int k_AmountOfLikes = 11;
 
         public List<DummyUser> m_Friends { get; set; }
         public List<MyLocation> m_Location{ get ;set; }
 
         public DummyDataGenerator()
         {
-            m_GeneratedAlbums = new HashSet<string>();
+            m_GeneratedAlbums = new Dictionary<string, List<(int,Photo)>>();
+            m_Generated = new HashSet<string>();
             m_Random = new Random();
             m_Location = new List<MyLocation>();
             CreateCheckins();
             InitFriends();
         }
        
-        public void GenerateDummyTopRatedPictures(Album i_Album)
+        public List<(int, Photo)> GenerateDummyTopRatedPictures(Album i_Album)
         {
-            if(m_GeneratedAlbums.Contains(i_Album.Name) == false)
+            List<(int, Photo)> pictureWithLikes;
+            bool isGenerated;
+            isGenerated = m_GeneratedAlbums.TryGetValue(i_Album.Name, out pictureWithLikes);
+            if(isGenerated == false)
             {
+                int amountOfLike;
+                pictureWithLikes = new List<(int, Photo)>();
                 foreach (Photo img in i_Album.Photos)
                 {
-                    img.LikedBy = new FacebookObjectCollection<User>(m_Random.Next(151)); 
-                    //TODO: might need to change the...
+                    amountOfLike = m_Random.Next(101);
+                    img.LikedBy = new FacebookObjectCollection<User>();
+                    pictureWithLikes.Add((amountOfLike, img));
                 }
 
-                m_GeneratedAlbums.Add(i_Album.Name);
+                m_GeneratedAlbums.Add(i_Album.Name, pictureWithLikes);
             }
-            
+
+            return pictureWithLikes;
+        }
+
+        public List<Photo> GenerateDummyTopRatedPictures_WithUSER(Album i_Album)
+        {
+            bool isGenerated;
+
+            isGenerated = m_Generated.Contains(i_Album.Name);
+            if (isGenerated == false)
+            {
+                int amountOfLike;              
+                foreach (Photo img in i_Album.Photos)
+                {
+                    amountOfLike = m_Random.Next(k_AmountOfLikes);
+                    for(int i = 0; i < amountOfLike; i++)
+                    {
+                        img.LikedBy.Add(new User());
+                    }
+                }
+
+                m_Generated.Add(i_Album.Name);
+            }
+
+            return i_Album.Photos.ToList();
         }
 
         public void CreateCheckins()

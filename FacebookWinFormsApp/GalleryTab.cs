@@ -14,15 +14,29 @@ namespace BasicFacebookFeatures
     {
         private string[] m_PicturesUrls;
         private string[] m_TopRatedPicturesUrls;
+        private int m_CurrentImageIndex = 0;
+        PictureBox m_CurrProfilePicture;
 
-        int index = 0;
-
-        public GalleryTab(List<string> i_picturesUrl/*, List<string> i_TopRatedPictures*/)
+        public GalleryTab(List<string> i_picturesUrl, List<string> i_TopRatedPictures, PictureBox i_profilePictureBox)
         {
             InitializeComponent();
             m_PicturesUrls = i_picturesUrl.ToArray();
-      //      m_TopRatedPicturesUrls = i_TopRatedPictures.ToArray();
-            CurrentImage.Load(m_PicturesUrls[index]);
+            m_TopRatedPicturesUrls = i_TopRatedPictures.ToArray();
+            CurrentImage.Load(m_PicturesUrls[m_CurrentImageIndex]);
+            initializeTopRatedPicture(i_profilePictureBox);
+            m_CurrProfilePicture = i_profilePictureBox;
+        }
+
+        private void initializeTopRatedPicture(PictureBox i_profilePictureBox)
+        {
+            int index = 0;
+            
+            foreach(String url in m_TopRatedPicturesUrls)
+            {
+                index = Array.IndexOf(m_PicturesUrls, url);
+                TopRatedPictureBox topRatedPicture = new TopRatedPictureBox(url, index, this);
+                topRatedPicturePanel.Controls.Add(topRatedPicture);
+            }
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -33,33 +47,38 @@ namespace BasicFacebookFeatures
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            index++;
-            if (index == m_PicturesUrls.Length)
+            m_CurrentImageIndex++;
+            if (m_CurrentImageIndex == m_PicturesUrls.Length)
             {
-                index = 0;
+                m_CurrentImageIndex = 0;
             }
 
-            CurrentImage.Load(m_PicturesUrls[index]);
+            CurrentImage.Load(m_PicturesUrls[m_CurrentImageIndex]);
         }
 
         private void PrevBtn_Click(object sender, EventArgs e)
         {
-            index--;
-            if (index == -1)
+            m_CurrentImageIndex--;
+            if (m_CurrentImageIndex == -1)
             {
-                index = m_PicturesUrls.Length - 1;
+                m_CurrentImageIndex = m_PicturesUrls.Length - 1;
             }
 
-            CurrentImage.Load(m_PicturesUrls[index]);
+            CurrentImage.Load(m_PicturesUrls[m_CurrentImageIndex]);
 
         }
 
-        private void topRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        public void topRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            PictureBox selctedTopPicture = sender as PictureBox;
-            //index = m_PicturesUrls.
-            
-            //Array.FindIndex<String>(m_PicturesUrls, selctedTopPicture.);
+            TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
+            CurrentImage.LoadAsync(selctedTopPicture.Url);
+            m_CurrentImageIndex = selctedTopPicture.IndexOf;
+        }
+
+        public void ChangeBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
+            m_CurrProfilePicture.LoadAsync(selctedTopPicture.Url);
         }
     }
 }
