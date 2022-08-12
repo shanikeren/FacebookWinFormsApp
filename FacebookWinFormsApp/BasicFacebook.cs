@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookLogic;
+using System.Windows.Forms.DataVisualization.Charting;
 
 ////// user name: 
 ///// design.patterns
@@ -187,12 +188,28 @@ namespace BasicFacebookFeatures
   
         private void buttonCheckIn_Click(object sender, EventArgs e)
         {
-            List<string> checkins = m_LoggedInUser.FetchTopVisitPlaces();
-            foreach (string check in checkins) {
-                listBoxCheckins.Items.Add(check);
+            listBoxCheckins.Items.Clear();
+
+            List<(string, int)> checkins = m_LoggedInUser.FetchTopVisitPlaces();
+            foreach ((string, int) check in checkins) {
+                listBoxCheckins.Items.Add(check.Item1);
             }
+
+            fillChart(checkins);
         }
 
-     
+        private void fillChart(List<(string, int)> i_checkins)
+        {
+            foreach (Series series in visitsChart.Series)
+            {
+                series.Points.Clear();
+            }
+
+            foreach((string,int) visit in i_checkins)
+            {
+                visitsChart.Series["Visits"].Points.AddXY(visit.Item1, visit.Item2);
+            }
+            visitsChart.Visible = true;
+        }
     }
 }

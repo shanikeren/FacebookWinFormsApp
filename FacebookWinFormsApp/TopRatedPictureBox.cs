@@ -16,16 +16,17 @@ namespace BasicFacebookFeatures
         public string Url { get; set; }
         public int IndexOf { get; set; }
 
+        public delegate void StarBoxHandler(object sender, MouseEventArgs e);
+        StarBoxHandler changeProfilePicture;
         public TopRatedPictureBox(string i_Url, int i_index, GalleryTab i_ListenerTab)
         {
             InitializeComponent();
             Url = i_Url;
             IndexOf = i_index;
             pictureBox.LoadAsync(Url);
-            changeBtn.MouseClick += new MouseEventHandler(i_ListenerTab.ChangeBtn_MouseClick);
+            changeBtn.MouseClick += new MouseEventHandler(onChangeBtn_MouseClick);
             pictureBox.MouseDoubleClick += new MouseEventHandler(this.OnGotChosen) ;
-            //pictureBox.MouseDoubleClick += new MouseEventHandler(this.MouseDoubleClick);
-
+            changeProfilePicture = new StarBoxHandler(i_ListenerTab.ChangeBtn_MouseClick);
             this.MouseDoubleClick +=  new MouseEventHandler(i_ListenerTab.topRatedPictureBox_MouseDoubleClick);
         }
 
@@ -33,6 +34,11 @@ namespace BasicFacebookFeatures
         {
             
             this.OnMouseDoubleClick(null);
+        }
+
+        private void onChangeBtn_MouseClick(object sender, EventArgs e)
+        {
+            changeProfilePicture?.Invoke(this, null);
         }
 
     }

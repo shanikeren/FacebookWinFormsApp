@@ -40,7 +40,7 @@ namespace BasicFacebookFeatures
             // 
             // PrevBtn
             // 
-            this.PrevBtn.Location = new System.Drawing.Point(66, 832);
+            this.PrevBtn.Location = new System.Drawing.Point(70, 666);
             this.PrevBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PrevBtn.Name = "PrevBtn";
             this.PrevBtn.Size = new System.Drawing.Size(112, 35);
@@ -51,7 +51,7 @@ namespace BasicFacebookFeatures
             // 
             // NextBtn
             // 
-            this.NextBtn.Location = new System.Drawing.Point(1052, 832);
+            this.NextBtn.Location = new System.Drawing.Point(1041, 666);
             this.NextBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NextBtn.Name = "NextBtn";
             this.NextBtn.Size = new System.Drawing.Size(112, 35);
@@ -87,18 +87,20 @@ namespace BasicFacebookFeatures
             // 
             // topRatedPicturePanel
             // 
-            this.topRatedPicturePanel.Location = new System.Drawing.Point(207, 894);
+            this.topRatedPicturePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.topRatedPicturePanel.Location = new System.Drawing.Point(207, 745);
+            this.topRatedPicturePanel.Margin = new System.Windows.Forms.Padding(5);
             this.topRatedPicturePanel.Name = "topRatedPicturePanel";
-            this.topRatedPicturePanel.Size = new System.Drawing.Size(810, 150);
+            this.topRatedPicturePanel.Size = new System.Drawing.Size(810, 186);
             this.topRatedPicturePanel.TabIndex = 14;
             // 
             // CurrentImage
             // 
             this.CurrentImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.CurrentImage.Location = new System.Drawing.Point(207, 137);
+            this.CurrentImage.Location = new System.Drawing.Point(207, 40);
             this.CurrentImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.CurrentImage.Name = "CurrentImage";
-            this.CurrentImage.Size = new System.Drawing.Size(810, 730);
+            this.CurrentImage.Size = new System.Drawing.Size(810, 661);
             this.CurrentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CurrentImage.TabIndex = 0;
             this.CurrentImage.TabStop = false;
@@ -107,6 +109,7 @@ namespace BasicFacebookFeatures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.Controls.Add(this.topRatedPicturePanel);
             this.Controls.Add(this.button1);
@@ -116,7 +119,7 @@ namespace BasicFacebookFeatures
             this.Controls.Add(this.CurrentImage);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GalleryTab";
-            this.Size = new System.Drawing.Size(1255, 1093);
+            this.Size = new System.Drawing.Size(1250, 996);
             ((System.ComponentModel.ISupportInitialize)(this.CurrentImage)).EndInit();
             this.ResumeLayout(false);
 

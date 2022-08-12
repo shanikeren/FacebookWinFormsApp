@@ -79,11 +79,13 @@ namespace BasicFacebookFeatures
         {
             TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
             m_CurrProfilePicture.LoadAsync(selctedTopPicture.Url);
+            m_CurrProfilePicture.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void GalleryTab_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
         }
+
     }
 }

@@ -249,9 +249,9 @@ namespace FacebookLogic
         }
 
 
-        public List<string> FetchTopVisitPlaces()
+        public List<(string,int)> FetchTopVisitPlaces()
         {
-            List<string> result = new List<string>();
+            List<(string,int)> result = new List<(string, int)>();
 
             foreach (DummyUser user in m_MyDummyDataGenerator.m_Friends)
             {
@@ -267,7 +267,7 @@ namespace FacebookLogic
 
             for (int i = 0; i < 10 && i < SortedList.Count; i++)
             {
-                result.Add(SortedList.ElementAt(i).m_Name);
+                result.Add((SortedList.ElementAt(i).m_Name, SortedList.ElementAt(i).m_AmountVisit));
             }
             return result;
         }
