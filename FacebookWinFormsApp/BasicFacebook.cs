@@ -108,11 +108,14 @@ namespace BasicFacebookFeatures
      
         private void onClickLogOutBtn(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
+            FacebookService.Logout();
             this.Text = "Loging Out...";
+            this.Visible = false;
+            FormMain formMain = new FormMain();
+            formMain.ShowDialog();
+            this.Close();
         }
 
-         // whyyyyyy cant we get groups???  
         private void fetchGroups()
         {
             listViewGroups.Items.Clear();
