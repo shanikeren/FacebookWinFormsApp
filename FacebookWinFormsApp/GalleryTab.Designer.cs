@@ -47,7 +47,7 @@ namespace BasicFacebookFeatures
             this.PrevBtn.TabIndex = 1;
             this.PrevBtn.Text = "Prev";
             this.PrevBtn.UseVisualStyleBackColor = true;
-            this.PrevBtn.Click += new System.EventHandler(this.PrevBtn_Click);
+            this.PrevBtn.Click += new System.EventHandler(this.prevBtn_Click);
             // 
             // NextBtn
             // 
@@ -58,7 +58,7 @@ namespace BasicFacebookFeatures
             this.NextBtn.TabIndex = 2;
             this.NextBtn.Text = "Next";
             this.NextBtn.UseVisualStyleBackColor = true;
-            this.NextBtn.Click += new System.EventHandler(this.NextBtn_Click);
+            this.NextBtn.Click += new System.EventHandler(this.nextBtn_Click);
             // 
             // closeBtn
             // 

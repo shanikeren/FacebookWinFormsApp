@@ -45,7 +45,7 @@ namespace BasicFacebookFeatures
             parent.TabPages.Remove((TabPage)this.Parent);
         }
 
-        private void NextBtn_Click(object sender, EventArgs e)
+        private void nextBtn_Click(object sender, EventArgs e)
         {
             m_CurrentImageIndex++;
             if (m_CurrentImageIndex == m_PicturesUrls.Length)
@@ -56,7 +56,7 @@ namespace BasicFacebookFeatures
             CurrentImage.Load(m_PicturesUrls[m_CurrentImageIndex]);
         }
 
-        private void PrevBtn_Click(object sender, EventArgs e)
+        private void prevBtn_Click(object sender, EventArgs e)
         {
             m_CurrentImageIndex--;
             if (m_CurrentImageIndex == -1)
@@ -68,7 +68,7 @@ namespace BasicFacebookFeatures
 
         }
 
-        public void topRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        public void TopRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
             CurrentImage.LoadAsync(selctedTopPicture.Url);
@@ -82,7 +82,7 @@ namespace BasicFacebookFeatures
             m_CurrProfilePicture.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        private void GalleryTab_Load(object sender, EventArgs e)
+        private void galleryTab_Load(object sender, EventArgs e)
         {
             this.Dock = DockStyle.Fill;
         }
