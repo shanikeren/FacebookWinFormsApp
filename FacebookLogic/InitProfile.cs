@@ -67,23 +67,47 @@ namespace FacebookLogic
         }
 
 
-        public List<string> LoadEvents()
+        private List<(string, DateTime)> LoadEvents()
         {
-            List<string> result = new List<string>();
-
-            foreach (Event fbEvent in m_LoggedInUser.Events)
-            {
-                result.Add(fbEvent.Name);
-            }
-
-            return result;
+           return m_MyDummyDataGenerator.GenerateDummyEvents();
         }
 
         public string getUpcomingEvent()
         {
-            //Event upcomingEvent = m_LoggedInUser.Events.ElementAt(0);
-            //return $"{upcomingEvent.Name} at: {upcomingEvent.TimeString}";
-            return "Cant fetch events....";
+            string upcomingEvent = string.Empty;
+            List<(string, DateTime)> eventsList = new List<(string, DateTime)>();
+            eventsList = LoadEvents();
+            //foreach (Event fbEvent in m_LoggedInUser.Events)
+            //{
+            //    eventsList.Add((fbEvent.Name, (DateTime)fbEvent.UpdateTime));
+            //}
+
+            eventsList.Sort(compareEvents);
+            upcomingEvent = findNearestEvent(eventsList);
+
+            return upcomingEvent;
+        }
+
+        private string findNearestEvent(List<(string, DateTime)> i_eventsList)
+        {
+            string upcomingEvent = string.Empty;
+            DateTime currentDate = DateTime.Now.Date;
+
+            foreach((string, DateTime) currEvent in i_eventsList)
+            {
+                if(currEvent.Item2.CompareTo(currentDate) >= 0)
+                {
+                    upcomingEvent = currEvent.Item1 +" at: " + currEvent.Item2.Date;
+                    break;
+                }
+            }
+
+            return upcomingEvent;
+        }
+
+        private int compareEvents((string,DateTime) i_event1, (string,DateTime) i_event2)
+        {
+            return i_event1.Item2.CompareTo(i_event2.Item2);
         }
 
         public List<string> LoadGroups()

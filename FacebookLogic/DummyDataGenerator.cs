@@ -13,6 +13,9 @@ namespace FacebookLogic
         private  Dictionary<String, List<(int, Photo)>> m_GeneratedAlbums;
         private HashSet<string> m_Generated;
         private readonly int k_AmountOfLikes = 11;
+        private List<(string, DateTime)> m_dummyEvents;
+
+
 
         public List<DummyUser> m_Friends { get; set; }
         public List<MyLocation> m_Location{ get ;set; }
@@ -23,6 +26,7 @@ namespace FacebookLogic
             m_Generated = new HashSet<string>();
             m_Random = new Random();
             m_Location = new List<MyLocation>();
+            m_dummyEvents = new List<(string, DateTime)>();
             CreateCheckins();
             InitFriends();
         }
@@ -70,6 +74,21 @@ namespace FacebookLogic
             }
 
             return i_Album.Photos.ToList();
+        }
+
+        public List<(string, DateTime)> GenerateDummyEvents()
+        {
+            if(m_dummyEvents.Count == 0)
+            {
+                
+                m_dummyEvents.Add(("Movie Night",new DateTime (2023, 5, 6)));
+                m_dummyEvents.Add(("Wedding", new DateTime(2021, 1, 22)));
+                m_dummyEvents.Add(("Breakfast with Mom", new DateTime(2022, 9, 5)));
+                m_dummyEvents.Add(("Family vacation!", new DateTime(2022, 10, 10)));
+                m_dummyEvents.Add(("Apocalypse", new DateTime(2012, 12, 12)));
+                                
+            }
+            return m_dummyEvents;
         }
 
         public void CreateCheckins()
@@ -194,6 +213,8 @@ namespace FacebookLogic
             m_Friends.ElementAt(9).AddCheckin(m_Location.ElementAt(19).m_Name);
 
         }
+
+
     }
 
     public class MyLocation

@@ -36,6 +36,7 @@ namespace BasicFacebookFeatures
             fetchPages();
             //Tomer added
             fetchAlbums();
+     
         }
 
         private void initAlbumListView()
