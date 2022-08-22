@@ -12,17 +12,12 @@ using FacebookWrapper;
 using FacebookLogic;
 using System.Windows.Forms.DataVisualization.Charting;
 
-////// user name: 
-///// design.patterns
-///// password:
-///// design.patterns.22aa
-
 namespace BasicFacebookFeatures
 {
     public partial class BasicFacebook : Form
     {
         private InitProfile m_LoggedInUser;
-        public LoginResult m_res;
+        public LoginResult m_Res;
         private string m_AccessToken;
         
         public BasicFacebook(LoginResult i_loginResult)
@@ -31,7 +26,7 @@ namespace BasicFacebookFeatures
             initAlbumListView();
             m_AccessToken = i_loginResult.AccessToken;
             m_LoggedInUser = new InitProfile(i_loginResult);
-            m_res = i_loginResult;
+            m_Res = i_loginResult;
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
@@ -43,12 +38,11 @@ namespace BasicFacebookFeatures
         {
             ImageList iList = new ImageList();
             iList.ImageSize = new Size(25, 25);
-            //AlbumListView.LargeImageList = iList;
         }
 
         private void fetchUpcomingEvent()
         {
-            EventTextBox.Text = m_LoggedInUser.getUpcomingEvent();
+            EventTextBox.Text = m_LoggedInUser.GetUpcomingEvent();
         }
 
         private void fetchPosts()
@@ -101,7 +95,7 @@ namespace BasicFacebookFeatures
             this.Close();
         }
 
-        private void PostBtn_Click(object sender, EventArgs e)
+        private void postBtn_Click(object sender, EventArgs e)
         {
             if(PostTextArea.Text != String.Empty)
             {
@@ -116,8 +110,7 @@ namespace BasicFacebookFeatures
                 {
                     MessageBox.Show(ex.ToString());
                 }
-            }
-            
+            }    
         }
 
 
@@ -136,7 +129,6 @@ namespace BasicFacebookFeatures
             }
 
             fitImageBox();
-          
         }
 
         private void fitImageBox()
@@ -148,7 +140,7 @@ namespace BasicFacebookFeatures
                 PB.Margin = new Padding(9, 3, 3, 3);
                 PB.Size = new Size(126, 96);
                 PB.SizeMode = PictureBoxSizeMode.StretchImage;
-                PB.MouseHover += PB_MouseHover;
+                PB.MouseHover += pictureBox_MouseHover;
                 PB.MouseDoubleClick += album_MouseDoubleClick;
             }
         }
@@ -171,7 +163,7 @@ namespace BasicFacebookFeatures
 
         }
 
-        private void PB_MouseHover(object sender, EventArgs e)
+        private void pictureBox_MouseHover(object sender, EventArgs e)
         {
             PictureBox PB = sender as PictureBox;
             ToolTip tt = new ToolTip();
@@ -214,7 +206,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void BasicFacebook_FormClosed(object sender, FormClosedEventArgs e)
+        private void basicFacebook_FormClosed(object sender, FormClosedEventArgs e)
         {
             FacebookService.Logout();
             this.Text = "Loging Out...";
@@ -222,7 +214,6 @@ namespace BasicFacebookFeatures
             FormMain formMain = new FormMain();
             formMain.ShowDialog();
             this.Close();
-
         }
     }
 }

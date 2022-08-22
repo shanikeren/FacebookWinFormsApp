@@ -12,7 +12,6 @@ namespace BasicFacebookFeatures
 {
     public partial class TopRatedPictureBox : UserControl
     {
- 
         public string Url { get; set; }
         public int IndexOf { get; set; }
 
@@ -25,14 +24,13 @@ namespace BasicFacebookFeatures
             IndexOf = i_index;
             pictureBox.LoadAsync(Url);
             changeBtn.MouseClick += new MouseEventHandler(onChangeBtn_MouseClick);
-            pictureBox.MouseDoubleClick += new MouseEventHandler(this.OnGotChosen) ;
+            pictureBox.MouseDoubleClick += new MouseEventHandler(this.onGotChosen) ;
             changeProfilePicture = new StarBoxHandler(i_ListenerTab.ChangeBtn_MouseClick);
-            this.MouseDoubleClick +=  new MouseEventHandler(i_ListenerTab.topRatedPictureBox_MouseDoubleClick);
+            this.MouseDoubleClick +=  new MouseEventHandler(i_ListenerTab.TopRatedPictureBox_MouseDoubleClick);
         }
 
-        private void OnGotChosen(Object sendr, EventArgs e)
+        private void onGotChosen(Object sendr, EventArgs e)
         {
-            
             this.OnMouseDoubleClick(null);
         }
 

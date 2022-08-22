@@ -44,14 +44,11 @@ namespace BasicFacebookFeatures
                     "user_videos"
                     /// add any relevant permissions
                     );
-
-
             buttonLogin.Text = $"Logged in as {loginResult.LoggedInUser.Name}";
             BasicFacebook basicFacebook = new BasicFacebook(loginResult);
             this.Visible = false;
             basicFacebook.ShowDialog();
             this.Close();
-
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)

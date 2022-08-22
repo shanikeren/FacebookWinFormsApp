@@ -129,7 +129,7 @@ namespace BasicFacebookFeatures
             this.PostBtn.TabIndex = 7;
             this.PostBtn.Text = "POST";
             this.PostBtn.UseVisualStyleBackColor = false;
-            this.PostBtn.Click += new System.EventHandler(this.PostBtn_Click);
+            this.PostBtn.Click += new System.EventHandler(this.postBtn_Click);
             // 
             // Posts
             // 
@@ -294,7 +294,7 @@ namespace BasicFacebookFeatures
             this.Name = "BasicFacebook";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Text = "BasicFacebook";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BasicFacebook_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.basicFacebook_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).EndInit();
             this.basic.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
