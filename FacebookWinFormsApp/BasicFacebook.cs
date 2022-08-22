@@ -14,19 +14,32 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
-    public partial class BasicFacebook : Form
+    public partial class BasicFacebookForm : Form
     {
         private InitProfile m_LoggedInUser;
         public LoginResult m_Res;
         private string m_AccessToken;
         
-        public BasicFacebook(LoginResult i_loginResult)
+        public BasicFacebookForm(LoginResult i_loginResult)
         {
             InitializeComponent();
             initAlbumListView();
             m_AccessToken = i_loginResult.AccessToken;
             m_LoggedInUser = new InitProfile(i_loginResult);
             m_Res = i_loginResult;
+            profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
+            fetchPosts();
+            fetchUpcomingEvent();
+            fetchPages();
+            fetchAlbums();
+        }
+
+        public BasicFacebookForm(InitProfile i_InitProfile)
+        {
+            m_LoggedInUser = i_InitProfile;
+            this.Text = $"Logged in as {m_LoggedInUser.Name}";
+            InitializeComponent();
+            initAlbumListView();
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
@@ -95,6 +108,12 @@ namespace BasicFacebookFeatures
             this.Close();
         }
 
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            m_LoggedInUser.UpdateAppSettingsBeforeClose(RememberMeCheckBox.Checked);
+        }
+
         private void postBtn_Click(object sender, EventArgs e)
         {
             if(PostTextArea.Text != String.Empty)
@@ -151,6 +170,7 @@ namespace BasicFacebookFeatures
             List<string> picturesUrls = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
             List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures(selectedAlbum.Name);
             GalleryTab galleryTab = new GalleryTab(picturesUrls, topRatedPictures, profilePicture);
+            galleryTab.profilePictureChangedEvent += m_LoggedInUser.OnProfilePictureChange;
 
             TabPage newTab = new TabPage();
             newTab.Text = selectedAlbum.Name;

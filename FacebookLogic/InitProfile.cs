@@ -137,30 +137,30 @@ namespace FacebookLogic
 
         public delegate int Comparison<Photo>(Photo pic1, Photo pic2);
 
-        public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
-        {
-            Album requesteAlbum = null;
-            List<string> TopRatedPictures = new List<string>();
-            List<Photo> sortedDummyLikedByData;
+        //public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
+        //{
+        //    Album requesteAlbum = null;
+        //    List<string> TopRatedPictures = new List<string>();
+        //    List<Photo> sortedDummyLikedByData;
 
-            foreach (Album album in m_LoggedInUser.Albums)
-            {
-                if (album.Name == i_AlbumName)
-                {
-                   requesteAlbum = album;
-                   sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
-                    sortedDummyLikedByData.Sort(comparePhotoRating);
+        //    foreach (Album album in m_LoggedInUser.Albums)
+        //    {
+        //        if (album.Name == i_AlbumName)
+        //        {
+        //           requesteAlbum = album;
+        //           sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
+        //            sortedDummyLikedByData.Sort(comparePhotoRating);
 
-                    for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
-                    {
-                        TopRatedPictures.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
-                    }
-                    break;
-                }
+        //            for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
+        //            {
+        //                TopRatedPictures.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
+        //            }
+        //            break;
+        //        }
 
-            }
-            return TopRatedPictures;
-        }
+        //    }
+        //    return TopRatedPictures;
+        //}
 
         public List<string> FetchTopRatedPictures(string i_AlbumName)
         {

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
 {
-    partial class BasicFacebook
+    partial class BasicFacebookForm
     {
         /// <summary>
         /// Required designer variable.
@@ -51,6 +51,7 @@ namespace BasicFacebookFeatures
             this.listBoxCheckins = new System.Windows.Forms.ListBox();
             this.buttonPlaces = new System.Windows.Forms.Button();
             this.checkinLabel = new System.Windows.Forms.Label();
+            this.RememberMeCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.basic.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,7 +73,7 @@ namespace BasicFacebookFeatures
             // 
             this.LogOut_Btn.AccessibleName = "LogOut_Btn";
             this.LogOut_Btn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.LogOut_Btn.Location = new System.Drawing.Point(43, 221);
+            this.LogOut_Btn.Location = new System.Drawing.Point(19, 221);
             this.LogOut_Btn.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.LogOut_Btn.Name = "LogOut_Btn";
             this.LogOut_Btn.Size = new System.Drawing.Size(143, 39);
@@ -90,7 +91,7 @@ namespace BasicFacebookFeatures
             this.PagesListBox.Location = new System.Drawing.Point(287, 835);
             this.PagesListBox.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.PagesListBox.Name = "PagesListBox";
-            this.PagesListBox.Size = new System.Drawing.Size(1010, 104);
+            this.PagesListBox.Size = new System.Drawing.Size(1045, 104);
             this.PagesListBox.TabIndex = 3;
             this.PagesListBox.Tag = "";
             // 
@@ -101,7 +102,7 @@ namespace BasicFacebookFeatures
             this.EventTextBox.Location = new System.Drawing.Point(285, 184);
             this.EventTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.EventTextBox.Name = "EventTextBox";
-            this.EventTextBox.Size = new System.Drawing.Size(1018, 26);
+            this.EventTextBox.Size = new System.Drawing.Size(1053, 26);
             this.EventTextBox.TabIndex = 5;
             // 
             // PostTextArea
@@ -112,14 +113,14 @@ namespace BasicFacebookFeatures
             this.PostTextArea.Margin = new System.Windows.Forms.Padding(6, 6, 15, 6);
             this.PostTextArea.Multiline = true;
             this.PostTextArea.Name = "PostTextArea";
-            this.PostTextArea.Size = new System.Drawing.Size(1010, 95);
+            this.PostTextArea.Size = new System.Drawing.Size(1045, 95);
             this.PostTextArea.TabIndex = 6;
             // 
             // PostBtn
             // 
             this.PostBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PostBtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.PostBtn.Location = new System.Drawing.Point(1324, 395);
+            this.PostBtn.Location = new System.Drawing.Point(1359, 395);
             this.PostBtn.Margin = new System.Windows.Forms.Padding(15, 5, 6, 5);
             this.PostBtn.MaximumSize = new System.Drawing.Size(214, 35);
             this.PostBtn.MinimumSize = new System.Drawing.Size(53, 35);
@@ -140,7 +141,7 @@ namespace BasicFacebookFeatures
             this.Posts.Location = new System.Drawing.Point(287, 469);
             this.Posts.Margin = new System.Windows.Forms.Padding(6);
             this.Posts.Name = "Posts";
-            this.Posts.Size = new System.Drawing.Size(1007, 324);
+            this.Posts.Size = new System.Drawing.Size(1042, 324);
             this.Posts.TabIndex = 8;
             // 
             // basic
@@ -152,7 +153,7 @@ namespace BasicFacebookFeatures
             this.basic.Margin = new System.Windows.Forms.Padding(3, 1, 3, 1);
             this.basic.Name = "basic";
             this.basic.SelectedIndex = 0;
-            this.basic.Size = new System.Drawing.Size(1434, 1051);
+            this.basic.Size = new System.Drawing.Size(1469, 1051);
             this.basic.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.basic.TabIndex = 10;
             this.basic.SelectedIndexChanged += new System.EventHandler(this.basic_TabIndexChanged);
@@ -163,6 +164,7 @@ namespace BasicFacebookFeatures
             this.tabPage1.AutoScroll = true;
             this.tabPage1.AutoScrollMargin = new System.Drawing.Size(5, 5);
             this.tabPage1.BackColor = System.Drawing.Color.AliceBlue;
+            this.tabPage1.Controls.Add(this.RememberMeCheckBox);
             this.tabPage1.Controls.Add(this.AlbumsPanel);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
@@ -177,7 +179,7 @@ namespace BasicFacebookFeatures
             this.tabPage1.Margin = new System.Windows.Forms.Padding(15, 1, 3, 1);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.tabPage1.Size = new System.Drawing.Size(1426, 1018);
+            this.tabPage1.Size = new System.Drawing.Size(1461, 1018);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Welcome";
             // 
@@ -281,17 +283,27 @@ namespace BasicFacebookFeatures
             this.checkinLabel.TabIndex = 0;
             this.checkinLabel.Text = "Recommendations";
             // 
-            // BasicFacebook
+            // RememberMeCheckBox
+            // 
+            this.RememberMeCheckBox.AutoSize = true;
+            this.RememberMeCheckBox.Location = new System.Drawing.Point(19, 277);
+            this.RememberMeCheckBox.Name = "RememberMeCheckBox";
+            this.RememberMeCheckBox.Size = new System.Drawing.Size(140, 24);
+            this.RememberMeCheckBox.TabIndex = 14;
+            this.RememberMeCheckBox.Text = "Remember Me";
+            this.RememberMeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // BasicFacebookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.ClientSize = new System.Drawing.Size(1444, 1061);
+            this.ClientSize = new System.Drawing.Size(1479, 1061);
             this.Controls.Add(this.basic);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "BasicFacebook";
+            this.Name = "BasicFacebookForm";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.Text = "BasicFacebook";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.basicFacebook_FormClosed);
@@ -326,5 +338,6 @@ namespace BasicFacebookFeatures
         private ListBox listBoxCheckins;
         private FlowLayoutPanel AlbumsPanel;
         private System.Windows.Forms.DataVisualization.Charting.Chart visitsChart;
+        private CheckBox RememberMeCheckBox;
     }
 }

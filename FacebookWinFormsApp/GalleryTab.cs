@@ -17,6 +17,9 @@ namespace BasicFacebookFeatures
         private int m_CurrentImageIndex = 0;
         PictureBox m_CurrProfilePicture;
 
+        public delegate void profilePictureChangedDelegate(string url);
+        public profilePictureChangedDelegate profilePictureChangedEvent;
+
         public GalleryTab(List<string> i_picturesUrl, List<string> i_TopRatedPictures, PictureBox i_profilePictureBox)
         {
             InitializeComponent();
@@ -77,9 +80,11 @@ namespace BasicFacebookFeatures
 
         public void ChangeBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
-            m_CurrProfilePicture.LoadAsync(selctedTopPicture.Url);
+            TopRatedPictureBox selectedTopPicture = sender as TopRatedPictureBox;
+            m_CurrProfilePicture.LoadAsync(selectedTopPicture.Url);
             m_CurrProfilePicture.SizeMode = PictureBoxSizeMode.StretchImage;
+            MessageBox.Show("Profile picture was changed:)");
+            profilePictureChangedEvent?.Invoke(selectedTopPicture.Url);
         }
 
         private void galleryTab_Load(object sender, EventArgs e)
