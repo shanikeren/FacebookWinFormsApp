@@ -112,6 +112,15 @@ namespace BasicFacebookFeatures
         {
             base.OnFormClosed(e);
             m_LoggedInUser.UpdateAppSettingsBeforeClose(RememberMeCheckBox.Checked);
+        private void fetchGroups()
+        {
+            listViewGroups.Items.Clear();
+            //LogicUser.clearAlbums();
+
+            foreach (Group group in res.LoggedInUser.Groups) // initialize listView items display
+            {
+                listViewGroups.LargeImageList.Images.Add(group.ImageLarge);
+            }
         }
 
         private void postBtn_Click(object sender, EventArgs e)
