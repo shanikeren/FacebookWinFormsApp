@@ -10,31 +10,40 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookLogic;
-
-////// user name: 
-///// design.patterns
-///// password:
-///// design.patterns.22aa
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
 {
-    public partial class BasicFacebook : Form
+    public partial class BasicFacebookForm : Form
     {
         private InitProfile m_LoggedInUser;
-        public LoginResult res;
+        public LoginResult m_Res;
+        private string m_AccessToken;
         
-        public BasicFacebook(LoginResult i_loginResult)
+        public BasicFacebookForm(LoginResult i_loginResult)
         {
             InitializeComponent();
             initAlbumListView();
+            m_AccessToken = i_loginResult.AccessToken;
             m_LoggedInUser = new InitProfile(i_loginResult);
-            res = i_loginResult;
+            m_Res = i_loginResult;
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
-            fetchGroups();
             fetchPages();
-            //Tomer added
+            fetchAlbums();
+        }
+
+        public BasicFacebookForm(InitProfile i_InitProfile)
+        {
+            m_LoggedInUser = i_InitProfile;
+            this.Text = $"Logged in as {m_LoggedInUser.Name}";
+            InitializeComponent();
+            initAlbumListView();
+            profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
+            fetchPosts();
+            fetchUpcomingEvent();
+            fetchPages();
             fetchAlbums();
         }
 
@@ -42,12 +51,11 @@ namespace BasicFacebookFeatures
         {
             ImageList iList = new ImageList();
             iList.ImageSize = new Size(25, 25);
-            //AlbumListView.LargeImageList = iList;
         }
 
         private void fetchUpcomingEvent()
         {
-            EventTextBox.Text = m_LoggedInUser.getUpcomingEvent();
+            EventTextBox.Text = m_LoggedInUser.GetUpcomingEvent();
         }
 
         private void fetchPosts()
@@ -64,22 +72,6 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("No Posts yet");
             }
-        }
-
-        private void fetchEvents()
-        {
-            //PagesList.Items.Clear();
-
-            //List<string> eventsList = m_LoggedInUser.LoadPosts();
-            //foreach (string fbEvent in eventsList)
-            //{
-            //    PagesList.Items.Add(fbEvent);
-            //}
-
-            //if (PagesList.Items.Count == 0)
-            //{
-            //    MessageBox.Show("No Events yet");
-            //}
         }
 
         private void fetchPages()
@@ -108,23 +100,21 @@ namespace BasicFacebookFeatures
      
         private void onClickLogOutBtn(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
+            FacebookService.Logout();
             this.Text = "Loging Out...";
+            this.Visible = false;
+            FormMain formMain = new FormMain();
+            formMain.ShowDialog();
+            this.Close();
         }
 
-         // whyyyyyy cant we get groups???  
-        private void fetchGroups()
+        protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            listViewGroups.Items.Clear();
-            //LogicUser.clearAlbums();
-
-            foreach (Group group in res.LoggedInUser.Groups) // initialize listView items display
-            {
-                listViewGroups.LargeImageList.Images.Add(group.ImageLarge);
-            }
+            base.OnFormClosed(e);
+            m_LoggedInUser.UpdateAppSettingsBeforeClose(RememberMeCheckBox.Checked);
         }
 
-        private void PostBtn_Click(object sender, EventArgs e)
+        private void postBtn_Click(object sender, EventArgs e)
         {
             if(PostTextArea.Text != String.Empty)
             {
@@ -139,38 +129,7 @@ namespace BasicFacebookFeatures
                 {
                     MessageBox.Show(ex.ToString());
                 }
-            }
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            FacebookService.LogoutWithUI();
-            this.Text = "Loging Out...";
-        
-        }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Method for groups, suppose to do what?
-            // Maybe we should do it as hovering a group's name?
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void Posts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-
-        }
-     
-
-        private void PostTextArea_TextChanged(object sender, EventArgs e)
-        {
-
+            }    
         }
 
 
@@ -189,7 +148,6 @@ namespace BasicFacebookFeatures
             }
 
             fitImageBox();
-          
         }
 
         private void fitImageBox()
@@ -201,56 +159,81 @@ namespace BasicFacebookFeatures
                 PB.Margin = new Padding(9, 3, 3, 3);
                 PB.Size = new Size(126, 96);
                 PB.SizeMode = PictureBoxSizeMode.StretchImage;
-                PB.MouseHover += PB_MouseHover;
-                PB.MouseDoubleClick += PB_MouseDoubleClick;
+                PB.MouseHover += pictureBox_MouseHover;
+                PB.MouseDoubleClick += album_MouseDoubleClick;
             }
         }
 
-        private void PB_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void album_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             PictureBox selectedAlbum = sender as PictureBox;
             List<string> picturesUrls = m_LoggedInUser.FetchAlbum(selectedAlbum.Name);
             List<string> topRatedPictures = m_LoggedInUser.FetchTopRatedPictures(selectedAlbum.Name);
             GalleryTab galleryTab = new GalleryTab(picturesUrls, topRatedPictures, profilePicture);
+            galleryTab.profilePictureChangedEvent += m_LoggedInUser.OnProfilePictureChange;
 
             TabPage newTab = new TabPage();
             newTab.Text = selectedAlbum.Name;
+            newTab.AutoScroll = true;
             basic.Controls.Add(newTab);
             galleryTab.Parent = newTab;
             galleryTab.Visible = true;
             galleryTab.Dock = DockStyle.Fill;
             basic.SelectedTab = newTab;
-           // MessageBox.Show("Chosen Album is: " + PB.Name +". Make a new galleryTab");
 
         }
 
-        private void PB_MouseHover(object sender, EventArgs e)
+        private void pictureBox_MouseHover(object sender, EventArgs e)
         {
             PictureBox PB = sender as PictureBox;
             ToolTip tt = new ToolTip();
             tt.SetToolTip(PB, PB.Name);
            
         }
-
-        private void AlbumListView_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
-        {
-            e.Item.ToolTipText = e.Item.Text;
-        }
   
-        private void checkinLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void buttonCheckIn_Click(object sender, EventArgs e)
         {
-            List<string> checkins = m_LoggedInUser.FetchTopVisitPlaces();
-            foreach (string check in checkins) {
-                listBoxCheckins.Items.Add(check);
+            listBoxCheckins.Items.Clear();
+
+            List<(string, int)> checkins = m_LoggedInUser.FetchTopVisitPlaces();
+            foreach ((string, int) check in checkins) {
+                listBoxCheckins.Items.Add(check.Item1);
+            }
+
+            fillChart(checkins);
+        }
+
+        private void fillChart(List<(string, int)> i_checkins)
+        {
+            foreach (Series series in visitsChart.Series)
+            {
+                series.Points.Clear();
+            }
+
+            foreach((string,int) visit in i_checkins)
+            {
+                visitsChart.Series["Visits"].Points.AddXY(visit.Item1, visit.Item2);
+            }
+            visitsChart.Visible = true;
+        }
+
+        private void basic_TabIndexChanged(object sender, EventArgs e)
+        {
+            listBoxCheckins.Items.Clear();
+            foreach(Series series in visitsChart.Series)
+            {
+                series.Points.Clear();
             }
         }
 
-     
+        private void basicFacebook_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FacebookService.Logout();
+            this.Text = "Loging Out...";
+            this.Visible = false;
+            FormMain formMain = new FormMain();
+            formMain.ShowDialog();
+            this.Close();
+        }
     }
 }

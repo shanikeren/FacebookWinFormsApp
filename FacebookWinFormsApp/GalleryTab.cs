@@ -17,6 +17,9 @@ namespace BasicFacebookFeatures
         private int m_CurrentImageIndex = 0;
         PictureBox m_CurrProfilePicture;
 
+        public delegate void profilePictureChangedDelegate(string url);
+        public profilePictureChangedDelegate profilePictureChangedEvent;
+
         public GalleryTab(List<string> i_picturesUrl, List<string> i_TopRatedPictures, PictureBox i_profilePictureBox)
         {
             InitializeComponent();
@@ -45,7 +48,7 @@ namespace BasicFacebookFeatures
             parent.TabPages.Remove((TabPage)this.Parent);
         }
 
-        private void NextBtn_Click(object sender, EventArgs e)
+        private void nextBtn_Click(object sender, EventArgs e)
         {
             m_CurrentImageIndex++;
             if (m_CurrentImageIndex == m_PicturesUrls.Length)
@@ -56,7 +59,7 @@ namespace BasicFacebookFeatures
             CurrentImage.Load(m_PicturesUrls[m_CurrentImageIndex]);
         }
 
-        private void PrevBtn_Click(object sender, EventArgs e)
+        private void prevBtn_Click(object sender, EventArgs e)
         {
             m_CurrentImageIndex--;
             if (m_CurrentImageIndex == -1)
@@ -68,7 +71,7 @@ namespace BasicFacebookFeatures
 
         }
 
-        public void topRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        public void TopRatedPictureBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
             CurrentImage.LoadAsync(selctedTopPicture.Url);
@@ -77,8 +80,17 @@ namespace BasicFacebookFeatures
 
         public void ChangeBtn_MouseClick(object sender, MouseEventArgs e)
         {
-            TopRatedPictureBox selctedTopPicture = sender as TopRatedPictureBox;
-            m_CurrProfilePicture.LoadAsync(selctedTopPicture.Url);
+            TopRatedPictureBox selectedTopPicture = sender as TopRatedPictureBox;
+            m_CurrProfilePicture.LoadAsync(selectedTopPicture.Url);
+            m_CurrProfilePicture.SizeMode = PictureBoxSizeMode.StretchImage;
+            MessageBox.Show("Profile picture was changed:)");
+            profilePictureChangedEvent?.Invoke(selectedTopPicture.Url);
         }
+
+        private void galleryTab_Load(object sender, EventArgs e)
+        {
+            this.Dock = DockStyle.Fill;
+        }
+
     }
 }

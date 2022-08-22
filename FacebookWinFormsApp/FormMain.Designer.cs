@@ -35,10 +35,10 @@
             // buttonLogin
             // 
             this.buttonLogin.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonLogin.Location = new System.Drawing.Point(164, 30);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLogin.Location = new System.Drawing.Point(184, 38);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(239, 28);
+            this.buttonLogin.Size = new System.Drawing.Size(269, 35);
             this.buttonLogin.TabIndex = 36;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = false;
@@ -47,24 +47,24 @@
             // buttonLogout
             // 
             this.buttonLogout.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.buttonLogout.Location = new System.Drawing.Point(164, 82);
-            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLogout.Location = new System.Drawing.Point(184, 102);
+            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(239, 28);
+            this.buttonLogout.Size = new System.Drawing.Size(269, 35);
             this.buttonLogout.TabIndex = 52;
-            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.Text = "Cancel";
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(554, 210);
+            this.ClientSize = new System.Drawing.Size(623, 262);
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.buttonLogin);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "welcome";

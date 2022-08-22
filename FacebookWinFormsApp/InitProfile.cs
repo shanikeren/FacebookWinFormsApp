@@ -15,16 +15,21 @@ namespace FacebookLogic
         private User m_LoggedInUser;
         private List<string> m_AddedPosts;
         private readonly DummyDataGenerator m_MyDummyDataGenerator;
+        
         private string m_CurrentProfilePictureUrl { get; set; }
+
    
+        
         public InitProfile(LoginResult i_loginResult)
         {
             m_LoggedInUser = i_loginResult.LoggedInUser;
             m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
             m_AddedPosts = new List<string>();
             m_MyDummyDataGenerator = new DummyDataGenerator();
+        //    m_LoggedInUser.FriendLists = m_MyDummyDataGenerator.m_Friends;
         }
 
+      
         public string FetchProfilePicture()
         {
             return m_LoggedInUser.PictureNormalURL;
@@ -32,6 +37,12 @@ namespace FacebookLogic
 
         public List<string> LoadPosts()
         {
+            /* TODO: don't we want to see here only postposts.
+             * eType = status
+             * Or alternative - hendel each post as it should be handeld (e.g: photo-picBox...)
+             * Or an optin to filter by post eType.
+             * 
+            */
             List<string> result = new List<string>();
             foreach (string post in m_AddedPosts)
             {
@@ -50,47 +61,43 @@ namespace FacebookLogic
                 }
             }
 
+            
+
             return result;
         }
 
-        private List<(string, DateTime)> LoadEvents()
+
+        public List<string> LoadEvents()
         {
-           return m_MyDummyDataGenerator.GenerateDummyEvents();
-        }
+            List<string> result = new List<string>();
 
-        public string GetUpcomingEvent()
-        {
-            string upcomingEvent = string.Empty;
-            List<(string, DateTime)> eventsList = new List<(string, DateTime)>();
-            eventsList = LoadEvents();
-
-            eventsList.Sort(compareEvents);
-            upcomingEvent = findNearestEvent(eventsList);
-
-            return upcomingEvent;
-        }
-
-        private string findNearestEvent(List<(string, DateTime)> i_eventsList)
-        {
-            string upcomingEvent = string.Empty;
-            DateTime currentDate = DateTime.Now.Date;
-
-            foreach((string, DateTime) currEvent in i_eventsList)
+            foreach (Event fbEvent in m_LoggedInUser.Events)
             {
-                if(currEvent.Item2.CompareTo(currentDate) >= 0)
-                {
-                    upcomingEvent = currEvent.Item1 +" at: " + currEvent.Item2.ToShortDateString();
-                    break;
-                }
+                result.Add(fbEvent.Name);
             }
 
-            return upcomingEvent;
+            return result;
         }
 
-        private int compareEvents((string,DateTime) i_event1, (string,DateTime) i_event2)
+        public string getUpcomingEvent()
         {
-            return i_event1.Item2.CompareTo(i_event2.Item2);
+            //Event upcomingEvent = m_LoggedInUser.Events.ElementAt(0);
+            //return $"{upcomingEvent.Name} at: {upcomingEvent.TimeString}";
+            return "Cant fetch events....";
         }
+
+        public List<string> LoadGroups()
+        {
+            List<string> result = new List<string>();
+            
+            foreach (Group group in m_LoggedInUser.Groups)
+            {
+                result.Add(group.Name);
+            }
+
+            return result;
+        }
+
 
         public List<string> LoadPages()
         {
@@ -137,30 +144,30 @@ namespace FacebookLogic
 
         public delegate int Comparison<Photo>(Photo pic1, Photo pic2);
 
-        //public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
-        //{
-        //    Album requesteAlbum = null;
-        //    List<string> TopRatedPictures = new List<string>();
-        //    List<Photo> sortedDummyLikedByData;
+        public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
+        {
+            Album requesteAlbum = null;
+            List<string> result = new List<string>();
+            List<Photo> sortedDummyLikedByData;
 
-        //    foreach (Album album in m_LoggedInUser.Albums)
-        //    {
-        //        if (album.Name == i_AlbumName)
-        //        {
-        //           requesteAlbum = album;
-        //           sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
-        //            sortedDummyLikedByData.Sort(comparePhotoRating);
+            foreach (Album album in m_LoggedInUser.Albums)
+            {
+                if (album.Name == i_AlbumName)
+                {
+                   requesteAlbum = album;
+                   sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
+                    sortedDummyLikedByData.Sort(comparePhotoRating);
 
-        //            for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
-        //            {
-        //                TopRatedPictures.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
-        //            }
-        //            break;
-        //        }
+                    for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
+                    {
+                        result.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
+                    }
+                    break;
+                }
+            }
 
-        //    }
-        //    return TopRatedPictures;
-        //}
+            return result;
+        }
 
         public List<string> FetchTopRatedPictures(string i_AlbumName)
         {
@@ -186,10 +193,28 @@ namespace FacebookLogic
             return result;
         }
 
+        private int comparePhotoRating(Photo i_pic1, Photo i_pic2)
+        {
+            return i_pic1.LikedBy.Count.CompareTo(i_pic2.LikedBy.Count);
+        }
 
         private int comparePhotoRating((int, Photo) x, (int, Photo) y)
         {
             return x.Item1.CompareTo(y.Item1);
+        }
+
+        private List<Location> GetCheckIn()
+        {
+            List<Location> result = new List<Location>();
+            foreach (Post post in m_LoggedInUser.Posts)
+            {
+                ///check enum compare with == or equals
+               if(post.Type == Post.eType.checkin)
+                {
+                    result.Add(post.Place.Location);
+                }
+            }
+            return result;
         }
 
         public void PostStatus(string i_Post)
@@ -197,17 +222,17 @@ namespace FacebookLogic
             m_AddedPosts.Insert(0,i_Post);
         }
 
-        public List<(string, int)> FetchTopVisitPlaces()
-        {
-            List<(string,int)> TopVisitPlaces = new List<(string, int)>();
-            this.m_MyDummyDataGenerator.ClearLoctions();
 
-            foreach (DummyUser user in this.m_MyDummyDataGenerator.m_Friends)
+        public List<string> FetchTopVisitPlaces()
+        {
+            List<string> result = new List<string>();
+
+            foreach (DummyUser user in m_MyDummyDataGenerator.m_Friends)
             {
                 foreach (string loaction in user.m_checkins)
                 {
                     int index = GetLocationIndex(loaction);
-                    this.m_MyDummyDataGenerator.m_Location.ElementAt(index).m_AmountVisit++;
+                    m_MyDummyDataGenerator.m_Location.ElementAt(index).m_AmountVisit++;
                 }
             }
 
@@ -216,26 +241,25 @@ namespace FacebookLogic
 
             for (int i = 0; i < 10 && i < SortedList.Count; i++)
             {
-                TopVisitPlaces.Add((SortedList.ElementAt(i).m_Name, SortedList.ElementAt(i).m_AmountVisit));
+                result.Add(SortedList.ElementAt(i).m_Name);
             }
-
-            return TopVisitPlaces;
+            return result;
         }
 
         public int GetLocationIndex(string i_LocationName)
         {
             int index = 0;
-            foreach (MyLocation location in this.m_MyDummyDataGenerator.m_Location)
+        
+            foreach(MyLocation location in m_MyDummyDataGenerator.m_Location)
             {
                 if (location.m_Name.EndsWith(i_LocationName))
                 {
                     return index;
                 }
-
                 index++;
             }
-
             return -1;
         }
+
     }
 }
