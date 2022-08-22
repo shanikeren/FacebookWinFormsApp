@@ -14,32 +14,14 @@ namespace FacebookLogic
 {
     public sealed class AppSettings
     {
-        public static string AppId { get; } = "1257835301628630";
         public static readonly string sr_AppSettingsXMLFileName = "appSettings.xml";
-        public static string[] Permissions { get; } = new string[]
-        {
-            "email",
-            "public_profile",
-            "user_photos",
-            "user_birthday",
-            "user_events",
-            "user_friends",
-            "user_gender",
-            "user_hometown",
-            "user_likes",
-            "user_link",
-            "user_location",
-            "user_photos",
-            "user_posts",
-            "user_videos"
-        };
+ 
         private static AppSettings m_Instance = null;
         private static readonly object sr_InstanceLock = new Object();
 
-        public List<string> DummyPosts { get; set; }
         public bool RememberUser { get; set; }
         public string LastAccessToken { get; set; }
-        public string LastProfilePictureUrl { get; set; }
+
 
         public static AppSettings Instance
         {

@@ -13,7 +13,10 @@ namespace FacebookLogic
     public class InitProfile
     {
         private User m_LoggedInUser;
+        private LoginResult m_LoginResult = null;
         private List<string> m_AddedPosts;
+        private readonly AppSettings r_AppSettings;
+
         private readonly DummyDataGenerator m_MyDummyDataGenerator;
         private string m_CurrentProfilePictureUrl { get; set; }
    
@@ -23,6 +26,34 @@ namespace FacebookLogic
             m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
             m_AddedPosts = new List<string>();
             m_MyDummyDataGenerator = new DummyDataGenerator();
+        }
+
+        public InitProfile()
+        {
+            r_AppSettings = AppSettings.Instance;
+            m_MyDummyDataGenerator = new DummyDataGenerator();
+            m_AddedPosts = new List<string>();
+            r_AppSettings.LoadFromFile();
+        }
+
+        public LoginResult LogInFromXml()
+        {
+            if (r_AppSettings.RememberUser && !string.IsNullOrEmpty(r_AppSettings.LastAccessToken))
+            {
+                m_LoginResult = FacebookService.Connect(r_AppSettings.LastAccessToken);
+                m_LoggedInUser = m_LoginResult.LoggedInUser;
+                m_AddedPosts = new List<string>();
+            }
+
+            return m_LoginResult;
+        }
+
+        public string Name
+        {
+            get
+            {
+                return m_LoggedInUser.Name;
+            }
         }
 
         public string FetchProfilePicture()
@@ -70,6 +101,20 @@ namespace FacebookLogic
             return upcomingEvent;
         }
 
+        public bool CheckIfLoggedIn(LoginResult i_LoginResult)
+        {
+            bool logedInSuccessfully = false;
+
+            if (!string.IsNullOrEmpty(i_LoginResult.AccessToken))
+            {
+                m_LoginResult = i_LoginResult;
+                m_LoggedInUser = i_LoginResult.LoggedInUser;
+                logedInSuccessfully = true;
+            }
+
+            return logedInSuccessfully;
+        }
+
         private string findNearestEvent(List<(string, DateTime)> i_eventsList)
         {
             string upcomingEvent = string.Empty;
@@ -104,6 +149,25 @@ namespace FacebookLogic
             return result;
         }
 
+        public void UpdateAppSettingsBeforeClose(bool i_RemeberMeChecked)
+        {
+            r_AppSettings.RememberUser = i_RemeberMeChecked;
+
+            if (r_AppSettings.RememberUser)
+            {
+                if (m_LoginResult.LoggedInUser != null)
+                {
+                    r_AppSettings.LastAccessToken = m_LoginResult.AccessToken;
+                }
+            }
+            else
+            {
+                r_AppSettings.LastAccessToken = null;
+            }
+
+            r_AppSettings.SaveToFile();
+        }
+
         public List<(string, Image)> LoadAlbums()
         {
             List<(string, Image)> albumList = new List<(string, Image)>();
@@ -136,6 +200,11 @@ namespace FacebookLogic
         }
 
         public delegate int Comparison<Photo>(Photo pic1, Photo pic2);
+
+        public void OnProfilePictureChange(string i_Url)
+        {
+            m_CurrentProfilePictureUrl = i_Url;
+        }
 
         //public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
         //{

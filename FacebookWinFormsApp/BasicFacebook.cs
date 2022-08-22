@@ -103,8 +103,8 @@ namespace BasicFacebookFeatures
             FacebookService.Logout();
             this.Text = "Loging Out...";
             this.Visible = false;
-            FormMain formMain = new FormMain();
-            formMain.ShowDialog();
+            //FormMain formMain = new FormMain();
+            //formMain.ShowDialog();
             this.Close();
         }
 
@@ -228,11 +228,11 @@ namespace BasicFacebookFeatures
 
         private void basicFacebook_FormClosed(object sender, FormClosedEventArgs e)
         {
-            FacebookService.Logout();
             this.Text = "Loging Out...";
+            FacebookService.Logout();
             this.Visible = false;
-            FormMain formMain = new FormMain();
-            formMain.ShowDialog();
+            //FormMain formMain = new FormMain();
+            //formMain.ShowDialog();
             this.Close();
         }
     }
