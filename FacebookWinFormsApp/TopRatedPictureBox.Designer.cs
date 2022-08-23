@@ -47,7 +47,7 @@ namespace BasicFacebookFeatures
             // changeBtn
             // 
             this.changeBtn.Image = global::BasicFacebookFeatures.Properties.Resources.FA_star_svg;
-            this.changeBtn.Location = new System.Drawing.Point(165, 3);
+            this.changeBtn.Location = new System.Drawing.Point(168, 3);
             this.changeBtn.Name = "changeBtn";
             this.changeBtn.Size = new System.Drawing.Size(56, 48);
             this.changeBtn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

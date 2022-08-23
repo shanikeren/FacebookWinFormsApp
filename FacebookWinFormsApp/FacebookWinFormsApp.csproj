@@ -94,11 +94,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasicFacebook.cs">
+    <Compile Include="BasicFacebookForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BasicFacebook.Designer.cs">
-      <DependentUpon>BasicFacebook.cs</DependentUpon>
+    <Compile Include="BasicFacebookForm.Designer.cs">
+      <DependentUpon>BasicFacebookForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -120,8 +120,8 @@
     <Compile Include="TopRatedPictureBox.Designer.cs">
       <DependentUpon>TopRatedPictureBox.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BasicFacebook.resx">
-      <DependentUpon>BasicFacebook.cs</DependentUpon>
+    <EmbeddedResource Include="BasicFacebookForm.resx">
+      <DependentUpon>BasicFacebookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

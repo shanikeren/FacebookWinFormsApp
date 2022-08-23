@@ -42,7 +42,7 @@ namespace FacebookLogic
             {
                 m_LoginResult = FacebookService.Connect(r_AppSettings.LastAccessToken);
                 m_LoggedInUser = m_LoginResult.LoggedInUser;
-                m_AddedPosts = new List<string>();
+                //m_AddedPosts = new List<string>();
             }
 
             return m_LoginResult;
