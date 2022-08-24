@@ -25,14 +25,24 @@ namespace BasicFacebookFeatures
 
         protected override void OnShown(EventArgs e)
         {
-            LoginResult loginResult = null;
+           // LoginResult loginResult = FacebookService.Connect(AppSettings.Instance.LastAccessToken);
 
             base.OnShown(e);
-            loginResult = m_InitProfile.LogInFromXml();
-            if (loginResult != null && !string.IsNullOrEmpty(loginResult.AccessToken))
+
+            if(AppSettings.Instance.RememberUser && !string.IsNullOrEmpty(AppSettings.Instance.LastAccessToken))
             {
+                LoginResult loginResult = m_InitProfile.LogInFromXml();
                 openBasicFacbookForm(loginResult);
             }
+
+
+
+            //loginResult = m_InitProfile.LogInFromXml();
+            //if (loginResult != null && !string.IsNullOrEmpty(loginResult.AccessToken))
+            //{
+            //    openBasicFacbookForm(loginResult);
+            //}
+
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)

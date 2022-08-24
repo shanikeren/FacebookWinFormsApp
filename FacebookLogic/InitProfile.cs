@@ -33,18 +33,15 @@ namespace FacebookLogic
             r_AppSettings = AppSettings.Instance;
             m_MyDummyDataGenerator = new DummyDataGenerator();
             m_AddedPosts = new List<string>();
-            r_AppSettings.LoadFromFile();
+            r_AppSettings = AppSettings.Instance;
         }
 
         public LoginResult LogInFromXml()
         {
-            if (r_AppSettings.RememberUser && !string.IsNullOrEmpty(r_AppSettings.LastAccessToken))
-            {
-                m_LoginResult = FacebookService.Connect(r_AppSettings.LastAccessToken);
-                m_LoggedInUser = m_LoginResult.LoggedInUser;
-                //m_AddedPosts = new List<string>();
-            }
-
+           
+            m_LoginResult = FacebookService.Connect(r_AppSettings.LastAccessToken);
+           //m_LoggedInUser = m_LoginResult.LoggedInUser;
+            
             return m_LoginResult;
         }
 
@@ -53,6 +50,14 @@ namespace FacebookLogic
             get
             {
                 return m_LoggedInUser.Name;
+            }
+        }
+
+        public string AccessToken
+        {
+            get
+            {
+                return m_LoginResult.AccessToken;
             }
         }
 

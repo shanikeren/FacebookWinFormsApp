@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures
         public LoginResult m_Res;
         private string m_AccessToken;
         
+        // DELETE?
         public BasicFacebookForm(LoginResult i_loginResult)
         {
             InitializeComponent();
@@ -40,6 +41,21 @@ namespace BasicFacebookFeatures
             this.Text = $"Logged in as {m_LoggedInUser.Name}";
             InitializeComponent();
             initAlbumListView();
+            fetchUserData();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if(AppSettings.Instance.RememberUser)
+            {
+                this.Location = AppSettings.Instance.LastWindowLocation;
+            }
+        }
+
+        private void fetchUserData()
+        {
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
             fetchPosts();
             fetchUpcomingEvent();
@@ -103,15 +119,13 @@ namespace BasicFacebookFeatures
             FacebookService.Logout();
             this.Text = "Loging Out...";
             this.Visible = false;
-            //FormMain formMain = new FormMain();
-            //formMain.ShowDialog();
             this.Close();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
-            m_LoggedInUser.UpdateAppSettingsBeforeClose(RememberMeCheckBox.Checked);
+            //m_LoggedInUser.UpdateAppSettingsBeforeClose(RememberMeCheckBox.Checked);
         }
 
         private void postBtn_Click(object sender, EventArgs e)
@@ -228,12 +242,28 @@ namespace BasicFacebookFeatures
 
         private void basicFacebook_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.Text = "Loging Out...";
-            FacebookService.Logout();
-            this.Visible = false;
-            //FormMain formMain = new FormMain();
-            //formMain.ShowDialog();
-            this.Close();
+            //this.Text = "Loging Out...";
+            //FacebookService.Logout();
+            //this.Close();
+        }
+
+        private void BasicFacebookForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //base.OnFormClosing(e);
+
+            AppSettings.Instance.RememberUser = this.RememberMeCheckBox.Checked;
+            AppSettings.Instance.LastWindowLocation = this.Location;
+
+            if(AppSettings.Instance.RememberUser)
+            {
+                AppSettings.Instance.LastAccessToken = m_LoggedInUser.AccessToken;
+            }
+            else
+            {
+                AppSettings.Instance.LastAccessToken = null;
+            }
+
+            AppSettings.Instance.SaveToFile();
         }
     }
 }
