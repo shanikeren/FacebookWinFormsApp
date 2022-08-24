@@ -45,6 +45,8 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="DummyDataGenerator.cs" />
     <Compile Include="DummyUser.cs" />
+    <Compile Include="HangOutManager.cs" />
+    <Compile Include="HangOutOffer.cs" />
     <Compile Include="InitProfile.cs" />
   </ItemGroup>
   <ItemGroup>

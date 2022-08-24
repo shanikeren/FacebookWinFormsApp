@@ -89,7 +89,7 @@ namespace BasicFacebookFeatures
             {
                 buttonLogin.Text = $"Logging in as {i_LoginResult.LoggedInUser.Name}";
                 BasicFacebookForm basicFacebook = new BasicFacebookForm(m_InitProfile);
-                this.Visible = false;
+                this.Hide();
                 basicFacebook.ShowDialog();
                 this.Close();
             }

@@ -52,6 +52,11 @@ namespace BasicFacebookFeatures
             this.listBoxCheckins = new System.Windows.Forms.ListBox();
             this.buttonPlaces = new System.Windows.Forms.Button();
             this.checkinLabel = new System.Windows.Forms.Label();
+            this.OffersListBox = new System.Windows.Forms.ListBox();
+            this.OffersLabels = new System.Windows.Forms.Label();
+            this.ShowAllBtn = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.HangOutPanelDetails = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.basic.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -228,6 +233,11 @@ namespace BasicFacebookFeatures
             // 
             this.tabPage2.AutoScroll = true;
             this.tabPage2.BackColor = System.Drawing.Color.AliceBlue;
+            this.tabPage2.Controls.Add(this.HangOutPanelDetails);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.ShowAllBtn);
+            this.tabPage2.Controls.Add(this.OffersLabels);
+            this.tabPage2.Controls.Add(this.OffersListBox);
             this.tabPage2.Controls.Add(this.visitsChart);
             this.tabPage2.Controls.Add(this.listBoxCheckins);
             this.tabPage2.Controls.Add(this.buttonPlaces);
@@ -249,7 +259,7 @@ namespace BasicFacebookFeatures
             this.visitsChart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.visitsChart.Legends.Add(legend1);
-            this.visitsChart.Location = new System.Drawing.Point(560, 431);
+            this.visitsChart.Location = new System.Drawing.Point(6, 792);
             this.visitsChart.MinimumSize = new System.Drawing.Size(400, 120);
             this.visitsChart.Name = "visitsChart";
             this.visitsChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
@@ -257,7 +267,7 @@ namespace BasicFacebookFeatures
             series1.Legend = "Legend1";
             series1.Name = "Visits";
             this.visitsChart.Series.Add(series1);
-            this.visitsChart.Size = new System.Drawing.Size(715, 353);
+            this.visitsChart.Size = new System.Drawing.Size(400, 177);
             this.visitsChart.TabIndex = 3;
             this.visitsChart.Text = "chart1";
             // 
@@ -268,15 +278,15 @@ namespace BasicFacebookFeatures
             this.listBoxCheckins.Location = new System.Drawing.Point(30, 200);
             this.listBoxCheckins.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listBoxCheckins.Name = "listBoxCheckins";
-            this.listBoxCheckins.Size = new System.Drawing.Size(327, 584);
+            this.listBoxCheckins.Size = new System.Drawing.Size(306, 584);
             this.listBoxCheckins.TabIndex = 2;
             // 
             // buttonPlaces
             // 
-            this.buttonPlaces.Location = new System.Drawing.Point(30, 86);
+            this.buttonPlaces.Location = new System.Drawing.Point(30, 129);
             this.buttonPlaces.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonPlaces.Name = "buttonPlaces";
-            this.buttonPlaces.Size = new System.Drawing.Size(328, 75);
+            this.buttonPlaces.Size = new System.Drawing.Size(253, 49);
             this.buttonPlaces.TabIndex = 1;
             this.buttonPlaces.Text = "Check Out where your friends likes to visit";
             this.buttonPlaces.UseVisualStyleBackColor = true;
@@ -285,13 +295,59 @@ namespace BasicFacebookFeatures
             // checkinLabel
             // 
             this.checkinLabel.AutoSize = true;
-            this.checkinLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.checkinLabel.Location = new System.Drawing.Point(24, 34);
+            this.checkinLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.checkinLabel.Location = new System.Drawing.Point(54, 77);
             this.checkinLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.checkinLabel.Name = "checkinLabel";
-            this.checkinLabel.Size = new System.Drawing.Size(195, 26);
+            this.checkinLabel.Size = new System.Drawing.Size(179, 29);
             this.checkinLabel.TabIndex = 0;
-            this.checkinLabel.Text = "Recommendations";
+            this.checkinLabel.Text = "HangOut Board";
+            this.checkinLabel.Click += new System.EventHandler(this.checkinLabel_Click);
+            // 
+            // OffersListBox
+            // 
+            this.OffersListBox.FormattingEnabled = true;
+            this.OffersListBox.ItemHeight = 20;
+            this.OffersListBox.Location = new System.Drawing.Point(405, 202);
+            this.OffersListBox.Name = "OffersListBox";
+            this.OffersListBox.Size = new System.Drawing.Size(302, 584);
+            this.OffersListBox.TabIndex = 4;
+            // 
+            // OffersLabels
+            // 
+            this.OffersLabels.AutoSize = true;
+            this.OffersLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.OffersLabels.Location = new System.Drawing.Point(400, 139);
+            this.OffersLabels.Name = "OffersLabels";
+            this.OffersLabels.Size = new System.Drawing.Size(150, 25);
+            this.OffersLabels.TabIndex = 5;
+            this.OffersLabels.Text = "HangOut offers:";
+            // 
+            // ShowAllBtn
+            // 
+            this.ShowAllBtn.Location = new System.Drawing.Point(739, 750);
+            this.ShowAllBtn.Name = "ShowAllBtn";
+            this.ShowAllBtn.Size = new System.Drawing.Size(121, 36);
+            this.ShowAllBtn.TabIndex = 6;
+            this.ShowAllBtn.Text = "Show All";
+            this.ShowAllBtn.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label3.Location = new System.Drawing.Point(916, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(169, 25);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Create HangOut";
+            // 
+            // HangOutPanelDetails
+            // 
+            this.HangOutPanelDetails.Location = new System.Drawing.Point(922, 202);
+            this.HangOutPanelDetails.Name = "HangOutPanelDetails";
+            this.HangOutPanelDetails.Size = new System.Drawing.Size(480, 584);
+            this.HangOutPanelDetails.TabIndex = 9;
             // 
             // BasicFacebookForm
             // 
@@ -339,5 +395,10 @@ namespace BasicFacebookFeatures
         private FlowLayoutPanel AlbumsPanel;
         private System.Windows.Forms.DataVisualization.Charting.Chart visitsChart;
         private CheckBox RememberMeCheckBox;
+        private ListBox OffersListBox;
+        private Panel HangOutPanelDetails;
+        private Label label3;
+        private Button ShowAllBtn;
+        private Label OffersLabels;
     }
 }

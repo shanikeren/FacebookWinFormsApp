@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using FacebookWrapper;
 using FacebookLogic;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
@@ -35,13 +36,28 @@ namespace BasicFacebookFeatures
             fetchAlbums();
         }
 
+        //public BasicFacebookForm(InitProfile i_InitProfile)
+        //{
+        //    m_LoggedInUser = i_InitProfile;
+        //    this.Text = $"Logged in as {m_LoggedInUser.Name}";
+        //    InitializeComponent();
+        //    initAlbumListView(null, null);
+        //    fetchUserData(null, null);
+        //}
+
         public BasicFacebookForm(InitProfile i_InitProfile)
         {
+            InitializeComponent();
+            this.Size = new Size(1002, 729);
             m_LoggedInUser = i_InitProfile;
             this.Text = $"Logged in as {m_LoggedInUser.Name}";
-            InitializeComponent();
-            initAlbumListView();
-            fetchUserData();
+            this.Shown += loadInfo;
+        }
+
+        private void loadInfo(object sender, EventArgs e)
+        {
+            new Thread(this.initAlbumListView).Start();
+            new Thread(this.fetchUserData).Start();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -57,10 +73,10 @@ namespace BasicFacebookFeatures
         private void fetchUserData()
         {
             profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
-            fetchPosts();
-            fetchUpcomingEvent();
-            fetchPages();
-            fetchAlbums();
+            new Thread(this.fetchPosts).Start();
+            new Thread(this.fetchUpcomingEvent).Start();
+            new Thread(this.fetchPages).Start();
+            new Thread(this.fetchAlbums).Start();
         }
 
         private void initAlbumListView()
@@ -71,28 +87,25 @@ namespace BasicFacebookFeatures
 
         private void fetchUpcomingEvent()
         {
-            EventTextBox.Text = m_LoggedInUser.GetUpcomingEvent();
+            string upComingEvent = m_LoggedInUser.GetUpcomingEvent();
+            EventTextBox.Invoke(new Action(()=>EventTextBox.Text = upComingEvent));
         }
 
         private void fetchPosts()
         {
-            Posts.Items.Clear();
+            Posts.Invoke(new Action(()=>Posts.Items.Clear()));
 
             List<string> postsList = m_LoggedInUser.LoadPosts();
             foreach(string post in postsList)
             {
-                Posts.Items.Add(post);
+                Posts.Invoke(new Action(()=>Posts.Items.Add(post)));
             }
 
-            if (Posts.Items.Count == 0)
-            {
-                MessageBox.Show("No Posts yet");
-            }
         }
 
         private void fetchPages()
         {
-            PagesListBox.Items.Clear();
+            PagesListBox.Invoke(new Action(()=>PagesListBox.Items.Clear()));
             List<string> pagesList; 
 
             try
@@ -100,7 +113,7 @@ namespace BasicFacebookFeatures
                 pagesList = m_LoggedInUser.LoadPages();
                 foreach(string pageName in pagesList)
                 {
-                    PagesListBox.Items.Add(pageName);
+                    PagesListBox.Invoke(new Action(()=>PagesListBox.Items.Add(pageName)));
                 }
             }
             catch (Exception ex)
@@ -150,7 +163,7 @@ namespace BasicFacebookFeatures
         // ALBUMS //
         private void fetchAlbums()
         {
-            AlbumsPanel.Controls.Clear();
+            AlbumsPanel.Invoke(new Action(()=>AlbumsPanel.Controls.Clear()));
             List<(string, Image)> userAlbums = m_LoggedInUser.LoadAlbums();
 
             foreach((string, Image) album in userAlbums)
@@ -158,10 +171,10 @@ namespace BasicFacebookFeatures
                 PictureBox albumPic = new PictureBox();
                 albumPic.Name = album.Item1;
                 albumPic.Image = album.Item2;
-                AlbumsPanel.Controls.Add(albumPic);
+                AlbumsPanel.Invoke(new Action(()=>AlbumsPanel.Controls.Add(albumPic)));
             }
 
-            fitImageBox();
+            AlbumsPanel.Invoke(new Action(()=>fitImageBox()));
         }
 
         private void fitImageBox()
@@ -264,6 +277,11 @@ namespace BasicFacebookFeatures
             }
 
             AppSettings.Instance.SaveToFile();
+        }
+
+        private void checkinLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
