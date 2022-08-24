@@ -2,13 +2,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FacebookLogic
 {
-    public class HangOutOffer 
+    public class HangOutOffer : INotifyPropertyChanged
     {
         public Event fbE;
         public string WhereTo { get; set; }
@@ -21,16 +23,27 @@ namespace FacebookLogic
 
         public string hart;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public string Hart
         {
             get { return this.hart; }
-            set { this.hart = value; }
+            set
+            { 
+                this.hart = value;
+            }
         }
 
-        internal HangOutOffer()
+        public HangOutOffer()
         {
             RidePassengers = new List<string>();
         }
+
+      
 
         public int AvailableSeats
         {
@@ -59,6 +72,8 @@ namespace FacebookLogic
             this.LeavingTime = i_HangOutDetails[5];
         }
 
+
+     
 
     }
 }

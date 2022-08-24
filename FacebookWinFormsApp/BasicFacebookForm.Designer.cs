@@ -48,15 +48,15 @@ namespace BasicFacebookFeatures
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.HangOutPanelDetails = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ShowAllBtn = new System.Windows.Forms.Button();
+            this.OffersLabels = new System.Windows.Forms.Label();
+            this.OffersListBox = new System.Windows.Forms.ListBox();
             this.visitsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.listBoxCheckins = new System.Windows.Forms.ListBox();
             this.buttonPlaces = new System.Windows.Forms.Button();
             this.checkinLabel = new System.Windows.Forms.Label();
-            this.OffersListBox = new System.Windows.Forms.ListBox();
-            this.OffersLabels = new System.Windows.Forms.Label();
-            this.ShowAllBtn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.HangOutPanelDetails = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
             this.basic.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -250,6 +250,51 @@ namespace BasicFacebookFeatures
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "where to visit?";
             // 
+            // HangOutPanelDetails
+            // 
+            this.HangOutPanelDetails.Location = new System.Drawing.Point(922, 202);
+            this.HangOutPanelDetails.Name = "HangOutPanelDetails";
+            this.HangOutPanelDetails.Size = new System.Drawing.Size(480, 584);
+            this.HangOutPanelDetails.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label3.Location = new System.Drawing.Point(916, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(169, 25);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Create HangOut";
+            // 
+            // ShowAllBtn
+            // 
+            this.ShowAllBtn.Location = new System.Drawing.Point(739, 750);
+            this.ShowAllBtn.Name = "ShowAllBtn";
+            this.ShowAllBtn.Size = new System.Drawing.Size(121, 36);
+            this.ShowAllBtn.TabIndex = 6;
+            this.ShowAllBtn.Text = "Show All";
+            this.ShowAllBtn.UseVisualStyleBackColor = true;
+            // 
+            // OffersLabels
+            // 
+            this.OffersLabels.AutoSize = true;
+            this.OffersLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.OffersLabels.Location = new System.Drawing.Point(400, 139);
+            this.OffersLabels.Name = "OffersLabels";
+            this.OffersLabels.Size = new System.Drawing.Size(150, 25);
+            this.OffersLabels.TabIndex = 5;
+            this.OffersLabels.Text = "HangOut offers:";
+            // 
+            // OffersListBox
+            // 
+            this.OffersListBox.FormattingEnabled = true;
+            this.OffersListBox.ItemHeight = 20;
+            this.OffersListBox.Location = new System.Drawing.Point(405, 202);
+            this.OffersListBox.Name = "OffersListBox";
+            this.OffersListBox.Size = new System.Drawing.Size(302, 584);
+            this.OffersListBox.TabIndex = 4;
+            // 
             // visitsChart
             // 
             this.visitsChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -303,51 +348,6 @@ namespace BasicFacebookFeatures
             this.checkinLabel.TabIndex = 0;
             this.checkinLabel.Text = "HangOut Board";
             this.checkinLabel.Click += new System.EventHandler(this.checkinLabel_Click);
-            // 
-            // OffersListBox
-            // 
-            this.OffersListBox.FormattingEnabled = true;
-            this.OffersListBox.ItemHeight = 20;
-            this.OffersListBox.Location = new System.Drawing.Point(405, 202);
-            this.OffersListBox.Name = "OffersListBox";
-            this.OffersListBox.Size = new System.Drawing.Size(302, 584);
-            this.OffersListBox.TabIndex = 4;
-            // 
-            // OffersLabels
-            // 
-            this.OffersLabels.AutoSize = true;
-            this.OffersLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.OffersLabels.Location = new System.Drawing.Point(400, 139);
-            this.OffersLabels.Name = "OffersLabels";
-            this.OffersLabels.Size = new System.Drawing.Size(150, 25);
-            this.OffersLabels.TabIndex = 5;
-            this.OffersLabels.Text = "HangOut offers:";
-            // 
-            // ShowAllBtn
-            // 
-            this.ShowAllBtn.Location = new System.Drawing.Point(739, 750);
-            this.ShowAllBtn.Name = "ShowAllBtn";
-            this.ShowAllBtn.Size = new System.Drawing.Size(121, 36);
-            this.ShowAllBtn.TabIndex = 6;
-            this.ShowAllBtn.Text = "Show All";
-            this.ShowAllBtn.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label3.Location = new System.Drawing.Point(916, 139);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(169, 25);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Create HangOut";
-            // 
-            // HangOutPanelDetails
-            // 
-            this.HangOutPanelDetails.Location = new System.Drawing.Point(922, 202);
-            this.HangOutPanelDetails.Name = "HangOutPanelDetails";
-            this.HangOutPanelDetails.Size = new System.Drawing.Size(480, 584);
-            this.HangOutPanelDetails.TabIndex = 9;
             // 
             // BasicFacebookForm
             // 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FacebookLogic
 {
-    public sealed class HangOutManager
+    internal sealed class HangOutManager
     {
         private static HangOutManager s_Instance = null;
         private static readonly object sr_InstanceLock = new Object();
@@ -33,6 +33,7 @@ namespace FacebookLogic
                     {
                         if (s_Instance == null)
                         {
+
                             s_Instance = new HangOutManager();
                         }
                     }

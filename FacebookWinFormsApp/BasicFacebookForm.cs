@@ -20,6 +20,7 @@ namespace BasicFacebookFeatures
         private InitProfile m_LoggedInUser;
         public LoginResult m_Res;
         private string m_AccessToken;
+        private HangOutOffer HangOut;
         
         // DELETE?
         public BasicFacebookForm(LoginResult i_loginResult)
@@ -283,5 +284,7 @@ namespace BasicFacebookFeatures
         {
 
         }
+
+  
     }
 }
