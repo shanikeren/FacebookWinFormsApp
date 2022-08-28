@@ -43,8 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
+    <Compile Include="ClassesCloneMachine.cs" />
     <Compile Include="DummyDataGenerator.cs" />
     <Compile Include="DummyUser.cs" />
+    <Compile Include="HangOutFacade.cs" />
+    <Compile Include="HangOutManager.cs" />
+    <Compile Include="HangOutOffer.cs" />
     <Compile Include="InitProfile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>

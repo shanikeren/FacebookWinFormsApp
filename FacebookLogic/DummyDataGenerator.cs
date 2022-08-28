@@ -15,7 +15,7 @@ namespace FacebookLogic
         private readonly int k_AmountOfLikes = 11;
         private List<(string, DateTime)> m_dummyEvents;
         public List<DummyUser> m_Friends { get; set; }
-        public List<MyLocation> m_Location{ get ;set; }
+        public List<MyLocation> m_Location { get; set; }
 
         public DummyDataGenerator()
         {
@@ -26,6 +26,7 @@ namespace FacebookLogic
             this.m_dummyEvents = new List<(string, DateTime)>();
             this.CreateCheckins();
             this.InitFriends();
+            this.InitHangOutOffers();
         }
 
         public List<(int, Photo)> GenerateDummyTopRatedPictures(Album i_Album)
@@ -33,7 +34,7 @@ namespace FacebookLogic
             List<(int, Photo)> pictureWithLikes;
             bool isGenerated;
             isGenerated = m_GeneratedAlbums.TryGetValue(i_Album.Name, out pictureWithLikes);
-            if(isGenerated == false)
+            if (isGenerated == false)
             {
                 int amountOfLike;
                 pictureWithLikes = new List<(int, Photo)>();
@@ -75,7 +76,7 @@ namespace FacebookLogic
 
         public List<(string, DateTime)> GenerateDummyEvents()
         {
-            if(this.m_dummyEvents.Count == 0)
+            if (this.m_dummyEvents.Count == 0)
             {
                 this.m_dummyEvents.Add(("Movie Night", new DateTime(2023, 5, 6)));
                 this.m_dummyEvents.Add(("Wedding", new DateTime(2021, 1, 22)));
@@ -89,7 +90,7 @@ namespace FacebookLogic
 
         public void ClearLoctions()
         {
-            foreach(MyLocation cuurLoc in m_Location)
+            foreach (MyLocation cuurLoc in m_Location)
             {
                 cuurLoc.m_AmountVisit = 0;
             }
@@ -98,7 +99,7 @@ namespace FacebookLogic
         public void CreateCheckins()
         {
             this.m_Location.Add(new MyLocation("Tel Aviv"));
-            this.m_Location.Add(new MyLocation("Rome"));
+            this.m_Location.Add(new MyLocation("Kisu"));
             this.m_Location.Add(new MyLocation("Ramat Gan"));
             this.m_Location.Add(new MyLocation("Nesher"));
             this.m_Location.Add(new MyLocation("Omer"));
@@ -110,7 +111,7 @@ namespace FacebookLogic
 
             this.m_Location.Add(new MyLocation("Yes Planet"));
             this.m_Location.Add(new MyLocation("Zara"));
-            this.m_Location.Add(new MyLocation("Kiso"));
+            this.m_Location.Add(new MyLocation("Kisu"));
             this.m_Location.Add(new MyLocation("Hadson"));
             this.m_Location.Add(new MyLocation("Gan Ner"));
             this.m_Location.Add(new MyLocation("Tel Aviv museum of art"));
@@ -122,13 +123,13 @@ namespace FacebookLogic
             this.m_Location.Add(new MyLocation("Big Tiberias"));
             this.m_Location.Add(new MyLocation("Gan HaShlosha National Park"));
             this.m_Location.Add(new MyLocation("Eilat"));
-            this.m_Location.Add(new MyLocation("Taba"));
+            this.m_Location.Add(new MyLocation("Kisu"));
             this.m_Location.Add(new MyLocation("Shlomo Columns"));
             this.m_Location.Add(new MyLocation("Jerusalem"));
             this.m_Location.Add(new MyLocation("Madrid"));
             this.m_Location.Add(new MyLocation("Terner"));
             this.m_Location.Add(new MyLocation("Israel"));
-            this.m_Location.Add(new MyLocation("Paris"));
+            this.m_Location.Add(new MyLocation("Kisu"));
         }
 
         public void InitFriends()
@@ -214,6 +215,22 @@ namespace FacebookLogic
             this.m_Friends.ElementAt(9).AddCheckin(this.m_Location.ElementAt(23).m_Name);
             this.m_Friends.ElementAt(9).AddCheckin(this.m_Location.ElementAt(15).m_Name);
             this.m_Friends.ElementAt(9).AddCheckin(this.m_Location.ElementAt(19).m_Name);
+        }
+
+        public void InitHangOutOffers()
+        {
+            HangOutManager hangOutManager = HangOutManager.Instance;
+
+            hangOutManager.AddOffer(new List<string>() { "Shay Levy", "050-1234458", "Holon", "Kisu", "4", new DateTime(2022, 8, 29, 20, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Eli Cohen", "050-1874458", "Tel Aviv", "Hermon", "2", new DateTime(2022, 10, 1, 1, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Marina Max", "054-1234128", "Golan", "Eilat", "3", new DateTime(2022, 8, 29, 16, 00, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Noa Noa", "050-1285258", "Ramle", "Nisso", "1", new DateTime(2022, 10, 10, 10, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Ron Anon", "050-1234466", "Jerusalem", "Ganot", "7", new DateTime(2022, 9, 20, 9, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Yuval Hason", "050-1666458", "Holon", "Tel Aviv", "3", new DateTime(2022, 9, 9, 20, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Yotam Tam", "050-1255458", "Hadera", "Fu Sushi", "4", new DateTime(2022, 9, 1, 20, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Aharon Moshe", "050-1239988", "Ramat HaSharon", "Jaffa", "2", new DateTime(2022, 10, 20, 19, 30, 00).ToString("dd-MM-yy H:mm") });
+            hangOutManager.AddOffer(new List<string>() { "Rotem Azar", "050-1234743", "Tel Aviv", "Hadson", "4", new DateTime(2022, 9, 5, 21, 00, 00).ToString("dd-MM-yy H:mm") });
+
         }
     }
 

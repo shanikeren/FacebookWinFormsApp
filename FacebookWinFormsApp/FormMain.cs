@@ -25,24 +25,34 @@ namespace BasicFacebookFeatures
 
         protected override void OnShown(EventArgs e)
         {
-            LoginResult loginResult = null;
+            // LoginResult loginResult = FacebookService.Connect(AppSettings.Instance.LastAccessToken);
 
             base.OnShown(e);
-            loginResult = m_InitProfile.LogInFromXml();
-            if (loginResult != null && !string.IsNullOrEmpty(loginResult.AccessToken))
+
+            if (AppSettings.Instance.RememberUser && !string.IsNullOrEmpty(AppSettings.Instance.LastAccessToken))
             {
+                LoginResult loginResult = m_InitProfile.LogInFromXml();
                 openBasicFacbookForm(loginResult);
             }
+
+
+
+            //loginResult = m_InitProfile.LogInFromXml();
+            //if (loginResult != null && !string.IsNullOrEmpty(loginResult.AccessToken))
+            //{
+            //    openBasicFacbookForm(loginResult);
+            //}
+
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText("design.patterns20cc"); 
+            Clipboard.SetText("design.patterns20cc");
 
             FacebookWrapper.LoginResult loginResult = FacebookService.Login(
                    "1257835301628630",
                     /// requested permissions:
-					"email",
+                    "email",
                     "public_profile",
                     "user_photos",
                     "user_birthday",
@@ -79,7 +89,7 @@ namespace BasicFacebookFeatures
             {
                 buttonLogin.Text = $"Logging in as {i_LoginResult.LoggedInUser.Name}";
                 BasicFacebookForm basicFacebook = new BasicFacebookForm(m_InitProfile);
-                this.Visible = false;
+                this.Hide();
                 basicFacebook.ShowDialog();
                 this.Close();
             }
