@@ -25,6 +25,7 @@ namespace BasicFacebookFeatures
         private HangOutOffer m_HangOut;
 
         // DELETE?
+        // DELETE?
         public BasicFacebookForm(LoginResult i_loginResult)
         {
             InitializeComponent();

@@ -24,6 +24,7 @@ namespace FacebookLogic
         public List<string> RidePassengers { get; set; }
         public int MaxCarPassengers { get; set; }
 
+        public string hart;
 
         //public event PropertyChangedEventHandler PropertyChanged;
         //private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -31,6 +32,14 @@ namespace FacebookLogic
         //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         //}
 
+        public string Hart
+        {
+            get { return this.hart; }
+            set
+            { 
+                this.hart = value;
+            }
+        }
 
         public HangOutOffer()
         {
