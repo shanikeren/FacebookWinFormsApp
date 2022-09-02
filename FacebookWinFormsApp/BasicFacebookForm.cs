@@ -19,6 +19,8 @@ namespace BasicFacebookFeatures
     {
         private InitProfile m_LoggedInUser;
         public LoginResult m_Res;
+        private HangOutFacade m_HangOutFacade;
+
         private string m_AccessToken;
         private HangOutOffer m_HangOut;
 
@@ -49,11 +51,12 @@ namespace BasicFacebookFeatures
         public BasicFacebookForm(InitProfile i_InitProfile)
         {
             InitializeComponent();
-            this.Size = new Size(1002, 729);
+            this.Size = new Size(1506, 1117);
             m_LoggedInUser = i_InitProfile;
-            //userBindingSource.DataSource = m_LoggedInUser.LoggedUser;
+            userBindingSource.DataSource = m_LoggedInUser.LoggedUser;
             this.Text = $"Logged in as {m_LoggedInUser.Name}";
             this.Shown += loadInfo;
+            this.m_HangOutFacade = new HangOutFacade(i_InitProfile);
         }
 
         private void loadInfo(object sender, EventArgs e)
@@ -64,6 +67,7 @@ namespace BasicFacebookFeatures
 
         protected override void OnLoad(EventArgs e)
         {
+            this.Size = new Size(1002, 729);
             base.OnLoad(e);
 
             if (AppSettings.Instance.RememberUser)
@@ -286,14 +290,65 @@ namespace BasicFacebookFeatures
 
         // Hang Outs \\
 
-        private void checkinLabel_Click(object sender, EventArgs e)
+      private void listBoxCheckins_MouseClick(object sender, MouseEventArgs e)
         {
+            OffersListBox.Items.Clear();
 
+            int index = this.listBoxCheckins.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                List<HangOutOffer> offers = m_HangOutFacade.GetOffersByPlace((sender as ListBox).SelectedItem.ToString());
+                foreach(HangOutOffer offer in offers)
+                {
+                    OffersListBox.Items.Add(offer);
+                }
+            }
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void OffersListBox_MouseClick(object sender, MouseEventArgs e)
         {
+            HangOutOffer selectedOffer = (sender as ListBox).SelectedItem as HangOutOffer;
+            m_HangOutFacade.CurrOffer = selectedOffer;
 
+            InitInfo.Text = selectedOffer.InitiatorName;
+            WhereFromInfo.Text = selectedOffer.FromWhere;
+            WhereToInfo.Text = selectedOffer.WhereTo;
+            PhoneInfo.Text = selectedOffer.InitiatorPhone;
+            WhenInfo.Text = selectedOffer.When.ToString("dd-MM-yy H:mm");
+        }
+
+
+        private void ShowBtn_Click(object sender, EventArgs e)
+        {
+            List<HangOutOffer> offers = new List<HangOutOffer>();
+
+            OffersListBox.Items.Clear();
+            if (AllRadioBtn.Checked)
+            {
+                offers = m_HangOutFacade.GetAllOffers();
+            }
+            else if(MineRadioBtn.Checked)
+            {
+                offers = m_LoggedInUser.m_MyHangOuts;
+                
+            }
+
+            foreach (HangOutOffer offer in offers)
+            {
+                OffersListBox.Items.Add(offer);
+            }
+        }
+
+        private void JoinBtn_Click(object sender, EventArgs e)
+        {
+            m_HangOutFacade.JoinHangOut();
+            MessageBox.Show("You Joined, enjoy.");
+        }
+
+        private void CreateOfferBtn_Click(object sender, EventArgs e)
+        {
+            Form hangOutForm = FormsFactory.CreateForm(eFormType.HangOutForm, m_LoggedInUser) as HangOutForm;
+            hangOutForm.ShowDialog();
         }
 
 

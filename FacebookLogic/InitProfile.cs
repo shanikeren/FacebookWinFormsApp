@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace FacebookLogic
 {
+    [Serializable]
     public class InitProfile
     {
         private User m_LoggedInUser;
         private LoginResult m_LoginResult = null;
         private List<string> m_AddedPosts;
-        private List<HangOutOffer> m_MyHangOuts;
+        public List<HangOutOffer> m_MyHangOuts { get; }
         private readonly AppSettings r_AppSettings;
 
         private readonly DummyDataGenerator m_MyDummyDataGenerator;
@@ -220,6 +221,7 @@ namespace FacebookLogic
         public void OnProfilePictureChange(string i_Url)
         {
             m_CurrentProfilePictureUrl = i_Url;
+            // TODO: change profilePicture URL in appSettings.
         }
 
         //public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
@@ -327,5 +329,6 @@ namespace FacebookLogic
         {
             m_MyHangOuts.Add(i_OfferToAdd);
         }
+
     }
 }

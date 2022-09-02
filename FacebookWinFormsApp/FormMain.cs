@@ -88,7 +88,7 @@ namespace BasicFacebookFeatures
             if (m_InitProfile.CheckIfLoggedIn(i_LoginResult))
             {
                 buttonLogin.Text = $"Logging in as {i_LoginResult.LoggedInUser.Name}";
-                BasicFacebookForm basicFacebook = new BasicFacebookForm(m_InitProfile);
+                Form basicFacebook = FormsFactory.CreateForm(eFormType.BasicFaceBookForm,m_InitProfile) as BasicFacebookForm;
                 this.Hide();
                 basicFacebook.ShowDialog();
                 this.Close();

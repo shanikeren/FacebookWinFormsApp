@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace FacebookLogic
 {
     [Serializable]
-    public class HangOutOffer : INotifyPropertyChanged
+    public class HangOutOffer //: INotifyPropertyChanged
     {
-        public Event fbE;
+        public InitProfile Initiator { get; set; }
         public string WhereTo { get; set; }
         public string InitiatorName { get; set; }
         public string InitiatorPhone { get; set; }
@@ -25,11 +25,11 @@ namespace FacebookLogic
         public int MaxCarPassengers { get; set; }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
 
         public HangOutOffer()
@@ -64,9 +64,24 @@ namespace FacebookLogic
             this.WhereTo = i_HangOutDetails[3];
             this.MaxCarPassengers = int.Parse(i_HangOutDetails[4]);
             this.LeavingTime = i_HangOutDetails[5];
+            this.When = Convert.ToDateTime(this.LeavingTime);
             //this.When = new DateTime(i_HangOutDetails[6]);
         }
 
+        internal void SetHangOutDetails(List<string> i_HangOutDetails, InitProfile i_Initiator)
+        {
+            this.InitiatorName = i_HangOutDetails[0];
+            this.InitiatorPhone = i_HangOutDetails[1];
+            this.FromWhere = i_HangOutDetails[2];
+            this.WhereTo = i_HangOutDetails[3];
+            this.MaxCarPassengers = int.Parse(i_HangOutDetails[4]);
+            this.LeavingTime = i_HangOutDetails[5];
+            this.Initiator = i_Initiator;
+        }
 
+        public override string ToString()
+        {
+            return string.Format("To {0}, at {1}", this.WhereTo, this.When);
+        }
     }
 }

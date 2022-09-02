@@ -26,7 +26,7 @@ namespace FacebookLogic
             this.m_dummyEvents = new List<(string, DateTime)>();
             this.CreateCheckins();
             this.InitFriends();
-            this.InitHangOutOffers();
+            //this.InitHangOutOffers();
         }
 
         public List<(int, Photo)> GenerateDummyTopRatedPictures(Album i_Album)
@@ -217,7 +217,7 @@ namespace FacebookLogic
             this.m_Friends.ElementAt(9).AddCheckin(this.m_Location.ElementAt(19).m_Name);
         }
 
-        public void InitHangOutOffers()
+        internal static void InitHangOutOffers()
         {
             HangOutManager hangOutManager = HangOutManager.Instance;
 

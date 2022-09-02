@@ -68,6 +68,7 @@ namespace FacebookLogic
             }
         }
 
+
         public List<HangOutOffer> GetOffersByPlace(string i_Place)
         {
             List<HangOutOffer> listByPlace;
