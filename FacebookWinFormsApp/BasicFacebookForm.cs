@@ -12,52 +12,71 @@ using FacebookWrapper;
 using FacebookLogic;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading;
+using BasicFacebookFeatures.Command;
+using FacebookLogic.Interfaces;
 
 namespace BasicFacebookFeatures
 {
     public partial class BasicFacebookForm : Form
     {
         private InitProfile m_LoggedInUser;
-        public LoginResult m_Res;
         private HangOutFacade m_HangOutFacade;
-
-        private string m_AccessToken;
-        private HangOutOffer m_HangOut;
-
-        // DELETE?
-        // DELETE?
-        public BasicFacebookForm(LoginResult i_loginResult)
-        {
-            InitializeComponent();
-            initAlbumListView();
-            m_AccessToken = i_loginResult.AccessToken;
-            m_LoggedInUser = new InitProfile(i_loginResult);
-            m_Res = i_loginResult;
-            profilePicture.LoadAsync(m_LoggedInUser.FetchProfilePicture());
-            fetchPosts();
-            fetchUpcomingEvent();
-            fetchPages();
-            fetchAlbums();
-        }
-
-        //public BasicFacebookForm(InitProfile i_InitProfile)
-        //{
-        //    m_LoggedInUser = i_InitProfile;
-        //    this.Text = $"Logged in as {m_LoggedInUser.Name}";
-        //    InitializeComponent();
-        //    initAlbumListView(null, null);
-        //    fetchUserData(null, null);
-        //}
+        private IClickedObserver m_Logger;
 
         public BasicFacebookForm(InitProfile i_InitProfile)
         {
+            //initCommandMenu();
             InitializeComponent();
             this.Size = new Size(1506, 1117);
             m_LoggedInUser = i_InitProfile;
             userBindingSource.DataSource = m_LoggedInUser.LoggedUser;
             this.Text = $"Logged in as {m_LoggedInUser.Name}";
             this.Shown += loadInfo;
-            this.m_HangOutFacade = new HangOutFacade(i_InitProfile);
+            this.m_HangOutFacade = HangOutFacade.GetHangOutFacade(m_LoggedInUser);
+            initLogger();
+        }
+
+        private void initLogger()
+        {
+            m_Logger = new LogObserver();
+            //m_Logger.AddNotifier(LogOut_Btn);
+            //m_Logger.AddNotifier(PostBtn);
+            //m_Logger.AddNotifier(JoinBtn);
+            //m_Logger.AddNotifier(CreateOfferBtn);
+            //m_Logger.AddNotifier(ShowBtn);
+            //m_Logger.AddNotifier(buttonPlaces);
+            //m_Logger.AddNotifier(timeFilterButton);
+
+            //timeFilterButton.Click += m_Logger.ReportClicked;
+
+            attachButtonsToLogger();
+
+
+            //(m_Logger as LogObserver).AssignNotifiersEvent();
+        }
+
+        private void attachButtonsToLogger()
+        {
+            var buttons = GetAll(this, typeof(Button));
+            foreach (Button button in buttons)
+            {
+                m_Logger.AddNotifier(button);
+                button.Click += m_Logger.ReportClicked;
+            }
+        }
+
+        public IEnumerable<Control> GetAll(Control control, Type type)
+        {
+            var controls = control.Controls.Cast<Control>();
+
+            return controls.SelectMany(ctrl => GetAll(ctrl, type))
+                                      .Concat(controls)
+                                      .Where(c => c.GetType() == type);
+        }
+
+        private void initCommandMenu()
+        {
+            
         }
 
         private void loadInfo(object sender, EventArgs e)
@@ -102,12 +121,47 @@ namespace BasicFacebookFeatures
         {
             Posts.Invoke(new Action(() => Posts.Items.Clear()));
 
-            List<string> postsList = m_LoggedInUser.LoadPosts();
-            foreach (string post in postsList)
+            List<Post> postsList = m_LoggedInUser.LoadPosts();
+            Sorter sorter = chosenStrategy();
+            sortLabel.Invoke(new Action(() => sortLabel.Text = "Sort By: (sorting...)"));
+            sorter.Sort(postsList);
+            sortLabel.Invoke(new Action(() => sortLabel.Text = "Sort By:"));
+            foreach (Post post in postsList)
             {
-                Posts.Invoke(new Action(() => Posts.Items.Add(post)));
+                Posts.Invoke(new Action(() =>
+
+                {
+                    if (post.Message != null)
+                    {
+                        Posts.Items.Add(post.Message);
+                    }
+                    else if (post.Caption != null)
+                    {
+                        Posts.Items.Add(post.Caption);
+                    }
+                    else
+                    {
+                        Posts.Items.Add(string.Format("[{0}]", post.Type));
+                    }
+                }));
             }
 
+            //check is radio button is chosen and create a sorter as asked. amount of likes - Update time - create time
+            // change from List<string> to List<Post>
+        }
+
+        private Sorter chosenStrategy()
+        {
+            ICompareStrategy chosenComparer;
+            string strategyName = null;
+            var chosenStrategy = compareStrategyPanel.Controls.OfType<RadioButton>().FirstOrDefault(rb => rb.Checked);
+            if(chosenStrategy != null)
+            {
+                strategyName = (chosenStrategy as RadioButton).Text;
+            }
+            chosenComparer = (ICompareStrategy)FacebookLogic.Compare_Strategies.CompareStrategyFactory.CreateStrategy(strategyName);
+
+            return new Sorter(chosenComparer);
         }
 
         private void fetchPages()
@@ -154,9 +208,9 @@ namespace BasicFacebookFeatures
             {
                 try
                 {
-                    m_LoggedInUser.PostStatus(PostTextArea.Text);
+                    //m_LoggedInUser.PostStatus(PostTextArea.Text);
                     Posts.Items.Clear();
-                    fetchPosts();
+                    new Thread(fetchPosts).Start();
                     PostTextArea.Clear();
                 }
                 catch (Exception ex)
@@ -306,18 +360,21 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void OffersListBox_MouseClick(object sender, MouseEventArgs e)
+       private void OffersListBox_MouseClick(object sender, MouseEventArgs e)
         {
             HangOutOffer selectedOffer = (sender as ListBox).SelectedItem as HangOutOffer;
-            m_HangOutFacade.CurrOffer = selectedOffer;
+            if(selectedOffer != null)
+            {
+                m_HangOutFacade.CurrOffer = selectedOffer;
 
-            InitInfo.Text = selectedOffer.InitiatorName;
-            WhereFromInfo.Text = selectedOffer.FromWhere;
-            WhereToInfo.Text = selectedOffer.WhereTo;
-            PhoneInfo.Text = selectedOffer.InitiatorPhone;
-            WhenInfo.Text = selectedOffer.When.ToString("dd-MM-yy H:mm");
+                InitInfo.Text = selectedOffer.InitiatorName;
+                WhereFromInfo.Text = selectedOffer.FromWhere;
+                WhereToInfo.Text = selectedOffer.WhereTo;
+                PhoneInfo.Text = selectedOffer.InitiatorPhone;
+                WhenInfo.Text = selectedOffer.When.ToString("dd-MM-yy H:mm");
+            }
+           
         }
-
 
         private void ShowBtn_Click(object sender, EventArgs e)
         {
@@ -340,18 +397,39 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void JoinBtn_Click(object sender, EventArgs e)
+        private void joinBtn_Click(object sender, EventArgs e)
         {
-            m_HangOutFacade.JoinHangOut();
-            MessageBox.Show("You Joined, enjoy.");
+            try
+            {
+                m_HangOutFacade.JoinHangOut();
+                MessageBox.Show("You Joined, enjoy.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private void CreateOfferBtn_Click(object sender, EventArgs e)
+        private void createOfferBtn_Click(object sender, EventArgs e)
         {
             Form hangOutForm = FormsFactory.CreateForm(eFormType.HangOutForm, m_LoggedInUser) as HangOutForm;
             hangOutForm.ShowDialog();
         }
 
+        private void fetchPosts(object sender, EventArgs e)
+        {
+            new Thread(fetchPosts).Start();
+        }
 
+        private void timeFilterButton_Click(object sender, EventArgs e)
+        {
+            OffersListBox.Items.Clear();
+            List<HangOutOffer> filteredOffers = m_HangOutFacade.GetOffersByTime(fromDateTimePicker.Value, untilDateTimePicker.Value);
+            foreach (HangOutOffer offer in filteredOffers)
+            {
+                OffersListBox.Items.Add(offer);
+            }
+
+        }
     }
 }

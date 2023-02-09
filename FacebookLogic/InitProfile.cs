@@ -1,12 +1,11 @@
-﻿using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
-using System;
+﻿using System;
+using System.Threading.Tasks;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.Threading.Tasks;
-
+using FacebookWrapper.ObjectModel;
+using FacebookWrapper;
 
 namespace FacebookLogic
 {
@@ -16,10 +15,13 @@ namespace FacebookLogic
         private User m_LoggedInUser;
         private LoginResult m_LoginResult = null;
         private List<string> m_AddedPosts;
+
         public List<HangOutOffer> m_MyHangOuts { get; }
+
         private readonly AppSettings r_AppSettings;
 
-        private readonly DummyDataGenerator m_MyDummyDataGenerator;
+        private readonly DummyDataGenerator r_MyDummyDataGenerator;
+
         private string m_CurrentProfilePictureUrl { get; set; }
 
         public InitProfile(LoginResult i_loginResult)
@@ -28,13 +30,13 @@ namespace FacebookLogic
             m_CurrentProfilePictureUrl = m_LoggedInUser.PictureNormalURL;
             m_AddedPosts = new List<string>();
             m_MyHangOuts = new List<HangOutOffer>();
-            m_MyDummyDataGenerator = new DummyDataGenerator();
+            r_MyDummyDataGenerator = new DummyDataGenerator();
         }
 
         public InitProfile()
         {
             r_AppSettings = AppSettings.Instance;
-            m_MyDummyDataGenerator = new DummyDataGenerator();
+            r_MyDummyDataGenerator = new DummyDataGenerator();
             m_AddedPosts = new List<string>();
             m_MyHangOuts = new List<HangOutOffer>();
             r_AppSettings = AppSettings.Instance;
@@ -42,10 +44,7 @@ namespace FacebookLogic
 
         public LoginResult LogInFromXml()
         {
-
             m_LoginResult = FacebookService.Connect(r_AppSettings.LastAccessToken);
-            //m_LoggedInUser = m_LoginResult.LoggedInUser;
-
             return m_LoginResult;
         }
 
@@ -78,32 +77,14 @@ namespace FacebookLogic
             return m_LoggedInUser.PictureNormalURL;
         }
 
-        public List<string> LoadPosts()
+        public List<Post> LoadPosts()
         {
-            List<string> result = new List<string>();
-            foreach (string post in m_AddedPosts)
-            {
-                result.Add(post);
-            }
-
-            foreach (Post post in m_LoggedInUser.Posts)
-            {
-                if (post.Message != null)
-                {
-                    result.Add(post.Message);
-                }
-                else if (post.Caption != null)
-                {
-                    result.Add(post.Caption);
-                }
-            }
-
-            return result;
+            return m_LoggedInUser.Posts.ToList();
         }
 
         private List<(string, DateTime)> LoadEvents()
         {
-            return m_MyDummyDataGenerator.GenerateDummyEvents();
+            return r_MyDummyDataGenerator.GenerateDummyEvents();
         }
 
         public string GetUpcomingEvent()
@@ -209,6 +190,7 @@ namespace FacebookLogic
                     {
                         albumPics.Add(img.PictureNormalURL);
                     }
+
                     break;
                 }
             }
@@ -221,33 +203,7 @@ namespace FacebookLogic
         public void OnProfilePictureChange(string i_Url)
         {
             m_CurrentProfilePictureUrl = i_Url;
-            // TODO: change profilePicture URL in appSettings.
         }
-
-        //public List<string> FetchTopRatedPictures_WithUserDummy(string i_AlbumName)
-        //{
-        //    Album requesteAlbum = null;
-        //    List<string> TopRatedPictures = new List<string>();
-        //    List<Photo> sortedDummyLikedByData;
-
-        //    foreach (Album album in m_LoggedInUser.Albums)
-        //    {
-        //        if (album.Name == i_AlbumName)
-        //        {
-        //           requesteAlbum = album;
-        //           sortedDummyLikedByData =  m_MyDummyDataGenerator.GenerateDummyTopRatedPictures_WithUSER(album);
-        //            sortedDummyLikedByData.Sort(comparePhotoRating);
-
-        //            for (int i = sortedDummyLikedByData.Count - 1; i >= 0 && i > sortedDummyLikedByData.Count - 4; i--)
-        //            {
-        //                TopRatedPictures.Add(sortedDummyLikedByData.ElementAt(i).PictureNormalURL);
-        //            }
-        //            break;
-        //        }
-
-        //    }
-        //    return TopRatedPictures;
-        //}
 
         public List<string> FetchTopRatedPictures(string i_AlbumName)
         {
@@ -260,19 +216,19 @@ namespace FacebookLogic
                 if (album.Name == i_AlbumName)
                 {
                     requesteAlbum = album;
-                    dummyLikedByData = m_MyDummyDataGenerator.GenerateDummyTopRatedPictures(requesteAlbum);
+                    dummyLikedByData = r_MyDummyDataGenerator.GenerateDummyTopRatedPictures(requesteAlbum);
                     dummyLikedByData.Sort(comparePhotoRating);
                     for (int i = dummyLikedByData.Count - 1; i >= 0 && i > dummyLikedByData.Count - 4; i--)
                     {
                         result.Add(dummyLikedByData.ElementAt(i).Item2.PictureNormalURL);
                     }
+
                     break;
                 }
             }
 
             return result;
         }
-
 
         private int comparePhotoRating((int, Photo) x, (int, Photo) y)
         {
@@ -286,33 +242,33 @@ namespace FacebookLogic
 
         public List<(string, int)> FetchTopVisitPlaces()
         {
-            List<(string, int)> TopVisitPlaces = new List<(string, int)>();
-            this.m_MyDummyDataGenerator.ClearLoctions();
+            List<(string, int)> topVisitPlaces = new List<(string, int)>();
+            this.r_MyDummyDataGenerator.ClearLoctions();
 
-            foreach (DummyUser user in this.m_MyDummyDataGenerator.m_Friends)
+            foreach (DummyUser user in this.r_MyDummyDataGenerator.m_Friends)
             {
                 foreach (string loaction in user.m_checkins)
                 {
                     int index = GetLocationIndex(loaction);
-                    this.m_MyDummyDataGenerator.m_Location.ElementAt(index).m_AmountVisit++;
+                    this.r_MyDummyDataGenerator.m_Location.ElementAt(index).m_AmountVisit++;
                 }
             }
 
-            List<MyLocation> SortedList = m_MyDummyDataGenerator.m_Location.OrderBy(location => location.m_AmountVisit).ToList();
-            SortedList.Reverse();
+            List<MyLocation> sortedList = r_MyDummyDataGenerator.m_Location.OrderBy(location => location.m_AmountVisit).ToList();
+            sortedList.Reverse();
 
-            for (int i = 0; i < 10 && i < SortedList.Count; i++)
+            for (int i = 0; i < 10 && i < sortedList.Count; i++)
             {
-                TopVisitPlaces.Add((SortedList.ElementAt(i).m_Name, SortedList.ElementAt(i).m_AmountVisit));
+                topVisitPlaces.Add((sortedList.ElementAt(i).m_Name, sortedList.ElementAt(i).m_AmountVisit));
             }
 
-            return TopVisitPlaces;
+            return topVisitPlaces;
         }
 
         public int GetLocationIndex(string i_LocationName)
         {
             int index = 0;
-            foreach (MyLocation location in this.m_MyDummyDataGenerator.m_Location)
+            foreach (MyLocation location in this.r_MyDummyDataGenerator.m_Location)
             {
                 if (location.m_Name.EndsWith(i_LocationName))
                 {
@@ -325,10 +281,9 @@ namespace FacebookLogic
             return -1;
         }
 
-        public void AddOffer(HangOutOffer i_OfferToAdd)
+        internal void AddOffer(HangOutOffer i_OfferToAdd)
         {
             m_MyHangOuts.Add(i_OfferToAdd);
         }
-
     }
 }

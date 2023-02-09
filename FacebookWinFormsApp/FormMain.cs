@@ -34,15 +34,6 @@ namespace BasicFacebookFeatures
                 LoginResult loginResult = m_InitProfile.LogInFromXml();
                 openBasicFacbookForm(loginResult);
             }
-
-
-
-            //loginResult = m_InitProfile.LogInFromXml();
-            //if (loginResult != null && !string.IsNullOrEmpty(loginResult.AccessToken))
-            //{
-            //    openBasicFacbookForm(loginResult);
-            //}
-
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -66,15 +57,9 @@ namespace BasicFacebookFeatures
                     "user_photos",
                     "user_posts",
                     "user_videos"
-                    /// add any relevant permissions
                     );
 
             openBasicFacbookForm(loginResult);
-
-            /*BasicFacebookForm basicFacebook = new BasicFacebookForm(loginResult);
-            this.Visible = false;
-            basicFacebook.ShowDialog();
-            this.Close();*/
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)

@@ -1,20 +1,23 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using System.Threading.Tasks;
+using System.Text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FacebookWrapper.ObjectModel;
 
 namespace FacebookLogic
 {
     public class DummyDataGenerator
     {
-        private Random m_Random;
-        private Dictionary<String, List<(int, Photo)>> m_GeneratedAlbums;
-        private HashSet<string> m_Generated;
         private readonly int k_AmountOfLikes = 11;
+        private Random m_Random;
+        private Dictionary<string, List<(int, Photo)>> m_GeneratedAlbums;
+        private HashSet<string> m_Generated;
+
         private List<(string, DateTime)> m_dummyEvents;
+
         public List<DummyUser> m_Friends { get; set; }
+
         public List<MyLocation> m_Location { get; set; }
 
         public DummyDataGenerator()
@@ -26,7 +29,6 @@ namespace FacebookLogic
             this.m_dummyEvents = new List<(string, DateTime)>();
             this.CreateCheckins();
             this.InitFriends();
-            //this.InitHangOutOffers();
         }
 
         public List<(int, Photo)> GenerateDummyTopRatedPictures(Album i_Album)
@@ -50,29 +52,6 @@ namespace FacebookLogic
 
             return pictureWithLikes;
         }
-
-        //public List<Photo> GenerateDummyTopRatedPictures_WithUSER(Album i_Album)
-        //{
-        //    bool isGenerated;
-
-        //    isGenerated = m_Generated.Contains(i_Album.Name);
-        //    if (isGenerated == false)
-        //    {
-        //        int amountOfLike;
-        //        foreach (Photo img in i_Album.Photos)
-        //        {
-        //            amountOfLike = m_Random.Next(k_AmountOfLikes);
-        //            for(int i = 0; i < amountOfLike; i++)
-        //            {
-        //                img.LikedBy.Add(new User());
-        //            }
-        //        }
-
-        //        m_Generated.Add(i_Album.Name);
-        //    }
-
-        //    return i_Album.Photos.ToList();
-        //}
 
         public List<(string, DateTime)> GenerateDummyEvents()
         {
@@ -230,18 +209,6 @@ namespace FacebookLogic
             hangOutManager.AddOffer(new List<string>() { "Yotam Tam", "050-1255458", "Hadera", "Fu Sushi", "4", new DateTime(2022, 9, 1, 20, 30, 00).ToString("dd-MM-yy H:mm") });
             hangOutManager.AddOffer(new List<string>() { "Aharon Moshe", "050-1239988", "Ramat HaSharon", "Jaffa", "2", new DateTime(2022, 10, 20, 19, 30, 00).ToString("dd-MM-yy H:mm") });
             hangOutManager.AddOffer(new List<string>() { "Rotem Azar", "050-1234743", "Tel Aviv", "Hadson", "4", new DateTime(2022, 9, 5, 21, 00, 00).ToString("dd-MM-yy H:mm") });
-
-        }
-    }
-
-    public class MyLocation
-    {
-        public string m_Name { get; set; }
-        public int m_AmountVisit { get; set; }
-        public MyLocation(string name)
-        {
-            m_Name = name;
-            m_AmountVisit = 0;
         }
     }
 }

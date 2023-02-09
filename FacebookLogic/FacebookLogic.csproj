@@ -44,12 +44,23 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="ClassesCloneMachine.cs" />
-    <Compile Include="DummyDataGenerator.cs" />
-    <Compile Include="DummyUser.cs" />
-    <Compile Include="HangOutFacade.cs" />
-    <Compile Include="HangOutManager.cs" />
-    <Compile Include="HangOutOffer.cs" />
+    <Compile Include="Compare Strategies\CompareStrategyFactory.cs" />
+    <Compile Include="Compare Strategies\CreateTimeStrategy.cs" />
+    <Compile Include="Compare Strategies\CommentsAmountStrategy.cs" />
+    <Compile Include="Compare Strategies\UpdateTimeStrategy.cs" />
+    <Compile Include="DummyData\DummyDataGenerator.cs" />
+    <Compile Include="DummyData\DummyUser.cs" />
+    <Compile Include="HangOuts\HangOutFacade.cs" />
+    <Compile Include="HangOuts\HangOutManager.cs" />
+    <Compile Include="HangOuts\HangOutOffer.cs" />
     <Compile Include="InitProfile.cs" />
+    <Compile Include="Interfaces\IClickedObserver.cs" />
+    <Compile Include="Interfaces\IAggregate.cs" />
+    <Compile Include="Interfaces\ICompareStrategy.cs" />
+    <Compile Include="DummyData\MyLocation.cs" />
+    <Compile Include="Interfaces\IIterator.cs" />
+    <Compile Include="LogObserver.cs" />
+    <Compile Include="Sorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -74,5 +85,6 @@
     </Content>
     <Content Include="HangOutOffers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

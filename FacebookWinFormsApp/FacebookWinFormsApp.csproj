@@ -100,6 +100,7 @@
     <Compile Include="BasicFacebookForm.Designer.cs">
       <DependentUpon>BasicFacebookForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Command\CommandsMenu.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,9 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FA_star.svg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

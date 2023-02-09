@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FacebookLogic;
+using FacebookLogic.Interfaces;
+
 
 namespace BasicFacebookFeatures
 {
@@ -15,58 +17,25 @@ namespace BasicFacebookFeatures
     {
         private InitProfile m_LoggedInUser;
         private HangOutFacade m_HangOutFacade;
+      
+
 
         public HangOutForm()
         {
             InitializeComponent();
         }
 
-        public HangOutForm(bool i_IsCreator)
-        {
-            InitializeComponent();
-            if(i_IsCreator == false)
-            {
-                disableEditing();
-            }
-        }
-
-        private void disableEditing()
-        {
-            this.InitiatorTextBox.Enabled = false;
-            this.WhereTextBox.Enabled = false;
-            this.FromTextBox.Enabled = false;
-            this.PhoneTextBox.Enabled = false;
-            this.WhenTimePicker.Enabled = false;
-        }
-
         public HangOutForm(InitProfile i_LoggedInUser)
         {
-            m_HangOutFacade = new HangOutFacade(i_LoggedInUser);
+            m_HangOutFacade = HangOutFacade.GetHangOutFacade(i_LoggedInUser);
             InitializeComponent();
             m_LoggedInUser = i_LoggedInUser;
             InitiatorTextBox.Text = i_LoggedInUser.Name;
             m_HangOutFacade.CurrOffer.When = DateTime.Now.Date;
+      
         }
 
-        public void SetForDisplay(HangOutOffer i_HangOutOffer)
-        {
-            setForInitiator(false);
-
-        }
-
-        private void setForInitiator(bool i_IsInitiating)
-        {
-            InitiatorTextBox.Enabled = i_IsInitiating;
-            WhereTextBox.Enabled = i_IsInitiating;
-            PhoneTextBox.Enabled = i_IsInitiating;
-            WhenTimePicker.Enabled = i_IsInitiating;
-
-            SubmitBtn.Enabled = i_IsInitiating;
-            SeatsNumeric.Enabled = i_IsInitiating;
-
-        }
-
-        private void SubmitBtn_Click(object sender, EventArgs e)
+        private void submitBtn_Click(object sender, EventArgs e)
         {
             if(isValidInfo() == true)
             {
@@ -93,33 +62,33 @@ namespace BasicFacebookFeatures
             return isValidate;
         }
 
-        private void PhoneTextBox_TextChanged(object sender, EventArgs e)
+        private void phoneTextBox_TextChanged(object sender, EventArgs e)
         {
             m_HangOutFacade.CurrOffer.InitiatorPhone = (sender as TextBox).Text;
         }
 
-        private void WhereTextBox_TextChanged(object sender, EventArgs e)
+        private void whereTextBox_TextChanged(object sender, EventArgs e)
         {
             m_HangOutFacade.CurrOffer.WhereTo = (sender as TextBox).Text;
 
         }
 
-        private void FromTextBox_TextChanged(object sender, EventArgs e)
+        private void fromTextBox_TextChanged(object sender, EventArgs e)
         {
             m_HangOutFacade.CurrOffer.FromWhere = (sender as TextBox).Text;
         }
 
-        private void SeatsNumeric_ValueChanged(object sender, EventArgs e)
+        private void seatsNumeric_ValueChanged(object sender, EventArgs e)
         {
             m_HangOutFacade.CurrOffer.MaxCarPassengers = (int)(sender as NumericUpDown).Value;
         }
 
-        private void WhenTimePicker_ValueChanged(object sender, EventArgs e)
+        private void whenTimePicker_ValueChanged(object sender, EventArgs e)
         {
             m_HangOutFacade.CurrOffer.When = WhenTimePicker.Value;
         }
 
-        private void InitiatorTextBox_TextChanged(object sender, EventArgs e)
+        private void initiatorTextBox_TextChanged(object sender, EventArgs e)
         {
             m_HangOutFacade.CurrOffer.InitiatorName = (sender as TextBox).Text;
         }

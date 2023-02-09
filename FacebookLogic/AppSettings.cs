@@ -14,27 +14,8 @@ namespace FacebookLogic
     public sealed class AppSettings
     {
         private static readonly string sr_AppSettingsXMLFileName = "appSettings.xml";
-        private static readonly string sr_AppSettingsFileName;// = "AppSettings.xml";
-
-
+        private static readonly object sr_InstanceLock = new object();
         private static AppSettings m_Instance = null;
-        private static readonly object sr_InstanceLock = new Object();
-
-        public bool RememberUser { get; set; }
-        public string LastAccessToken { get; set; }
-
-        // ADDED FOR TEST ///
-        public Point LastWindowLocation { get; set; }
-
-        static AppSettings()
-        {
-            sr_AppSettingsFileName = Application.ExecutablePath + "AppSettings.xml";
-        }
-
-        private AppSettings()
-        {
-
-        }
 
         public static AppSettings Instance
         {
@@ -55,26 +36,19 @@ namespace FacebookLogic
             }
         }
 
-        //private AppSettings()
-        //{
-        //    this.RememberUser = false;
-        //    this.LastAccessToken = string.Empty;
-        //    this.LastWindowLocation = new Point(260, 0);
-        //}
+        public bool RememberUser { get; set; }
 
-        public void SaveToFile()
+        public string LastAccessToken { get; set; }
+
+        public Point LastWindowLocation { get; set; }
+
+        private AppSettings()
         {
-            using (Stream stream = new FileStream(sr_AppSettingsXMLFileName, FileMode.Truncate))
-            {
-                XmlSerializer serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stream, this);
-            }
         }
 
         public static AppSettings LoadFromFile()
         {
             AppSettings loadedThis = null;
-
 
             if (File.Exists(sr_AppSettingsXMLFileName))
             {
@@ -86,31 +60,23 @@ namespace FacebookLogic
             }
             else
             {
-                /// C# 3.0 feature: Object Initializer
                 loadedThis = new AppSettings()
                 {
                     RememberUser = false,
-                    LastWindowLocation = new Point(260, 0)
+                    LastWindowLocation = new Point(260, 0),
                 };
             }
 
             return loadedThis;
+        }
 
-            //using (Stream stream = new FileStream(sr_AppSettingsXMLFileName, FileMode.Open))
-            //{
-            //    XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
-            //    AppSettings lodedAppSettings = serializer.Deserialize(stream) as AppSettings;
-
-            //    foreach (PropertyInfo currProperty in typeof(AppSettings).GetProperties())
-            //    {
-            //        if (!currProperty.GetMethod.IsStatic)
-            //        {
-            //            object currValue = currProperty.GetValue(lodedAppSettings);
-
-            //            currProperty.SetValue(this, currValue);
-            //        }
-            //    }
-            //}
+        public void SaveToFile()
+        {
+            using (Stream stream = new FileStream(sr_AppSettingsXMLFileName, FileMode.Truncate))
+            {
+                XmlSerializer serializer = new XmlSerializer(this.GetType());
+                serializer.Serialize(stream, this);
+            }
         }
     }
 }

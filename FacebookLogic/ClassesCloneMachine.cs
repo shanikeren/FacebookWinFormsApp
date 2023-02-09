@@ -10,7 +10,8 @@ namespace FacebookLogic
 {
     internal static class ClassesCloneMachine
     {
-        public static T Clone<T>(this T i_ToClone) where T : class
+        public static T Clone<T>(this T i_ToClone)
+            where T : class
         {
             using (Stream stream = new MemoryStream())
             {
